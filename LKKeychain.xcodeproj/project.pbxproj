@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
+		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
+		BBD30A701453553700512B69 /* LKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A6F1453553700512B69 /* LKKeychain.m */; };
+		BBD30A781453553700512B69 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A771453553700512B69 /* SenTestingKit.framework */; };
+		BBD30A791453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
+		BBD30A7C1453553700512B69 /* LKKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A5E1453553700512B69 /* LKKeychain.framework */; };
+		BBD30A821453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A801453553700512B69 /* InfoPlist.strings */; };
+		BBD30A851453553700512B69 /* LKKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A841453553700512B69 /* LKKeychainTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBD30A7A1453553700512B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBD30A541453553600512B69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBD30A5D1453553700512B69;
+			remoteInfo = LKKeychain;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BBD30A641453553700512B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		BBD30A651453553700512B69 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BBD30A661453553700512B69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BBD30A691453553700512B69 /* LKKeychain-Info.plist */ = {isa = PBXFileReference; path = "LKKeychain-Info.plist"; sourceTree = "<group>"; };
+		BBD30A6B1453553700512B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BBD30A6D1453553700512B69 /* LKKeychain-Prefix.pch */ = {isa = PBXFileReference; path = "LKKeychain-Prefix.pch"; sourceTree = "<group>"; };
+		BBD30A6E1453553700512B69 /* LKKeychain.h */ = {isa = PBXFileReference; path = LKKeychain.h; sourceTree = "<group>"; };
+		BBD30A6F1453553700512B69 /* LKKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKeychain.m; sourceTree = "<group>"; };
+		BBD30A761453553700512B69 /* LKKeychainTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKKeychainTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBD30A771453553700512B69 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		BBD30A7F1453553700512B69 /* LKKeychainTests-Info.plist */ = {isa = PBXFileReference; path = "LKKeychainTests-Info.plist"; sourceTree = "<group>"; };
+		BBD30A811453553700512B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BBD30A831453553700512B69 /* LKKeychainTests.h */ = {isa = PBXFileReference; path = LKKeychainTests.h; sourceTree = "<group>"; };
+		BBD30A841453553700512B69 /* LKKeychainTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKeychainTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBD30A5A1453553700512B69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBD30A721453553700512B69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A781453553700512B69 /* SenTestingKit.framework in Frameworks */,
+				BBD30A791453553700512B69 /* Cocoa.framework in Frameworks */,
+				BBD30A7C1453553700512B69 /* LKKeychain.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBD30A521453553600512B69 = {
+			isa = PBXGroup;
+			children = (
+				BBD30A671453553700512B69 /* LKKeychain */,
+				BBD30A7D1453553700512B69 /* LKKeychainTests */,
+				BBD30A601453553700512B69 /* Frameworks */,
+				BBD30A5F1453553700512B69 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBD30A5F1453553700512B69 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A5E1453553700512B69 /* LKKeychain.framework */,
+				BBD30A761453553700512B69 /* LKKeychainTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBD30A601453553700512B69 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A611453553700512B69 /* Cocoa.framework */,
+				BBD30A771453553700512B69 /* SenTestingKit.framework */,
+				BBD30A631453553700512B69 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BBD30A631453553700512B69 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A641453553700512B69 /* AppKit.framework */,
+				BBD30A651453553700512B69 /* CoreData.framework */,
+				BBD30A661453553700512B69 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		BBD30A671453553700512B69 /* LKKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A6E1453553700512B69 /* LKKeychain.h */,
+				BBD30A6F1453553700512B69 /* LKKeychain.m */,
+				BBD30A681453553700512B69 /* Supporting Files */,
+			);
+			path = LKKeychain;
+			sourceTree = "<group>";
+		};
+		BBD30A681453553700512B69 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A691453553700512B69 /* LKKeychain-Info.plist */,
+				BBD30A6A1453553700512B69 /* InfoPlist.strings */,
+				BBD30A6D1453553700512B69 /* LKKeychain-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BBD30A7D1453553700512B69 /* LKKeychainTests */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A831453553700512B69 /* LKKeychainTests.h */,
+				BBD30A841453553700512B69 /* LKKeychainTests.m */,
+				BBD30A7E1453553700512B69 /* Supporting Files */,
+			);
+			path = LKKeychainTests;
+			sourceTree = "<group>";
+		};
+		BBD30A7E1453553700512B69 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BBD30A7F1453553700512B69 /* LKKeychainTests-Info.plist */,
+				BBD30A801453553700512B69 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BBD30A5B1453553700512B69 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BBD30A5D1453553700512B69 /* LKKeychain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychain" */;
+			buildPhases = (
+				BBD30A591453553700512B69 /* Sources */,
+				BBD30A5A1453553700512B69 /* Frameworks */,
+				BBD30A5B1453553700512B69 /* Headers */,
+				BBD30A5C1453553700512B69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LKKeychain;
+			productName = LKKeychain;
+			productReference = BBD30A5E1453553700512B69 /* LKKeychain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BBD30A751453553700512B69 /* LKKeychainTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychainTests" */;
+			buildPhases = (
+				BBD30A711453553700512B69 /* Sources */,
+				BBD30A721453553700512B69 /* Frameworks */,
+				BBD30A731453553700512B69 /* Resources */,
+				BBD30A741453553700512B69 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BBD30A7B1453553700512B69 /* PBXTargetDependency */,
+			);
+			name = LKKeychainTests;
+			productName = LKKeychainTests;
+			productReference = BBD30A761453553700512B69 /* LKKeychainTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBD30A541453553600512B69 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = BBD30A571453553600512B69 /* Build configuration list for PBXProject "LKKeychain" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BBD30A521453553600512B69;
+			productRefGroup = BBD30A5F1453553700512B69 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBD30A5D1453553700512B69 /* LKKeychain */,
+				BBD30A751453553700512B69 /* LKKeychainTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BBD30A5C1453553700512B69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBD30A731453553700512B69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A821453553700512B69 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BBD30A741453553700512B69 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBD30A591453553700512B69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A701453553700512B69 /* LKKeychain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBD30A711453553700512B69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBD30A851453553700512B69 /* LKKeychainTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBD30A7B1453553700512B69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBD30A5D1453553700512B69 /* LKKeychain */;
+			targetProxy = BBD30A7A1453553700512B69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BBD30A6A1453553700512B69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBD30A6B1453553700512B69 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BBD30A801453553700512B69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BBD30A811453553700512B69 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BBD30A861453553700512B69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BBD30A871453553700512B69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BBD30A891453553700512B69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
+				INFOPLIST_FILE = "LKKeychain/LKKeychain-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		BBD30A8A1453553700512B69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
+				INFOPLIST_FILE = "LKKeychain/LKKeychain-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		BBD30A8C1453553700512B69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
+				INFOPLIST_FILE = "LKKeychainTests/LKKeychainTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		BBD30A8D1453553700512B69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
+				INFOPLIST_FILE = "LKKeychainTests/LKKeychainTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBD30A571453553600512B69 /* Build configuration list for PBXProject "LKKeychain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBD30A861453553700512B69 /* Debug */,
+				BBD30A871453553700512B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBD30A891453553700512B69 /* Debug */,
+				BBD30A8A1453553700512B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychainTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBD30A8C1453553700512B69 /* Debug */,
+				BBD30A8D1453553700512B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BBD30A541453553600512B69 /* Project object */;
+}
