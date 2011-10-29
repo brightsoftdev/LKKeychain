@@ -58,6 +58,7 @@
 		BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCGenericPassword.m; sourceTree = "<group>"; };
 		BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeychainItem.h; sourceTree = "<group>"; };
 		BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainItem.m; sourceTree = "<group>"; };
+		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBD30A641453553700512B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -104,6 +105,7 @@
 		BBD30A521453553600512B69 = {
 			isa = PBXGroup;
 			children = (
+				BB7B60AB145CA8CD00725E1C /* README.markdown */,
 				BBD30A671453553700512B69 /* LKKeychain */,
 				BBD30A7D1453553700512B69 /* LKKeychainTests */,
 				BBD30A601453553700512B69 /* Frameworks */,
