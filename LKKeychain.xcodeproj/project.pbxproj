@@ -7,14 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0A08EA1454E19800A5D44C /* LKKCKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */; };
+		BB0A08EB1454F0FD00A5D44C /* LKKCGenericPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */; };
+		BB0A08EE1454F68A00A5D44C /* LKKCInternetPassword.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0A08EC1454F68A00A5D44C /* LKKCInternetPassword.h */; };
+		BB0A08EF1454F68A00A5D44C /* LKKCInternetPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08ED1454F68A00A5D44C /* LKKCInternetPassword.m */; };
+		BB0A08F21454F69A00A5D44C /* LKKCCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0A08F01454F69A00A5D44C /* LKKCCertificate.h */; };
+		BB0A08F31454F69A00A5D44C /* LKKCCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08F11454F69A00A5D44C /* LKKCCertificate.m */; };
+		BB0A08F61454F6AA00A5D44C /* LKKCIdentity.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0A08F41454F6A900A5D44C /* LKKCIdentity.h */; };
+		BB0A08F71454F6AA00A5D44C /* LKKCIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */; };
+		BB0A08FA1454F6D400A5D44C /* LKKCKey.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0A08F81454F6D400A5D44C /* LKKCKey.h */; };
+		BB0A08FB1454F6D400A5D44C /* LKKCKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08F91454F6D400A5D44C /* LKKCKey.m */; };
+		BB0E65831454635F00C7FFF7 /* LKKCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E65821454635F00C7FFF7 /* LKKCUtil.m */; };
+		BB0E65851454636900C7FFF7 /* LKKCUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E65841454636900C7FFF7 /* LKKCUtil.h */; };
+		BB0E65881454B1BC00C7FFF7 /* LKKCGenericPassword.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */; };
+		BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */; };
+		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
-		BBD30A701453553700512B69 /* LKKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A6F1453553700512B69 /* LKKeychain.m */; };
+		BBD30A701453553700512B69 /* LKKCKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A6F1453553700512B69 /* LKKCKeychain.m */; };
 		BBD30A781453553700512B69 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A771453553700512B69 /* SenTestingKit.framework */; };
 		BBD30A791453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A7C1453553700512B69 /* LKKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A5E1453553700512B69 /* LKKeychain.framework */; };
 		BBD30A821453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A801453553700512B69 /* InfoPlist.strings */; };
-		BBD30A851453553700512B69 /* LKKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A841453553700512B69 /* LKKeychainTests.m */; };
+		BBD30A851453553700512B69 /* LKKCKeychainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A841453553700512B69 /* LKKCKeychainTests.m */; };
+		BBD30A8F1453556300512B69 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,22 +44,37 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB0A08EC1454F68A00A5D44C /* LKKCInternetPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCInternetPassword.h; sourceTree = "<group>"; };
+		BB0A08ED1454F68A00A5D44C /* LKKCInternetPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCInternetPassword.m; sourceTree = "<group>"; };
+		BB0A08F01454F69A00A5D44C /* LKKCCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCCertificate.h; sourceTree = "<group>"; };
+		BB0A08F11454F69A00A5D44C /* LKKCCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCCertificate.m; sourceTree = "<group>"; };
+		BB0A08F41454F6A900A5D44C /* LKKCIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCIdentity.h; sourceTree = "<group>"; };
+		BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCIdentity.m; sourceTree = "<group>"; };
+		BB0A08F81454F6D400A5D44C /* LKKCKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKey.h; sourceTree = "<group>"; };
+		BB0A08F91454F6D400A5D44C /* LKKCKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKey.m; sourceTree = "<group>"; };
+		BB0E65821454635F00C7FFF7 /* LKKCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCUtil.m; sourceTree = "<group>"; };
+		BB0E65841454636900C7FFF7 /* LKKCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCUtil.h; sourceTree = "<group>"; };
+		BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCGenericPassword.h; sourceTree = "<group>"; };
+		BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCGenericPassword.m; sourceTree = "<group>"; };
+		BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeychainItem.h; sourceTree = "<group>"; };
+		BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainItem.m; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBD30A641453553700512B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		BBD30A651453553700512B69 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BBD30A661453553700512B69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		BBD30A691453553700512B69 /* LKKeychain-Info.plist */ = {isa = PBXFileReference; path = "LKKeychain-Info.plist"; sourceTree = "<group>"; };
+		BBD30A691453553700512B69 /* LKKeychain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LKKeychain-Info.plist"; sourceTree = "<group>"; };
 		BBD30A6B1453553700512B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BBD30A6D1453553700512B69 /* LKKeychain-Prefix.pch */ = {isa = PBXFileReference; path = "LKKeychain-Prefix.pch"; sourceTree = "<group>"; };
-		BBD30A6E1453553700512B69 /* LKKeychain.h */ = {isa = PBXFileReference; path = LKKeychain.h; sourceTree = "<group>"; };
-		BBD30A6F1453553700512B69 /* LKKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKeychain.m; sourceTree = "<group>"; };
+		BBD30A6D1453553700512B69 /* LKKeychain-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LKKeychain-Prefix.pch"; sourceTree = "<group>"; };
+		BBD30A6E1453553700512B69 /* LKKCKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKKCKeychain.h; sourceTree = "<group>"; };
+		BBD30A6F1453553700512B69 /* LKKCKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychain.m; sourceTree = "<group>"; };
 		BBD30A761453553700512B69 /* LKKeychainTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LKKeychainTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A771453553700512B69 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		BBD30A7F1453553700512B69 /* LKKeychainTests-Info.plist */ = {isa = PBXFileReference; path = "LKKeychainTests-Info.plist"; sourceTree = "<group>"; };
+		BBD30A7F1453553700512B69 /* LKKeychainTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LKKeychainTests-Info.plist"; sourceTree = "<group>"; };
 		BBD30A811453553700512B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BBD30A831453553700512B69 /* LKKeychainTests.h */ = {isa = PBXFileReference; path = LKKeychainTests.h; sourceTree = "<group>"; };
-		BBD30A841453553700512B69 /* LKKeychainTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKeychainTests.m; sourceTree = "<group>"; };
+		BBD30A831453553700512B69 /* LKKCKeychainTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LKKCKeychainTests.h; sourceTree = "<group>"; };
+		BBD30A841453553700512B69 /* LKKCKeychainTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainTests.m; sourceTree = "<group>"; };
+		BBD30A8E1453556300512B69 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD30A8F1453556300512B69 /* Security.framework in Frameworks */,
 				BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */,
 				BBD30A781453553700512B69 /* SenTestingKit.framework in Frameworks */,
 				BBD30A791453553700512B69 /* Cocoa.framework in Frameworks */,
 				BBD30A7C1453553700512B69 /* LKKeychain.framework in Frameworks */,
@@ -90,6 +123,7 @@
 		BBD30A601453553700512B69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBD30A8E1453556300512B69 /* Security.framework */,
 				BBD30A611453553700512B69 /* Cocoa.framework */,
 				BBD30A771453553700512B69 /* SenTestingKit.framework */,
 				BBD30A631453553700512B69 /* Other Frameworks */,
@@ -110,8 +144,22 @@
 		BBD30A671453553700512B69 /* LKKeychain */ = {
 			isa = PBXGroup;
 			children = (
-				BBD30A6E1453553700512B69 /* LKKeychain.h */,
-				BBD30A6F1453553700512B69 /* LKKeychain.m */,
+				BBD30A6E1453553700512B69 /* LKKCKeychain.h */,
+				BBD30A6F1453553700512B69 /* LKKCKeychain.m */,
+				BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */,
+				BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */,
+				BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */,
+				BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */,
+				BB0A08EC1454F68A00A5D44C /* LKKCInternetPassword.h */,
+				BB0A08ED1454F68A00A5D44C /* LKKCInternetPassword.m */,
+				BB0A08F01454F69A00A5D44C /* LKKCCertificate.h */,
+				BB0A08F11454F69A00A5D44C /* LKKCCertificate.m */,
+				BB0A08F41454F6A900A5D44C /* LKKCIdentity.h */,
+				BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */,
+				BB0A08F81454F6D400A5D44C /* LKKCKey.h */,
+				BB0A08F91454F6D400A5D44C /* LKKCKey.m */,
+				BB0E65841454636900C7FFF7 /* LKKCUtil.h */,
+				BB0E65821454635F00C7FFF7 /* LKKCUtil.m */,
 				BBD30A681453553700512B69 /* Supporting Files */,
 			);
 			path = LKKeychain;
@@ -130,8 +178,8 @@
 		BBD30A7D1453553700512B69 /* LKKeychainTests */ = {
 			isa = PBXGroup;
 			children = (
-				BBD30A831453553700512B69 /* LKKeychainTests.h */,
-				BBD30A841453553700512B69 /* LKKeychainTests.m */,
+				BBD30A831453553700512B69 /* LKKCKeychainTests.h */,
+				BBD30A841453553700512B69 /* LKKCKeychainTests.m */,
 				BBD30A7E1453553700512B69 /* Supporting Files */,
 			);
 			path = LKKeychainTests;
@@ -153,6 +201,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0E65851454636900C7FFF7 /* LKKCUtil.h in Headers */,
+				BB0E65881454B1BC00C7FFF7 /* LKKCGenericPassword.h in Headers */,
+				BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */,
+				BB0A08EE1454F68A00A5D44C /* LKKCInternetPassword.h in Headers */,
+				BB0A08F21454F69A00A5D44C /* LKKCCertificate.h in Headers */,
+				BB0A08F61454F6AA00A5D44C /* LKKCIdentity.h in Headers */,
+				BB0A08FA1454F6D400A5D44C /* LKKCKey.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +258,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Karoly Lorentey";
 			};
 			buildConfigurationList = BBD30A571453553600512B69 /* Build configuration list for PBXProject "LKKeychain" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -262,7 +318,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBD30A701453553700512B69 /* LKKeychain.m in Sources */,
+				BBD30A701453553700512B69 /* LKKCKeychain.m in Sources */,
+				BB0E65831454635F00C7FFF7 /* LKKCUtil.m in Sources */,
+				BB0A08EA1454E19800A5D44C /* LKKCKeychainItem.m in Sources */,
+				BB0A08EB1454F0FD00A5D44C /* LKKCGenericPassword.m in Sources */,
+				BB0A08EF1454F68A00A5D44C /* LKKCInternetPassword.m in Sources */,
+				BB0A08F31454F69A00A5D44C /* LKKCCertificate.m in Sources */,
+				BB0A08F71454F6AA00A5D44C /* LKKCIdentity.m in Sources */,
+				BB0A08FB1454F6D400A5D44C /* LKKCKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBD30A851453553700512B69 /* LKKeychainTests.m in Sources */,
+				BBD30A851453553700512B69 /* LKKCKeychainTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +387,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -344,7 +407,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -420,6 +483,7 @@
 				BBD30A8A1453553700512B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychainTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +492,7 @@
 				BBD30A8D1453553700512B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
