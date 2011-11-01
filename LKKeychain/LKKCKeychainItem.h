@@ -9,9 +9,9 @@
 @class LKKCKeychain;
 
 @interface LKKCKeychainItem : NSObject
-+ (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID;
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem;
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes;
++ (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID error:(NSError **)error;
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem error:(NSError **)error;
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes error:(NSError **)error;
 
 @property (nonatomic, readonly) NSData *persistentID;
 @property (nonatomic, copy) NSData *rawData;
@@ -19,9 +19,9 @@
 @property (nonatomic, readonly) LKKCKeychain *keychain;
 @property (nonatomic, readonly) SecKeychainItemRef SecKeychainItem;
 
-- (BOOL)saveItem;
+- (BOOL)saveItemWithError:(NSError **)error;
 - (void)revertItem;
-- (BOOL)deleteItem;
+- (BOOL)deleteItemWithError:(NSError **)error;
 
 @end
 
@@ -32,5 +32,5 @@
 
 @property (nonatomic, readonly) NSDictionary *attributes;
 
-- (BOOL)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value;
+- (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value;
 @end

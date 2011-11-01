@@ -8,6 +8,8 @@
 
 #define LKKCAssert(condition) NSAssert(condition, @"Assertion failed: %s", #condition)
 
-#define LKKCReportError(status, message, ...) LKKCReportErrorImpl(__FILE__, __LINE__, status, message, ##__VA_ARGS__)
+#define LKKCReportError(status, error, message, ...) LKKCReportErrorImpl(__FILE__, __LINE__, status, error, message, ##__VA_ARGS__)
 
-void LKKCReportErrorImpl(char *file, int line, OSStatus status, NSString *message, ...) NS_FORMAT_FUNCTION(4, 5);
+void LKKCReportErrorImpl(char *file, int line, OSStatus status, NSError **error, NSString *message, ...) NS_FORMAT_FUNCTION(5, 6);
+
+extern const NSString *const LKKCErrorDomain;

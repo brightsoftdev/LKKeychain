@@ -22,6 +22,7 @@
 		BB0E65881454B1BC00C7FFF7 /* LKKCGenericPassword.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */; };
 		BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
+		BB7B60AE145CB39500725E1C /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB7B60AD145CB39500725E1C /* Notes.rtf */; };
 		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
 		BBD30A701453553700512B69 /* LKKCKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A6F1453553700512B69 /* LKKCKeychain.m */; };
@@ -59,6 +60,7 @@
 		BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeychainItem.h; sourceTree = "<group>"; };
 		BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainItem.m; sourceTree = "<group>"; };
 		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		BB7B60AD145CB39500725E1C /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBD30A641453553700512B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				BB7B60AB145CA8CD00725E1C /* README.markdown */,
+				BB7B60AD145CB39500725E1C /* Notes.rtf */,
 				BBD30A671453553700512B69 /* LKKeychain */,
 				BBD30A7D1453553700512B69 /* LKKeychainTests */,
 				BBD30A601453553700512B69 /* Frameworks */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */,
+				BB7B60AE145CB39500725E1C /* Notes.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

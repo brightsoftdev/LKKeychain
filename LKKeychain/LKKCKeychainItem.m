@@ -72,7 +72,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 #pragma mark - Factory methods
 
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes error:(NSError **)error
 {
     if (attributes == nil) {
         NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -83,7 +83,7 @@ static CFMutableDictionaryRef knownItemClasses;
                                nil];
         OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&attributes);
         if (status) {
-            LKKCReportError(status, @"Can't list item attributes");
+            LKKCReportError(status, error, @"Can't list item attributes");
             return nil;
         }
         [attributes autorelease];
@@ -96,12 +96,12 @@ static CFMutableDictionaryRef knownItemClasses;
     return [item autorelease];
 }
 
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem error:(NSError **)error
 {
-    return [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:nil];
+    return [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:nil error:error];
 }
 
-+ (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID
++ (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID error:(NSError **)error
 {
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            itemClass, kSecClass,
@@ -113,13 +113,13 @@ static CFMutableDictionaryRef knownItemClasses;
     NSDictionary *result = nil;
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&result);
     if (status) {
-        LKKCReportError(status, @"Can't resolve persistent ID");
+        LKKCReportError(status, error, @"Can't resolve persistent ID");
         return nil;
     }
     
     [result autorelease];
     SecKeychainItemRef sitem = (SecKeychainItemRef)[result objectForKey:(id)kSecValueRef];
-    return [self itemWithClass:itemClass SecKeychainItem:sitem attributes:result];
+    return [self itemWithClass:itemClass SecKeychainItem:sitem attributes:result error:error];
 }
 
 #pragma mark -
@@ -145,7 +145,7 @@ static CFMutableDictionaryRef knownItemClasses;
         NSDictionary *attrs = nil;
         OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&attrs);
         if (status) {
-            LKKCReportError(status, @"Can't query item attributes");
+            LKKCReportError(status, NULL, @"Can't query item attributes");
             return nil;
         }
         _attributes = [attrs mutableCopy];
@@ -187,7 +187,7 @@ static CFMutableDictionaryRef knownItemClasses;
     NSData *persistentID = nil;
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&persistentID);
     if (status) {
-        LKKCReportError(status, @"Can't get persistent reference to item");
+        LKKCReportError(status, NULL, @"Can't get persistent reference to item");
         return nil;
     }
     return [persistentID autorelease];
@@ -205,7 +205,7 @@ static CFMutableDictionaryRef knownItemClasses;
     NSData *data = nil;
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&data);
     if (status) {
-        LKKCReportError(status, @"Can't get raw data of item");
+        LKKCReportError(status, NULL, @"Can't get raw data of item");
         return nil;
     }
     return [data autorelease];
@@ -224,7 +224,7 @@ static CFMutableDictionaryRef knownItemClasses;
     SecKeychainRef skeychain = NULL;
     status = SecKeychainItemCopyKeychain(_sitem, &skeychain);
     if (status) {
-        LKKCReportError(status, @"Can't get keychain for item");
+        LKKCReportError(status, NULL, @"Can't get keychain for item");
         return nil;
     }
     LKKCKeychain *keychain = [LKKCKeychain keychainWithSecKeychain:skeychain];
@@ -234,7 +234,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 #pragma mark - Operations
 
-- (BOOL)saveItem
+- (BOOL)saveItemWithError:(NSError **)error
 {
     NSAssert(_sitem, @"Item deleted");
     if (_updatedAttributes == nil || [_updatedAttributes count] == 0) {
@@ -246,7 +246,7 @@ static CFMutableDictionaryRef knownItemClasses;
                            nil];
     OSStatus status = SecItemUpdate((CFDictionaryRef)query, (CFDictionaryRef)_updatedAttributes);
     if (status) {
-        LKKCReportError(status, @"Can't update item attributes");
+        LKKCReportError(status, error, @"Can't update item attributes");
         return NO;
     }
     [_updatedAttributes release];
@@ -268,7 +268,7 @@ static CFMutableDictionaryRef knownItemClasses;
     }
 }
 
-- (BOOL)deleteItem 
+- (BOOL)deleteItemWithError:(NSError **)error
 {
     NSAssert(_sitem, @"Item already deleted");
     CFTypeRef itemClass = [self.attributes objectForKey:kSecClass];
@@ -279,7 +279,7 @@ static CFMutableDictionaryRef knownItemClasses;
                            nil];    
     OSStatus status = SecItemDelete((CFDictionaryRef)query);
     if (status) {
-        LKKCReportError(status, @"Can't delete keychain item");
+        LKKCReportError(status, error, @"Can't delete keychain item");
         return NO;
     }
     CFRelease(_sitem);

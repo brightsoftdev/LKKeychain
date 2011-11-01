@@ -81,7 +81,7 @@
     CFStringRef cn = NULL;
     OSStatus status = SecCertificateCopyCommonName(self.SecCertificate, &cn);
     if (status) {
-        LKKCReportError(status, @"Can't get common name from certificate");
+        LKKCReportError(status, NULL, @"Can't get common name from certificate");
         return nil;
     }
     return [(NSString *)cn autorelease];
@@ -98,7 +98,7 @@
     CFArrayRef addresses = NULL;
     OSStatus status = SecCertificateCopyEmailAddresses(self.SecCertificate, &addresses);
     if (status) {
-        LKKCReportError(status, @"Can't get email addresses from certificate");
+        LKKCReportError(status, NULL, @"Can't get email addresses from certificate");
         return nil;
     }
     return [(NSArray *)addresses autorelease];
@@ -109,10 +109,11 @@
     SecKeyRef *key = NULL;
     OSStatus status = SecCertificateCopyPublicKey(self.SecCertificate, key);
     if (status) {
-        LKKCReportError(status, @"Can't get public key from certificate");
+        LKKCReportError(status, NULL, @"Can't get public key from certificate");
         return nil;
     }
-    LKKCKey *result = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)key];
+    LKKCAssert(key != NULL);
+    LKKCKey *result = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)key error:NULL];
     CFRelease(key);
     return result;
 }

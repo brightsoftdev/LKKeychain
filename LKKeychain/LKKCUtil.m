@@ -8,8 +8,10 @@
 
 #import "LKKCUtil.h"
 
+NSString *const LKKCErrorDomain = @"LKKeychain";
+
 void 
-LKKCReportErrorImpl(char *file, int line, OSStatus status, NSString *message, ...)
+LKKCReportErrorImpl(char *file, int line, OSStatus status, NSError **error, NSString *message, ...)
 {
     va_list args;
     va_start(args, message);
@@ -17,6 +19,13 @@ LKKCReportErrorImpl(char *file, int line, OSStatus status, NSString *message, ..
     va_end(args);
     CFStringRef errorString = SecCopyErrorMessageString(status, NULL);
     NSLog(@"%s:%d: %@: %@ (%d)", file, line, bakedMessage, (errorString ? (NSString *)errorString : @"unknown error"),  status);
+    if (error != NULL) {
+        *error = [NSError errorWithDomain:LKKCErrorDomain 
+                                     code:status 
+                                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           (id)errorString, NSLocalizedDescriptionKey,
+                                           nil]];
+    }
     if (errorString)
         CFRelease(errorString);
 }

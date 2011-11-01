@@ -28,10 +28,10 @@
     SecCertificateRef scertificate = NULL;
     OSStatus status = SecIdentityCopyCertificate(self.SecIdentity, &scertificate);
     if (status) {
-        LKKCReportError(status, @"Can't get certificate from identity");
+        LKKCReportError(status, NULL, @"Can't get certificate from identity");
         return nil;
     }
-    LKKCCertificate *certificate = [LKKCCertificate itemWithClass:kSecClassCertificate SecKeychainItem:(SecKeychainItemRef)scertificate];
+    LKKCCertificate *certificate = [LKKCCertificate itemWithClass:kSecClassCertificate SecKeychainItem:(SecKeychainItemRef)scertificate error:NULL];
     CFRelease(scertificate);
     return certificate;
 }
@@ -41,10 +41,10 @@
     SecKeyRef skey = NULL;
     OSStatus status = SecIdentityCopyPrivateKey(self.SecIdentity, &skey);
     if (status) {
-        LKKCReportError(status, @"Can't get private key from identity");
+        LKKCReportError(status, NULL, @"Can't get private key from identity");
         return nil;
     }
-    LKKCKey *key = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)skey];
+    LKKCKey *key = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)skey error:NULL];
     CFRelease(skey);
     return key;
 }

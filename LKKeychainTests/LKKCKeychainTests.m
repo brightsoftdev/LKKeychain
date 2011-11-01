@@ -16,18 +16,19 @@
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+
+    NSError *error = nil;
     _userInteractionEnabled = [LKKCKeychain userInteractionEnabled];
-    [LKKCKeychain setUserInteractionEnabled:YES];
-    
+    BOOL result = [LKKCKeychain setUserInteractionEnabled:NO error:&error];
+    should(result);
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    
-    [LKKCKeychain setUserInteractionEnabled:_userInteractionEnabled];
+    NSError *error = nil;
+    BOOL result = [LKKCKeychain setUserInteractionEnabled:_userInteractionEnabled error:&error];
+    should(result);
+
     [super tearDown];
 }
 
@@ -35,9 +36,13 @@
 {
     BOOL enabled = [LKKCKeychain userInteractionEnabled];
     NSLog(@"User interaction enabled: %d", enabled);
-    [LKKCKeychain setUserInteractionEnabled:!enabled];
+    NSError *error = nil;
+    BOOL result;
+    result = [LKKCKeychain setUserInteractionEnabled:!enabled error:&error];
+    should(result);
     should([LKKCKeychain userInteractionEnabled] == !enabled);
-    [LKKCKeychain setUserInteractionEnabled:enabled];
+    result = [LKKCKeychain setUserInteractionEnabled:enabled error:&error];
+    should(result);
     should([LKKCKeychain userInteractionEnabled] == enabled);
 }
 
@@ -62,24 +67,10 @@
 
 - (void)testDefaultKeychain
 {
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+    NSError *error = nil;
+    LKKCKeychain *keychain = [LKKCKeychain defaultKeychainWithError:&error];
     should(keychain != nil);
     [self logKeychainParameters:keychain];
-    
-    SecKeychainItemRef item = nil;
-    char *server = "server";
-    char *username = "username";
-    char *password = "password";
-    char *path = "/path";
-    OSStatus returnStatus = SecKeychainAddInternetPassword(NULL, 
-                                                           strlen(server), server, 
-                                                           0, NULL, 
-                                                           strlen(username), username,
-                                                           strlen(path), path,
-                                                           1234, kSecProtocolTypeHTTP,
-                                                           kSecAuthenticationTypeHTMLForm, 
-                                                           strlen(password), (void *)password, &item);
-    NSLog(@"%d - %@", returnStatus, item);
     
     NSLog(@"Generic passwords:");
     NSLog(@"%@", [keychain genericPasswords]);
@@ -105,7 +96,8 @@
 
 - (void)testSearchList
 {
-    NSArray *searchList = [LKKCKeychain keychainsInSearchList];
+    NSError *error = nil;
+    NSArray *searchList = [LKKCKeychain keychainsInSearchListWithError:&error];
     should(searchList != nil);
     should([searchList count] > 0);
     
