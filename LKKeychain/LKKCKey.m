@@ -7,6 +7,7 @@
 //
 
 #import "LKKCKey.h"
+#import "LKKCKeychainItem+Subclasses.h"
 
 @implementation LKKCKey
 
@@ -18,6 +19,11 @@
 - (NSString *)label
 {
     return [self.attributes objectForKey:kSecAttrLabel];
+}
+
+- (SecKeyRef)SecKey
+{
+    return (SecKeyRef)self.SecKeychainItem;
 }
 
 @end

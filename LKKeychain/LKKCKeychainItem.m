@@ -7,8 +7,7 @@
 //
 
 #import <Security/Security.h>
-
-#import "LKKCKeychainItem.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCKeychain.h"
 #import "LKKCUtil.h"
 #import "LKKCGenericPassword.h"
@@ -74,20 +73,6 @@ static CFMutableDictionaryRef knownItemClasses;
 
 + (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes error:(NSError **)error
 {
-    if (attributes == nil) {
-        NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                               itemClass, kSecClass,
-                               [NSArray arrayWithObject:(id)sitem], kSecMatchItemList,
-                               kCFBooleanTrue, kSecReturnAttributes,
-                               kSecMatchLimitOne, kSecMatchLimit,
-                               nil];
-        OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&attributes);
-        if (status) {
-            LKKCReportError(status, error, @"Can't list item attributes");
-            return nil;
-        }
-        [attributes autorelease];
-    }
     Class cls = CFDictionaryGetValue(knownItemClasses, itemClass);
     if (cls == NULL)
         cls = [LKKCKeychainItem class];
@@ -164,6 +149,8 @@ static CFMutableDictionaryRef knownItemClasses;
     if (_updatedAttributes == nil) {
         _updatedAttributes = [[NSMutableDictionary alloc] init];
     }
+    if (value == nil)
+        value = [NSNull null];
     [(NSMutableDictionary *)self.attributes setObject:value forKey:attribute];
     [_updatedAttributes setObject:value forKey:attribute];
 }

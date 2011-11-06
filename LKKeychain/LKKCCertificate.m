@@ -7,6 +7,7 @@
 //
 
 #import "LKKCCertificate.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCKey.h"
 #import "LKKCUtil.h"
 
@@ -36,12 +37,30 @@
 
 - (NSData *)subject
 {
-    return [[self attributes] objectForKey:kSecAttrSubject];
+    NSData *subject = [[self attributes] objectForKey:kSecAttrSubject];
+    if (subject == nil && SecCertificateCopyNormalizedSubjectContent != NULL) { // 10.7
+        NSError *error = nil;
+        subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(self.SecCertificate, (CFErrorRef *)&error);
+        if (subject == nil) {
+            LKKCReportErrorObj(error, NULL, @"Can't get normalized subject content");
+        }
+        [subject autorelease];
+    }
+    return subject;
 }
 
 - (NSData *)issuer
 {
-    return [[self attributes] objectForKey:kSecAttrIssuer];
+    NSData *issuer = [[self attributes] objectForKey:kSecAttrIssuer];
+    if (issuer == nil && SecCertificateCopyNormalizedIssuerContent != NULL) { // 10.7
+        NSError *error = nil;
+        issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(self.SecCertificate, (CFErrorRef *)&error);
+        if (issuer == nil) {
+            LKKCReportErrorObj(error, NULL, @"Can't get normalized issuer content");
+        }
+        [issuer autorelease];
+    }
+    return issuer;
 }
 
 - (NSData *)serialNumber
@@ -106,8 +125,8 @@
 
 - (LKKCKey *)publicKey
 {
-    SecKeyRef *key = NULL;
-    OSStatus status = SecCertificateCopyPublicKey(self.SecCertificate, key);
+    SecKeyRef key = NULL;
+    OSStatus status = SecCertificateCopyPublicKey(self.SecCertificate, &key);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get public key from certificate");
         return nil;

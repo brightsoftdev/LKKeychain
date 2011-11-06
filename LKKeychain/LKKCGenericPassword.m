@@ -9,6 +9,7 @@
 #import <Security/Security.h>
 
 #import "LKKCGenericPassword.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCUtil.h"
 
 @implementation LKKCGenericPassword

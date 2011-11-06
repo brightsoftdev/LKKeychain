@@ -26,23 +26,33 @@
 + (BOOL)userInteractionEnabled;
 + (BOOL)setUserInteractionEnabled:(BOOL)enabled error:(NSError **)error;
 
-// Retrieving keychain items.
+// Generic passwords.
 - (NSArray *)genericPasswords;
 - (LKKCGenericPassword *)genericPasswordWithPersistentID:(NSData *)persistentID;
 - (LKKCGenericPassword *)genericPasswordWithService:(NSString *)service account:(NSString *)account;
 
+//+ (LKKCGenericPassword *)createPassword:(NSString *)password service:(NSString *)service account:(NSString *)account;
+
+// Internet passwords.
 - (NSArray *)internetPasswords;
 - (LKKCInternetPassword *)internetPasswordWithPersistentID:(NSData *)persistentID;
 - (NSArray *)internetPasswordsForServer:(NSString *)server;
 
+//     Internet: kSecAccountItemAttr, kSecSecurityDomainItemAttr, kSecServerItemAttr, kSecProtocolItemAttr, kSecAuthenticationTypeItemAttr, kSecPortItemAttr, kSecPathItemAttr
+
+//+ (LKKCInternetPassword *)createInternetPassword:(NSString *)password url:(NSURL *)url domain:(NSString *)domain;
+
+// Certificates.
 - (NSArray *)certificates;
 - (LKKCCertificate *)certificateWithPersistentID:(NSData *)persistentID;
 - (NSArray *)certificatesWithSubject:(NSData *)subject;
 - (NSArray *)certificatesWithPublicKeyHash:(NSData *)publicKeyHash;
 - (NSArray *)certificatesWithLabel:(NSString *)label;
 
+// Identities.
 - (NSArray *)identities;
 
+// Public keys.
 - (NSArray *)publicKeys;
 - (NSArray *)privateKeys;
 - (NSArray *)symmetricKeys;

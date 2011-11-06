@@ -7,47 +7,49 @@
 //
 
 #import "LKKCInternetPassword.h"
+#import "LKKCKeychainItem+Subclasses.h"
 
 #pragma mark - Protocols
 
 typedef struct ProtocolDesc {
 	const CFTypeRef *sprotocol;
     LKKCProtocol protocol;
-    CFStringRef description;
+    CFStringRef scheme;
 } ProtocolDesc;
 
+// Entries marked with "*" have no standard URL scheme.
 static ProtocolDesc protocolDescs[] = {
 	{ &kSecAttrProtocolFTP, LKKCProtocolFTP, CFSTR("ftp") },
-	{ &kSecAttrProtocolFTPAccount, LKKCProtocolFTPAccount, CFSTR("ftp-account") },
+	{ &kSecAttrProtocolFTPAccount, LKKCProtocolFTPAccount, CFSTR("ftp-account") }, // *
 	{ &kSecAttrProtocolHTTP, LKKCProtocolHTTP, CFSTR("http") },
 	{ &kSecAttrProtocolIRC, LKKCProtocolIRC, CFSTR("irc") },
 	{ &kSecAttrProtocolNNTP, LKKCProtocolNNTP, CFSTR("nntp") },
-	{ &kSecAttrProtocolPOP3, LKKCProtocolPOP3, CFSTR("pop3") },
-	{ &kSecAttrProtocolSMTP, LKKCProtocolSMTP, CFSTR("smtp") },
-	{ &kSecAttrProtocolSOCKS, LKKCProtocolSOCKS, CFSTR("socks") },
+	{ &kSecAttrProtocolPOP3, LKKCProtocolPOP3, CFSTR("pop") },
+	{ &kSecAttrProtocolSMTP, LKKCProtocolSMTP, CFSTR("smtp") }, // *
+	{ &kSecAttrProtocolSOCKS, LKKCProtocolSOCKS, CFSTR("socks") }, // *
 	{ &kSecAttrProtocolIMAP, LKKCProtocolIMAP, CFSTR("imap") },
 	{ &kSecAttrProtocolLDAP, LKKCProtocolLDAP, CFSTR("ldap") },
-	{ &kSecAttrProtocolAppleTalk, LKKCProtocolAppleTalk, CFSTR("AppleTalk") },
+	{ &kSecAttrProtocolAppleTalk, LKKCProtocolAppleTalk, CFSTR("afpat") }, // *, should be afp:/at/...
 	{ &kSecAttrProtocolAFP, LKKCProtocolAFP, CFSTR("afp") },
 	{ &kSecAttrProtocolTelnet, LKKCProtocolTelnet, CFSTR("telnet") },
 	{ &kSecAttrProtocolSSH, LKKCProtocolSSH, CFSTR("ssh") },
 	{ &kSecAttrProtocolFTPS, LKKCProtocolFTPS, CFSTR("ftps") },
 	{ &kSecAttrProtocolHTTPS, LKKCProtocolHTTPS, CFSTR("https") },
-	{ &kSecAttrProtocolHTTPProxy, LKKCProtocolHTTPProxy, CFSTR("http-proxy") },
-	{ &kSecAttrProtocolHTTPSProxy, LKKCProtocolHTTPSProxy, CFSTR("https-proxy") },
-	{ &kSecAttrProtocolFTPProxy, LKKCProtocolFTPProxy, CFSTR("ftp-proxy") },
+	{ &kSecAttrProtocolHTTPProxy, LKKCProtocolHTTPProxy, CFSTR("http-proxy") }, // *
+	{ &kSecAttrProtocolHTTPSProxy, LKKCProtocolHTTPSProxy, CFSTR("https-proxy") }, // *
+	{ &kSecAttrProtocolFTPProxy, LKKCProtocolFTPProxy, CFSTR("ftp-proxy") }, // *
 	{ &kSecAttrProtocolSMB, LKKCProtocolSMB, CFSTR("smb") },
 	{ &kSecAttrProtocolRTSP, LKKCProtocolRTSP, CFSTR("rtsp") },
-	{ &kSecAttrProtocolRTSPProxy, LKKCProtocolRTSPProxy, CFSTR("rtsp-proxy") },
+	{ &kSecAttrProtocolRTSPProxy, LKKCProtocolRTSPProxy, CFSTR("rtsp-proxy") }, // *
 	{ &kSecAttrProtocolDAAP, LKKCProtocolDAAP, CFSTR("daap") },
-	{ &kSecAttrProtocolEPPC, LKKCProtocolEPPC, CFSTR("eppc") },
+	{ &kSecAttrProtocolEPPC, LKKCProtocolEPPC, CFSTR("eppc") }, // *
 	{ &kSecAttrProtocolIPP, LKKCProtocolIPP, CFSTR("ipp") },
 	{ &kSecAttrProtocolNNTPS, LKKCProtocolNNTPS, CFSTR("nntps") },
 	{ &kSecAttrProtocolLDAPS, LKKCProtocolLDAPS, CFSTR("ldaps") },
 	{ &kSecAttrProtocolTelnetS, LKKCProtocolTelnetS, CFSTR("telnets") },
 	{ &kSecAttrProtocolIMAPS, LKKCProtocolIMAPS, CFSTR("imaps") },
 	{ &kSecAttrProtocolIRCS, LKKCProtocolIRCS, CFSTR("ircs") },
-	{ &kSecAttrProtocolPOP3S, LKKCProtocolPOP3S, CFSTR("pop3s") }
+	{ &kSecAttrProtocolPOP3S, LKKCProtocolPOP3S, CFSTR("pops") }
 };
 
 static const int cProtocolDescs = sizeof(protocolDescs) / sizeof(ProtocolDesc);
@@ -73,6 +75,17 @@ ProtocolDescFromLKKCProtocol(LKKCProtocol protocol)
     }
 	return NULL;
 }
+
+static ProtocolDesc *
+ProtocolDescFromScheme(NSString *scheme)
+{
+    for (CFIndex i = 0; i < cProtocolDescs; i++) {
+        if ([scheme isEqualToString:(NSString *)protocolDescs[i].scheme])
+            return &protocolDescs[i];
+    }
+	return NULL;
+}
+
 
 #pragma mark - Authentication Types
 
@@ -127,12 +140,20 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     return kSecClassInternetPassword;
 }
 
-+ (NSString *)stringFromProtocol:(LKKCProtocol)protocol
++ (NSString *)urlSchemeFromProtocol:(LKKCProtocol)protocol
 {
     ProtocolDesc *protocolDesc = ProtocolDescFromLKKCProtocol(protocol);
     if (protocolDesc == NULL)
         return @"any";
-    return (NSString *)protocolDesc->description;
+    return (NSString *)protocolDesc->scheme;
+}
+
++ (LKKCProtocol)protocolFromURLScheme:(NSString *)scheme
+{
+    ProtocolDesc *protocolDesc = ProtocolDescFromScheme(scheme);
+    if (protocolDesc == NULL)
+        return LKKCProtocolAny;
+    return protocolDesc->protocol;
 }
 
 + (NSString *)stringFromAuthenticationType:(LKKCAuthenticationType)authenticationType
@@ -150,7 +171,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     
     NSMutableString *desc = [NSMutableString stringWithCapacity:256];
     [desc appendFormat:@"<%@ %p ", [self className], self];
-    [desc appendFormat:@"%@://", [[self class] stringFromProtocol:self.protocol]];
+    [desc appendFormat:@"%@://", [[self class] urlSchemeFromProtocol:self.protocol]];
     
     if ([self.server rangeOfString:@" "].location == NSNotFound) {
         [desc appendString:self.server];
@@ -174,6 +195,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     if (self.securityDomain != nil) {
         [desc appendFormat:@" domain='%@'", self.securityDomain];
     }
+    [desc appendString:@">"];
     return desc;
 }
 
@@ -338,6 +360,51 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     [self setAttribute:kSecValueData toValue:data];
 }
 
+- (NSURL *)url 
+{
+    NSMutableString *string = [NSMutableString string];
+    
+    [string appendString:[self.class urlSchemeFromProtocol:self.protocol]];
+    [string appendString:@"://"];
+    
+    NSString *username = self.account;
+    if (username != nil) {
+        CFStringRef escapedUsername = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)username, NULL, CFSTR(":/?#[]@"), kCFStringEncodingUTF8);
+        [string appendFormat:@"%@@", (id)escapedUsername];
+        CFRelease(escapedUsername);
+    }
+    
+    NSString *host = self.server;
+    CFStringRef escapedHost = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)host, NULL, CFSTR(":/?#[]@"), kCFStringEncodingUTF8);
+    [string appendString:(NSString *)escapedHost];
+    CFRelease(escapedHost);
+    
+    int port = self.port;
+    if (port > 0) {
+        [string appendFormat:@":%d", port];
+    }
+    
+    NSString *path = self.path;
+    if (path != nil) {
+        CFStringRef escapedPath = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)path, NULL, CFSTR("?#[]"), kCFStringEncodingUTF8);
+        [string appendString:(id)escapedPath];
+        CFRelease(escapedPath);
+    }
+    
+    return [NSURL URLWithString:string];
+}
 
+- (void)setUrl:(NSURL *)url 
+{
+    self.protocol = [self.class protocolFromURLScheme:url.scheme];
+    self.account = url.user;
+    self.server = url.host;
+    self.port = [url.port intValue];
+    self.path = url.path;
+    self.authenticationType = LKKCAuthenticationTypeAny;
+    self.securityDomain = nil;
+    if (url.password != nil)
+        self.password = url.password;
+}
 
 @end

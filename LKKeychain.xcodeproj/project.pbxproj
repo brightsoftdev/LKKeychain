@@ -23,6 +23,8 @@
 		BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BB7B60AE145CB39500725E1C /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB7B60AD145CB39500725E1C /* Notes.rtf */; };
+		BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */; };
+		BBCC8B781466F89200691978 /* LKKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BBCC8B771466F89200691978 /* LKKeychain.h */; };
 		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
 		BBD30A701453553700512B69 /* LKKCKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD30A6F1453553700512B69 /* LKKCKeychain.m */; };
@@ -61,6 +63,8 @@
 		BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainItem.m; sourceTree = "<group>"; };
 		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		BB7B60AD145CB39500725E1C /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
+		BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LKKCKeychainItem+Subclasses.h"; sourceTree = "<group>"; };
+		BBCC8B771466F89200691978 /* LKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKeychain.h; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBD30A641453553700512B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -149,9 +153,11 @@
 		BBD30A671453553700512B69 /* LKKeychain */ = {
 			isa = PBXGroup;
 			children = (
+				BBCC8B771466F89200691978 /* LKKeychain.h */,
 				BBD30A6E1453553700512B69 /* LKKCKeychain.h */,
 				BBD30A6F1453553700512B69 /* LKKCKeychain.m */,
 				BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */,
+				BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */,
 				BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */,
 				BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */,
 				BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */,
@@ -213,6 +219,8 @@
 				BB0A08F21454F69A00A5D44C /* LKKCCertificate.h in Headers */,
 				BB0A08F61454F6AA00A5D44C /* LKKCIdentity.h in Headers */,
 				BB0A08FA1454F6D400A5D44C /* LKKCKey.h in Headers */,
+				BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */,
+				BBCC8B781466F89200691978 /* LKKeychain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

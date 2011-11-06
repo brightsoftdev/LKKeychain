@@ -29,3 +29,16 @@ LKKCReportErrorImpl(char *file, int line, OSStatus status, NSError **error, NSSt
     if (errorString)
         CFRelease(errorString);
 }
+
+void 
+LKKCReportErrorObjImpl(char *file, int line, NSError *errorIn, NSError **errorOut, NSString *message, ...)
+{
+    va_list args;
+    va_start(args, message);
+    NSString *bakedMessage = [[[NSString alloc] initWithFormat:message arguments:args] autorelease];
+    va_end(args);
+    NSLog(@"%s:%d: %@: %@ (%@ %d)", file, line, bakedMessage, [errorIn localizedDescription], [errorIn domain], (int)[errorIn code]);
+    if (errorOut != NULL) {
+        *errorOut = errorIn;
+    }
+}

@@ -58,32 +58,52 @@ typedef enum {
 @interface LKKCInternetPassword : LKKCKeychainItem
 
 + (NSString *)stringFromAuthenticationType:(LKKCAuthenticationType)authenticationType;
-+ (NSString *)stringFromProtocol:(LKKCProtocol)protocol;
++ (NSString *)urlSchemeFromProtocol:(LKKCProtocol)protocol;
 
 //kSecClassInternetPassword item attributes:
 //kSecAttrAccess
 //kSecAttrCreator
 //kSecAttrType
 
-@property (nonatomic, retain) NSString *label; // kSecAttrLabel
-@property (nonatomic, retain) NSString *itemDescription; // kSecAttrDescription
-@property (nonatomic, retain) NSString *comment; // kSecAttrComment
+// The human-readable name of this password. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
+@property (nonatomic, retain) NSString *label;
 
+// The human-readable item kind ("Internet Password" by default). Shows up as "Kind" in Keychain Access. (kSecAttrDescription)
+@property (nonatomic, retain) NSString *itemDescription;
+
+// Human-readable comment. Shows up as "Comments" in Keychain Access. (kSecAttrComment)
+@property (nonatomic, retain) NSString *comment;
+
+// Creation date. (kSecAttrCreationDate)
 @property (nonatomic, readonly) NSDate *creationDate; // kSecAttrCreationDate
+
+// Modification date. (KSecAttrModificationDate)
 @property (nonatomic, readonly) NSDate *modificationDate; // kSecAttrModificationDate
 
-@property (nonatomic, assign, getter = isInvisible) BOOL invisible; // kSecAttrIsInvisible
-@property (nonatomic, assign, getter = isNegative) BOOL negative; // kSecAttrIsNegative
+// If YES, password value doesn't show in Keychain Access. (kSecAttrIsInvisible)
+@property (nonatomic, assign, getter = isInvisible) BOOL invisible;
 
-@property (nonatomic, retain) NSString *account; // kSecAttrAccount
-@property (nonatomic, retain) NSString *securityDomain; // kSecAttrSecurityDomain
-@property (nonatomic, retain) NSString *server; // kSecAttrServer
-@property (nonatomic, assign) LKKCProtocol protocol; // kSecAttrProtocol
-@property (nonatomic, assign) LKKCAuthenticationType authenticationType; // kSecAttrAuthenticationType
-@property (nonatomic, assign) int port; // kSecAttrPort
-@property (nonatomic, assign) NSString *path; // kSecAttrPath
+// If YES, item has no password; user has disabled password storage for this account. (kSecAttrIsNegative)
+@property (nonatomic, assign, getter = isNegative) BOOL negative;
+
+
+// Account name, a.k.a. username. (kSecAttrAccount)
+@property (nonatomic, retain) NSString *account;
+// Security domain (kSecAttrSecurityDomain)
+@property (nonatomic, retain) NSString *securityDomain;
+// Server name, a.k.a hostname. (kSecAttrServer)
+@property (nonatomic, retain) NSString *server;
+// Protocol (kSecAttrProtocol)
+@property (nonatomic, assign) LKKCProtocol protocol;
+// Authentication type (kSecAttrAuthenticationType)
+@property (nonatomic, assign) LKKCAuthenticationType authenticationType;
+// Port number, or 0 if unspecified (kSecAttrPort)
+@property (nonatomic, assign) int port;
+// Resource path (kSecAttrPath)
+@property (nonatomic, assign) NSString *path;
 
 @property (nonatomic, retain) NSString *password;
 
+@property (nonatomic, copy) NSURL *url;
 
 @end

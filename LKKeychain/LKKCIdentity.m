@@ -7,6 +7,7 @@
 //
 
 #import "LKKCIdentity.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCCertificate.h"
 #import "LKKCKey.h"
 #import "LKKCUtil.h"

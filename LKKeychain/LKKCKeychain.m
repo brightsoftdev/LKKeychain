@@ -7,7 +7,7 @@
 //
 
 #import "LKKCKeychain.h"
-#import "LKKCKeychainItem.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCUtil.h"
 
 static CFMutableDictionaryRef keychains = NULL;

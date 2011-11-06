@@ -42,4 +42,7 @@ typedef enum {
 @property (nonatomic, assign) BOOL canUnwrap; // kSecAttrCanUnwrap
 #endif
 
+
+@property (nonatomic, readonly) SecKeyRef SecKey;
+
 @end
