@@ -19,6 +19,17 @@
     return kSecClassGenericPassword;
 }
 
++ (LKKCGenericPassword *)createPassword:(NSString *)password 
+                                service:(NSString *)service
+                                account:(NSString *)account
+{
+    LKKCGenericPassword *item = [[LKKCGenericPassword alloc] initWithSecKeychainItem:nil attributes:[NSDictionary dictionary]];
+    item.service = service;
+    item.account = account;
+    item.password = password;
+    return [item autorelease];
+}
+
 - (NSString *)description
 {
     if (self.SecKeychainItem == NULL)

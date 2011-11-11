@@ -10,6 +10,10 @@
 
 @interface LKKCGenericPassword : LKKCKeychainItem
 
++ (LKKCGenericPassword *)createPassword:(NSString *)password 
+                                service:(NSString *)service
+                                account:(NSString *)account;
+
 // Service name. Shows up as "Where" in Keychain Access. (kSecAttrService)
 // For application-specific passwords, use the app's bundle ID for this field.
 @property (nonatomic, retain) NSString *service;
