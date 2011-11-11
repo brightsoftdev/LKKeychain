@@ -9,13 +9,15 @@
 #import "LKKCKeychainItem.h"
 
 @interface LKKCKeychainItem (Subclasses)
-@property (nonatomic, readonly) NSDictionary *attributes;
 + (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID error:(NSError **)error;
 + (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem error:(NSError **)error;
 + (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes error:(NSError **)error;
 
 + (CFTypeRef)itemClass;
++ (void)registerSubclass:(Class)cls;
 
 - (id)initWithSecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes;
+
+@property (nonatomic, readonly) NSDictionary *attributes;
 - (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value;
 @end

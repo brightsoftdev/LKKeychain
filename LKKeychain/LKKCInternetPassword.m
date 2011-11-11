@@ -135,6 +135,13 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 @implementation LKKCInternetPassword
 
++ (void)load
+{
+    if (self != [LKKCInternetPassword class])
+        return;
+    [LKKCKeychainItem registerSubclass:self];
+}
+
 + (CFTypeRef)itemClass
 {
     return kSecClassInternetPassword;

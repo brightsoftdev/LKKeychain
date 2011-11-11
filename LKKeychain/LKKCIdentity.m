@@ -14,6 +14,13 @@
 
 @implementation LKKCIdentity
 
++ (void)load
+{
+    if (self != [LKKCIdentity class])
+        return;
+    [LKKCKeychainItem registerSubclass:self];
+}
+
 + (CFTypeRef)itemClass
 {
     return kSecClassIdentity;

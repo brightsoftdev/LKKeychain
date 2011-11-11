@@ -11,6 +11,13 @@
 
 @implementation LKKCKey
 
++ (void)load
+{
+    if (self != [LKKCKey class])
+        return;
+    [LKKCKeychainItem registerSubclass:self];
+}
+
 + (CFTypeRef)itemClass
 {
     return kSecClassKey;

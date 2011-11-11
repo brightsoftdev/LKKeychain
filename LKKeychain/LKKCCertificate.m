@@ -13,6 +13,13 @@
 
 @implementation LKKCCertificate
 
++ (void)load
+{
+    if (self != [LKKCCertificate class])
+        return;
+    [LKKCKeychainItem registerSubclass:self];
+}
+
 + (CFTypeRef)itemClass
 {
     return kSecClassCertificate;

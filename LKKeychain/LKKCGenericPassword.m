@@ -14,6 +14,13 @@
 
 @implementation LKKCGenericPassword
 
++ (void)load
+{
+    if (self != [LKKCGenericPassword class])
+        return;
+    [LKKCKeychainItem registerSubclass:self];
+}
+
 + (CFTypeRef)itemClass
 {
     return kSecClassGenericPassword;

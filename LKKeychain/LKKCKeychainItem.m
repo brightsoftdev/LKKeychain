@@ -25,13 +25,13 @@ static CFMutableDictionaryRef knownItemClasses;
     NSMutableDictionary *_updatedAttributes;
 }
 
-+ (void)initialize {
-    knownItemClasses = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, NULL);
-    CFDictionarySetValue(knownItemClasses, kSecClassGenericPassword, [LKKCGenericPassword class]);
-    CFDictionarySetValue(knownItemClasses, kSecClassInternetPassword, [LKKCInternetPassword class]);
-    CFDictionarySetValue(knownItemClasses, kSecClassCertificate, [LKKCCertificate class]);
-    CFDictionarySetValue(knownItemClasses, kSecClassIdentity, [LKKCIdentity class]);
-    CFDictionarySetValue(knownItemClasses, kSecClassKey, [LKKCKey class]);
++ (void)registerSubclass:(Class)cls
+{
+    if (knownItemClasses == nil) {
+        knownItemClasses = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, 
+                                                     &kCFTypeDictionaryKeyCallBacks, NULL);
+    }
+    CFDictionarySetValue(knownItemClasses, [cls itemClass], cls);
 }
 
 - (id)initWithSecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes 
