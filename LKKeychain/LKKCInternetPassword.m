@@ -164,6 +164,12 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     return (NSString *)desc->description;
 }
 
++ (LKKCInternetPassword *)createPassword
+{
+    LKKCInternetPassword *item = [[LKKCInternetPassword alloc] initWithSecKeychainItem:NULL attributes:[NSDictionary dictionary]];
+    return [item autorelease];
+}
+
 - (NSString *)description
 {
     if (self.SecKeychainItem == NULL)

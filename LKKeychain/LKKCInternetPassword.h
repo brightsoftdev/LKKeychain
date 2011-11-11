@@ -60,10 +60,7 @@ typedef enum {
 + (NSString *)stringFromAuthenticationType:(LKKCAuthenticationType)authenticationType;
 + (NSString *)urlSchemeFromProtocol:(LKKCProtocol)protocol;
 
-//kSecClassInternetPassword item attributes:
-//kSecAttrAccess
-//kSecAttrCreator
-//kSecAttrType
++ (LKKCInternetPassword *)createPassword;
 
 // The human-readable name of this password. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
 @property (nonatomic, retain) NSString *label;
@@ -102,8 +99,14 @@ typedef enum {
 // Resource path (kSecAttrPath)
 @property (nonatomic, assign) NSString *path;
 
-@property (nonatomic, retain) NSString *password;
-
 @property (nonatomic, copy) NSURL *url;
 
+@property (nonatomic, retain) NSString *password;
+
 @end
+
+//kSecClassInternetPassword item attributes:
+//kSecAttrAccess
+//kSecAttrCreator
+//kSecAttrType
+
