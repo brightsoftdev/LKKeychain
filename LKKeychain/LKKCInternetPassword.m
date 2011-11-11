@@ -222,14 +222,14 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     [self setAttribute:kSecAttrLabel toValue:label];
 }
 
-- (NSString *)itemDescription
+- (NSString *)kind
 {
     return [self.attributes objectForKey:kSecAttrDescription];
 }
 
-- (void)setItemDescription:(NSString *)description
+- (void)setKind:(NSString *)kind
 {
-    [self setAttribute:kSecAttrDescription toValue:description];
+    [self setAttribute:kSecAttrDescription toValue:kind];
 }
 
 - (NSString *)comment

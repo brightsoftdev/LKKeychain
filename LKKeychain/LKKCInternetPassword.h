@@ -66,16 +66,16 @@ typedef enum {
 @property (nonatomic, retain) NSString *label;
 
 // The human-readable item kind ("Internet Password" by default). Shows up as "Kind" in Keychain Access. (kSecAttrDescription)
-@property (nonatomic, retain) NSString *itemDescription;
+@property (nonatomic, retain) NSString *kind;
 
 // Human-readable comment. Shows up as "Comments" in Keychain Access. (kSecAttrComment)
 @property (nonatomic, retain) NSString *comment;
 
 // Creation date. (kSecAttrCreationDate)
-@property (nonatomic, readonly) NSDate *creationDate; // kSecAttrCreationDate
+@property (nonatomic, readonly) NSDate *creationDate;
 
 // Modification date. (KSecAttrModificationDate)
-@property (nonatomic, readonly) NSDate *modificationDate; // kSecAttrModificationDate
+@property (nonatomic, readonly) NSDate *modificationDate;
 
 // If YES, password value doesn't show in Keychain Access. (kSecAttrIsInvisible)
 @property (nonatomic, assign, getter = isInvisible) BOOL invisible;

@@ -28,7 +28,7 @@
 @property (nonatomic, retain) NSString *label;
 
 // The human-readable item kind ("Application Password" by default). Shows up as "Kind" in Keychain Access. (kSecAttrDescription)
-@property (nonatomic, retain) NSString *itemDescription;
+@property (nonatomic, retain) NSString *kind;
 
 // Human-readable comment. Shows up as "Comments" in Keychain Access. (kSecAttrComment)
 @property (nonatomic, retain) NSString *comment;
