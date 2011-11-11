@@ -50,6 +50,15 @@ static CFMutableDictionaryRef keychains = NULL;
         LKKCReportError(status, error, @"Can't open keychain at '%@'", path);
         return nil;
     }
+    // SecKeychainOpen reports no error when the specified keychain does not exist,
+    // but SecKeychainGetStatus does.
+    SecKeychainStatus keychainStatus;
+    status = SecKeychainGetStatus(skeychain, &keychainStatus);
+    if (status) {
+        LKKCReportError(status, error, @"Invalid keychain at '%@'", path);
+        CFRelease(skeychain);
+        return nil;
+    }
     LKKCKeychain *keychain = [[LKKCKeychain alloc] initWithSecKeychain:skeychain];
     CFRelease(skeychain);
     return [keychain autorelease];    
@@ -124,10 +133,12 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (void)dealloc
 {
-    NSAssert(CFDictionaryContainsKey(keychains, _skeychain), @"");
-    CFDictionaryRemoveValue(keychains, _skeychain);
-    CFRelease(_skeychain);
-    _skeychain = NULL;
+    if (_skeychain != NULL) {
+        NSAssert(CFDictionaryContainsKey(keychains, _skeychain), @"");
+        CFDictionaryRemoveValue(keychains, _skeychain);
+        CFRelease(_skeychain);
+        _skeychain = NULL;
+    }
     [super dealloc];
 }
 
@@ -157,7 +168,9 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (NSString *)path
 {
-    NSAssert(_skeychain, @"Keychain deleted");
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
 
     OSStatus status;
     UInt32 pathsize = MAXPATHLEN;
@@ -180,7 +193,9 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (SecKeychainStatus)status
 {
-    NSAssert(_skeychain, @"Keychain deleted");
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
 
     SecKeychainStatus skeychainStatus = 0;
     OSStatus status = SecKeychainGetStatus(_skeychain, &skeychainStatus);
@@ -208,7 +223,9 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (BOOL)getSettings:(SecKeychainSettings *)settings error:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain deleted");
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
 
     OSStatus status;
     settings->version = SEC_KEYCHAIN_SETTINGS_VERS1;
@@ -301,7 +318,9 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (BOOL)lockWithError:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain deleted");
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
     OSStatus status = SecKeychainLock(_skeychain);
     if (status) {
         LKKCReportError(status, error, @"Can't lock keychain");
@@ -312,7 +331,9 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (BOOL)unlockWithPassword:(NSString *)password error:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain deleted");
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
     OSStatus status;
     if (password != nil) {
         status = SecKeychainUnlock(_skeychain, (UInt32)[password length], [password UTF8String], YES);
@@ -329,12 +350,15 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (BOOL)deleteKeychainWithError:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain already deleted");
+    if (_skeychain == NULL)
+        return YES;
     OSStatus status = SecKeychainDelete(_skeychain);
     if (status) {
         LKKCReportError(status, error, @"Can't delete keychain");
         return NO;
     }
+    NSAssert(CFDictionaryContainsKey(keychains, _skeychain), @"");
+    CFDictionaryRemoveValue(keychains, _skeychain);
     CFRelease(_skeychain);
     _skeychain = NULL;
     return YES;
@@ -344,12 +368,11 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (NSArray *)findItemsWithClass:(CFTypeRef)itemClass query:(NSDictionary *)query error:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain deleted");
-    NSMutableDictionary *q;
-    if (query != nil)
-        q = [NSMutableDictionary dictionaryWithDictionary:query];
-    else
-        q = [NSMutableDictionary dictionary];
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
+    NSMutableDictionary *q = [NSMutableDictionary dictionary];
+    [q addEntriesFromDictionary:query];
     [q setObject:itemClass forKey:kSecClass];
     [q setObject:[NSArray arrayWithObject:(id)_skeychain] forKey:kSecMatchSearchList];
     [q setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
@@ -379,10 +402,13 @@ static CFMutableDictionaryRef keychains = NULL;
 
 - (id)findItemWithClass:(CFTypeRef)itemClass query:(NSDictionary *)query error:(NSError **)error
 {
-    NSAssert(_skeychain, @"Keychain deleted");
-    NSMutableDictionary *q = [NSMutableDictionary dictionaryWithDictionary:query];
+    if (_skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain has been deleted"];
+    }
+    NSMutableDictionary *q = [NSMutableDictionary dictionary];
+    [q addEntriesFromDictionary:query];
     [q setObject:itemClass forKey:kSecClass];
-    [q setObject:(id)_skeychain forKey:kSecMatchSearchList];
+    [q setObject:[NSArray arrayWithObject:(id)_skeychain] forKey:kSecMatchSearchList];
     [q setObject:(id)kCFBooleanTrue forKey:kSecReturnRef];
     [q setObject:(id)kCFBooleanTrue forKey:kSecReturnAttributes];
     [q setObject:kSecMatchLimitOne forKey:kSecMatchLimit];

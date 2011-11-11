@@ -31,8 +31,6 @@
 - (LKKCGenericPassword *)genericPasswordWithPersistentID:(NSData *)persistentID;
 - (LKKCGenericPassword *)genericPasswordWithService:(NSString *)service account:(NSString *)account;
 
-//+ (LKKCGenericPassword *)createPassword:(NSString *)password service:(NSString *)service account:(NSString *)account;
-
 // Internet passwords.
 - (NSArray *)internetPasswords;
 - (LKKCInternetPassword *)internetPasswordWithPersistentID:(NSData *)persistentID;

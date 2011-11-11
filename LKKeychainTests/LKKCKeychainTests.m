@@ -7,10 +7,32 @@
 //
 
 #import "LKKCKeychainTests.h"
-#import "LKKCKeychain.h"
+#import "LKKeychain.h"
 
 @implementation LKKCKeychainTests {
     BOOL _userInteractionEnabled;
+}
+
+- (LKKCKeychain *)createTestKeychain
+{
+    NSError *error = nil;
+    BOOL result;
+    
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Test.keychain"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        LKKCKeychain *oldkeychain = [LKKCKeychain keychainWithPath:path error:&error];
+        if (oldkeychain != nil) {
+            result = [oldkeychain deleteKeychainWithError:&error];
+            should(result);
+        }
+    }
+    LKKCKeychain *keychain = [[LKKCKeychain createKeychainWithPath:path password:@"foobar" error:&error] retain];
+    should(keychain != nil);
+        
+    should(!keychain.locked);
+    should(keychain.readable);
+    should(keychain.writable);
+    return keychain;
 }
 
 - (void)setUp
@@ -46,6 +68,77 @@
     should([LKKCKeychain userInteractionEnabled] == enabled);
 }
 
+- (void)testNonexistentKeychain
+{
+    NSError *error = nil;
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Test-nonexistent.keychain"];
+    LKKCKeychain *keychain = [LKKCKeychain keychainWithPath:path error:&error];
+    should(keychain == nil && error != nil);
+}
+
+- (void)testKeychainCreationAndDeletion
+{
+    NSError *error = nil;
+    BOOL result;
+    
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Test-New.keychain"];
+    LKKCKeychain *keychain = [LKKCKeychain keychainWithPath:path error:&error];
+    if (keychain != nil) {
+        result = [keychain deleteKeychainWithError:&error];
+        should(result);
+    }
+    
+    keychain = [LKKCKeychain createKeychainWithPath:path password:@"foobar" error:&error];
+    should(keychain != nil);
+    
+    should([[NSFileManager defaultManager] fileExistsAtPath:path]);
+    
+    should(!keychain.locked);
+    should(keychain.readable);
+    should(keychain.writable);
+    
+    should([keychain.genericPasswords count] == 0);
+    should([keychain.internetPasswords count] == 0);
+
+    @autoreleasepool {
+        LKKCGenericPassword *password = [LKKCGenericPassword createPassword:@"foobar" service:@"service" account:@"account"];
+        result = [password addToKeychain:keychain error:&error];
+        should(result);
+    }
+    
+    should([keychain.genericPasswords count] == 1);
+    should([keychain.internetPasswords count] == 0);
+
+    @autoreleasepool {
+        LKKCGenericPassword *password2 = [keychain genericPasswordWithService:@"service" account:@"account"];
+        should(password2 != nil);
+        should([password2.password isEqualToString:@"foobar"]);
+    }
+    
+    result = [keychain deleteKeychainWithError:&error];
+    should(result);
+    should(![[NSFileManager defaultManager] fileExistsAtPath:path]);
+}
+
+- (void)testLock
+{
+    LKKCKeychain *keychain = [self createTestKeychain];
+    should(!keychain.locked);
+    NSError *error = nil;
+    BOOL result = [keychain lockWithError:&error];
+    should(result);
+    should(keychain.locked);
+    result = [keychain unlockWithPassword:@"wrongpassword" error:&error];
+    should(!result && error != nil);
+    should(keychain.locked);
+    result = [keychain unlockWithPassword:@"foobar" error:&error];
+    should(result);
+    should(!keychain.locked);
+    
+    result = [keychain deleteKeychainWithError:&error];
+    should(result);
+}
+
 - (void)logKeychainParameters:(LKKCKeychain *)keychain
 {
     NSLog(@"================");
@@ -71,27 +164,6 @@
     LKKCKeychain *keychain = [LKKCKeychain defaultKeychainWithError:&error];
     should(keychain != nil);
     [self logKeychainParameters:keychain];
-    
-    NSLog(@"Generic passwords:");
-    NSLog(@"%@", [keychain genericPasswords]);
-
-    NSLog(@"Internet passwords:");
-    NSLog(@"%@", [keychain internetPasswords]);
-
-    NSLog(@"Certificates:");
-    NSLog(@"%@", [keychain certificates]);
-    
-    NSLog(@"Identities:");
-    NSLog(@"%@", [keychain identities]);
-    
-    NSLog(@"Public keys:");
-    NSLog(@"%@", [keychain publicKeys]);
-    
-    NSLog(@"Private keys:");
-    NSLog(@"%@", [keychain privateKeys]);
-    
-    NSLog(@"Symmetric keys:");
-    NSLog(@"%@", [keychain symmetricKeys]);
 }
 
 - (void)testSearchList
