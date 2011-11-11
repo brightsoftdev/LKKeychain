@@ -23,6 +23,21 @@
     return [NSString stringWithFormat:@"<%@ %p '%@'>", [self className], self, self.label];
 }
 
++ (LKKCCertificate *)certificateWithDERData:(NSData *)data
+{
+    SecCertificateRef scertificate = SecCertificateCreateWithData(kCFAllocatorDefault, (CFDataRef)data);
+    LKKCCertificate *certificate = [[LKKCCertificate alloc] initWithSecKeychainItem:(SecKeychainItemRef)scertificate attributes:nil];
+    CFRelease(scertificate);
+    return [certificate autorelease];
+}
+
++ (LKKCCertificate *)certificateWithSecCertificate:(SecCertificateRef)scertificate
+{
+    LKKCCertificate *certificate = [[LKKCCertificate alloc] initWithSecKeychainItem:(SecKeychainItemRef)scertificate attributes:nil];
+    return [certificate autorelease];
+}
+
+
 #pragma mark - Attributes
 
 - (NSString *)label
@@ -37,10 +52,13 @@
 
 - (NSData *)subject
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     NSData *subject = [[self attributes] objectForKey:kSecAttrSubject];
     if (subject == nil && SecCertificateCopyNormalizedSubjectContent != NULL) { // 10.7
         NSError *error = nil;
-        subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(self.SecCertificate, (CFErrorRef *)&error);
+        subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(scertificate, (CFErrorRef *)&error);
         if (subject == nil) {
             LKKCReportErrorObj(error, NULL, @"Can't get normalized subject content");
         }
@@ -51,10 +69,13 @@
 
 - (NSData *)issuer
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     NSData *issuer = [[self attributes] objectForKey:kSecAttrIssuer];
     if (issuer == nil && SecCertificateCopyNormalizedIssuerContent != NULL) { // 10.7
         NSError *error = nil;
-        issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(self.SecCertificate, (CFErrorRef *)&error);
+        issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(scertificate, (CFErrorRef *)&error);
         if (issuer == nil) {
             LKKCReportErrorObj(error, NULL, @"Can't get normalized issuer content");
         }
@@ -65,26 +86,41 @@
 
 - (NSData *)serialNumber
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     return [[self attributes] objectForKey:kSecAttrSerialNumber];
 }
 
 - (NSData *)subjectKeyID
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     return [[self attributes] objectForKey:kSecAttrSubjectKeyID];
 }
 
 - (NSData *)publicKeyHash
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     return [[self attributes] objectForKey:kSecAttrPublicKeyHash];
 }
 
 - (id)certificateType
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     return [[self attributes] objectForKey:kSecAttrCertificateType];
 }
 
 - (id)certificateEncoding
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     return [[self attributes] objectForKey:kSecAttrCertificateEncoding];
 }
 
@@ -97,8 +133,11 @@
 
 - (NSString *)commonName
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     CFStringRef cn = NULL;
-    OSStatus status = SecCertificateCopyCommonName(self.SecCertificate, &cn);
+    OSStatus status = SecCertificateCopyCommonName(scertificate, &cn);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get common name from certificate");
         return nil;
@@ -108,14 +147,20 @@
 
 - (NSString *)subjectSummary
 {
-    CFStringRef summary = SecCertificateCopySubjectSummary(self.SecCertificate);
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
+    CFStringRef summary = SecCertificateCopySubjectSummary(scertificate);
     return [(NSString *)summary autorelease];
 }
 
 - (NSArray *)emailAddresses
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     CFArrayRef addresses = NULL;
-    OSStatus status = SecCertificateCopyEmailAddresses(self.SecCertificate, &addresses);
+    OSStatus status = SecCertificateCopyEmailAddresses(scertificate, &addresses);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get email addresses from certificate");
         return nil;
@@ -125,8 +170,11 @@
 
 - (LKKCKey *)publicKey
 {
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
     SecKeyRef key = NULL;
-    OSStatus status = SecCertificateCopyPublicKey(self.SecCertificate, &key);
+    OSStatus status = SecCertificateCopyPublicKey(scertificate, &key);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get public key from certificate");
         return nil;
@@ -135,6 +183,15 @@
     LKKCKey *result = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)key error:NULL];
     CFRelease(key);
     return result;
+}
+
+- (NSData *)data
+{
+    SecCertificateRef scertificate = self.SecCertificate;
+    if (scertificate == NULL)
+        return nil;
+    NSData *data = (NSData *)SecCertificateCopyData(scertificate);
+    return [data autorelease];
 }
 
 @end

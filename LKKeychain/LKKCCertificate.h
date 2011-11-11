@@ -11,6 +11,13 @@
 @class LKKCKey;
 @interface LKKCCertificate : LKKCKeychainItem
 
++ (LKKCCertificate *)certificateWithDERData:(NSData *)data;
++ (LKKCCertificate *)certificateWithSecCertificate:(SecCertificateRef)scertificate;
+
+//- (BOOL)validate;
+//- (BOOL)validateForSSLServer:(NSString *)hostname;
+//- (BOOL)validateForEmailAddress:(NSString *)emailAddress;
+
 @property (nonatomic, readonly) LKKCKey *publicKey;
 
 // The human-readable name of this certificate. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
@@ -47,6 +54,8 @@
 // Email addresses included in the certificate subject.
 @property (nonatomic, readonly) NSArray *emailAddresses;
 
+// Certificate data in DER format.
+@property (nonatomic, readonly) NSData *data;
 
 @property (nonatomic, readonly) SecCertificateRef SecCertificate;
 
