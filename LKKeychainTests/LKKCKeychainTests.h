@@ -10,5 +10,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface LKKCKeychainTests : SenTestCase
-
 @end

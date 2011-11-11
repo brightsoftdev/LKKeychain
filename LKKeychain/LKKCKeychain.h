@@ -36,10 +36,6 @@
 - (LKKCInternetPassword *)internetPasswordWithPersistentID:(NSData *)persistentID;
 - (NSArray *)internetPasswordsForServer:(NSString *)server;
 
-//     Internet: kSecAccountItemAttr, kSecSecurityDomainItemAttr, kSecServerItemAttr, kSecProtocolItemAttr, kSecAuthenticationTypeItemAttr, kSecPortItemAttr, kSecPathItemAttr
-
-//+ (LKKCInternetPassword *)createInternetPassword:(NSString *)password url:(NSURL *)url domain:(NSString *)domain;
-
 // Certificates.
 - (NSArray *)certificates;
 - (LKKCCertificate *)certificateWithPersistentID:(NSData *)persistentID;

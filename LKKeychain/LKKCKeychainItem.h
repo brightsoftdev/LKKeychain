@@ -15,7 +15,10 @@
 @property (nonatomic, readonly) LKKCKeychain *keychain;
 @property (nonatomic, readonly) SecKeychainItemRef SecKeychainItem;
 
+// Save modifications to the keychain.
 - (BOOL)saveItemWithError:(NSError **)error;
+
+// Reloads item from keychain.
 - (void)revertItem;
 
 // Add item to keychain. Object is refreshed to reflect the change.

@@ -268,7 +268,8 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (void)revertItem 
 {
-    NSAssert(_sitem, @"Item deleted");
+    if (_sitem == NULL)
+        return;
     if (_updatedAttributes) {
         [_updatedAttributes release];
         _updatedAttributes = nil;
