@@ -30,7 +30,7 @@
                                 service:(NSString *)service
                                 account:(NSString *)account
 {
-    LKKCGenericPassword *item = [[LKKCGenericPassword alloc] initWithSecKeychainItem:nil attributes:[NSDictionary dictionary]];
+    LKKCGenericPassword *item = [[LKKCGenericPassword alloc] initWithSecKeychainItem:nil attributes:nil];
     item.service = service;
     item.account = account;
     item.password = password;

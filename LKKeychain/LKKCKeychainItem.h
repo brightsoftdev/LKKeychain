@@ -17,6 +17,12 @@
 
 - (BOOL)saveItemWithError:(NSError **)error;
 - (void)revertItem;
+
+// Add item to keychain. Object is refreshed to reflect the change.
+- (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error;
+
+// Delete item from its keychain.
 - (BOOL)deleteItemWithError:(NSError **)error;
+- (BOOL)isDeleted;
 
 @end

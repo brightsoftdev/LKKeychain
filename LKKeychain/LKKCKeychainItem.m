@@ -20,6 +20,8 @@ static CFMutableDictionaryRef knownItemClasses;
 
 @implementation LKKCKeychainItem
 {
+    // _sitem may be null for freshly created passwords that aren't on a keychain yet.
+    // Deleted items have _sitem, _attributes and _updatedAttributes set to nil.
     SecKeychainItemRef _sitem;
     NSMutableDictionary *_attributes;
     NSMutableDictionary *_updatedAttributes;
@@ -34,16 +36,26 @@ static CFMutableDictionaryRef knownItemClasses;
     CFDictionarySetValue(knownItemClasses, [cls itemClass], cls);
 }
 
-- (id)initWithSecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes 
+- (id)initWithSecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes
 {
     self = [super init];
     if (self == nil)
         return nil;
-    CFRetain(sitem);
-    _sitem = sitem;
+    if (sitem != NULL) {
+        CFRetain(sitem);
+        _sitem = sitem;
+    }
+ 
     if (attributes != nil) {
         _attributes = [attributes mutableCopy];
+        [_attributes removeObjectForKey:kSecValueData];
+        [_attributes removeObjectForKey:kSecValuePersistentRef];
+        [_attributes removeObjectForKey:kSecValueRef];
     }
+    else if (sitem == NULL) {
+        _attributes = [[NSMutableDictionary alloc] init];
+    }
+    
     return self;
 }
 
@@ -119,8 +131,9 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (NSDictionary *)attributes 
 {
-    NSAssert(_sitem, @"Item deleted");
     if (_attributes == nil) {
+        if (_sitem == NULL)
+            return nil;
         NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                                [[self class] itemClass], kSecClass,
                                [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
@@ -144,14 +157,19 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value 
 {
-    NSAssert(_sitem, @"Item deleted");
-
+    if (_sitem == nil && _attributes == nil) {
+        [NSException raise:NSInvalidArgumentException format:@"Can't set attributes on deleted items"];
+    }
     if (_updatedAttributes == nil) {
         _updatedAttributes = [[NSMutableDictionary alloc] init];
     }
+    if (_attributes == nil) {
+        [self attributes];
+    }
+    NSAssert(_attributes != nil, @"");
     if (value == nil)
         value = [NSNull null];
-    [(NSMutableDictionary *)self.attributes setObject:value forKey:attribute];
+    [_attributes setObject:value forKey:attribute];
     [_updatedAttributes setObject:value forKey:attribute];
 }
 
@@ -164,7 +182,8 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (NSData *)persistentID
 {
-    NSAssert(_sitem, @"Item deleted");
+    if (_sitem == NULL)
+        return nil;
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            [[self class] itemClass], kSecClass,
                            [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
@@ -182,14 +201,17 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (NSData *)rawData
 {
-    NSAssert(_sitem, @"Item deleted");
+    NSData *data = [self.attributes objectForKey:kSecValueData];
+    if (data != nil)
+        return data;
+    if (_sitem == NULL)
+        return nil;
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            [[self class] itemClass], kSecClass,
                            [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
                            kCFBooleanTrue, kSecReturnData,
                            kSecMatchLimitOne, kSecMatchLimit,
                            nil];
-    NSData *data = nil;
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&data);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get raw data of item");
@@ -205,8 +227,8 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (LKKCKeychain *)keychain
 {
-    NSAssert(_sitem, @"Item deleted");
-
+    if (_sitem == NULL)
+        return nil;
     OSStatus status;
     SecKeychainRef skeychain = NULL;
     status = SecKeychainItemCopyKeychain(_sitem, &skeychain);
@@ -223,7 +245,9 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (BOOL)saveItemWithError:(NSError **)error
 {
-    NSAssert(_sitem, @"Item deleted");
+    if (_sitem == nil) {
+        [NSException raise:NSInvalidArgumentException format:@"Can't save items that aren't on a keychain"];
+    }
     if (_updatedAttributes == nil || [_updatedAttributes count] == 0) {
         return YES;
     }
@@ -255,12 +279,55 @@ static CFMutableDictionaryRef knownItemClasses;
     }
 }
 
+- (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error
+{
+    if (_sitem == NULL && _attributes == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Can't add deleted items to keychains"];
+    }
+    SecKeychainRef skeychain = keychain.SecKeychain;
+    if (skeychain == NULL) {
+        [NSException raise:NSInvalidArgumentException format:@"Keychain must not be zero"];
+    }
+        
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    if (_sitem != NULL) {
+        [attributes setObject:[NSArray arrayWithObject:(id)_sitem] forKey:kSecUseItemList];
+    }
+    else {
+        [attributes addEntriesFromDictionary:_attributes];
+    }
+    [attributes setObject:[[self class] itemClass] forKey:kSecClass];
+    [attributes setObject:(id)skeychain forKey:kSecUseKeychain]; // Private in 10.6
+    [attributes setObject:[NSNumber numberWithBool:YES] forKey:kSecReturnRef];
+    
+    SecKeychainItemRef result = nil;
+    OSStatus status = SecItemAdd((CFDictionaryRef)attributes, (CFTypeRef *)&result);
+    if (status) {
+        LKKCReportError(status, error, @"Can't add keychain item");
+        return NO;
+    }
+    
+    if (_sitem != NULL) {
+        CFRelease(_sitem);
+        _sitem = result; // pass ownership; retain isn't necessary
+        if (![self saveItemWithError:error]) {
+            [self revertItem];
+            return NO;
+        }
+    }
+    else { // _sitem was NULL
+        _sitem = result; // pass ownership; retain isn't necessary
+    }
+    [self revertItem];
+    return YES;
+}
+
 - (BOOL)deleteItemWithError:(NSError **)error
 {
-    NSAssert(_sitem, @"Item already deleted");
-    CFTypeRef itemClass = [self.attributes objectForKey:kSecClass];
+    if (_sitem == NULL)
+        return YES;
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           itemClass, kSecClass,
+                           [[self class] itemClass], kSecClass,
                            [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
                            kSecMatchLimitOne, kSecMatchLimit,
                            nil];    
@@ -269,8 +336,18 @@ static CFMutableDictionaryRef knownItemClasses;
         LKKCReportError(status, error, @"Can't delete keychain item");
         return NO;
     }
+    // The keychain query functions like to crash if we don't release deleted items immediately.
     CFRelease(_sitem);
     _sitem = NULL;
+    [_updatedAttributes release];
+    _updatedAttributes = nil;
+    [_attributes release];
+    _attributes = nil;
     return YES;
+}
+
+- (BOOL)isDeleted
+{
+    return _sitem == NULL && _attributes == nil;
 }
 @end
