@@ -14,40 +14,48 @@ It returns a floating password item that isn't on a keychain yet. The password's
 are accessible as simple read-write properties. Once you've set up the attributes you want, call 
 `-[LKKCKeychainItem addToKeychain:withError:]` to add the item to a keychain.
 
-    LKKCGenericPassword *password = [LKKCGenericPassword createPassword:@"secretPassword" 
-                                                                service:[[NSBundle mainBundle] bundleIdentifier]
-                                                                account:@"sample account"];
-    password.label = [NSString stringWithFormat:@"%@ (%@)", password.service, password.account];
+```Objective-C
+LKKCGenericPassword *password = [LKKCGenericPassword createPassword:@"secretPassword" 
+                                                            service:[[NSBundle mainBundle] bundleIdentifier]
+                                                            account:@"sample account"];
+password.label = [NSString stringWithFormat:@"%@ (%@)", password.service, password.account];
     
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-    BOOL result = [password addToKeychain:keychain withError:NULL];
-    if (!result) {
-        // Oops
-    }
+LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+BOOL result = [password addToKeychain:keychain withError:NULL];
+if (!result) {
+    // Oops
+}
+```
 
 `LKKCKeychain` instances have methods for retrieving passwords stored on a particular keychain.
 
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-    LKKCGenericPassword *password = [keychain genericPasswordWithService:[[NSBundle mainBundle] bundleIdentifier] 
-                                                                 account:@"sample account"];
-    NSLog(@"Password: %@", password.password);
+```Objective-C
+LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+LKKCGenericPassword *password = [keychain genericPasswordWithService:[[NSBundle mainBundle] bundleIdentifier] 
+                                                             account:@"sample account"];
+NSLog(@"Password: %@", password.password);
+```
 
 To modify an existing password, simply assign new values to its properties and save the changes using `-[LKKCKeychainItem saveItemWithError:]`.
 
-    password.password = @"NewP4ssword";
-    password.comment = @"This is a comment for the sample account password.";
-    
-    result = [password saveItemWithError:NULL];
-    if (!result) {
-        // Oops
-    }
+```Objective-C
+password.password = @"NewP4ssword";
+password.comment = @"This is a comment for the sample account password.";
+
+result = [password saveItemWithError:NULL];
+if (!result) {
+    // Oops
+}
+```
     
 To delete a password, just call `-[LKKCKeychainItem deleteItemWithError:]`.
 
-    result = [password deleteItemWithError:NULL];
-    if (!result) {
-        // Oops
-    }
+```Objective-C
+result = [password deleteItemWithError:NULL];
+if (!result) {
+    // Oops
+}
+```
     
 ## Internet Passwords ##
 
@@ -56,27 +64,31 @@ The URL is not stored directly on the keychain; it is instead split up into its 
 each of which is stored separately in its own attribute. `LKKCInternetPassword` has a separate readwrite property for
 all of these components, but it also provides a `url` shortcut property that converts to/from simple `NSURL` instances.
 
-    LKKCInternetPassword *item = [LKKCInternetPassword createPassword];
-    item.url = [NSURL urlWithString:@"http://username@example.com:8080/admin/login.php"];
-    item.authenticationType = LKKCAuthenticationTypeHTMLBasic;
-    item.securityDomain = @"Administration Interface";
-    item.password = @"bananas";
-    
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-    result = [item addToKeychain:keychain withError:NULL];
-    if (!result) {
-        // Oops
-    }
+```Objective-C
+LKKCInternetPassword *item = [LKKCInternetPassword createPassword];
+item.url = [NSURL urlWithString:@"http://username@example.com:8080/admin/login.php"];
+item.authenticationType = LKKCAuthenticationTypeHTMLBasic;
+item.securityDomain = @"Administration Interface";
+item.password = @"bananas";
+
+LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+result = [item addToKeychain:keychain withError:NULL];
+if (!result) {
+    // Oops
+}
+```
     
 To retrieve a password for a URL, iterate over all passwords with the same server, and find the one that's the best match.
 
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-    for (LKKCInternetPassword *item in [keychain internetPasswordsForServer:@"example.com"]) {
-        if (item.authenticationType == LKKCAuthenticationTypeHTMLBasic
-            && [item.securityDomain isEqualToString:@"Administration Interface"]) {
-            return item.password;
-        }
+```Objective-C
+LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+for (LKKCInternetPassword *item in [keychain internetPasswordsForServer:@"example.com"]) {
+    if (item.authenticationType == LKKCAuthenticationTypeHTMLBasic
+        && [item.securityDomain isEqualToString:@"Administration Interface"]) {
+        return item.password;
     }
+}
+```
 
 ## Certificates ##
 
