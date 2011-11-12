@@ -9,6 +9,7 @@
 #import "LKKCKeychainItem.h"
 
 typedef enum {
+    LKKCKeyClassUnknown,
     LKKCKeyClassPublic,
     LKKCKeyClassPrivate,
     LKKCKeyClassSymmetric
@@ -16,33 +17,50 @@ typedef enum {
 
 @interface LKKCKey : LKKCKeychainItem
 
-//kSecClassKey item attributes:
-//kSecAttrAccess
+// The human-readable name of this password. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
+@property (nonatomic, retain) NSString *label; 
+
+// The class of the key. (kSecAttrKeyClass)
+@property (nonatomic, readonly) LKKCKeyClass keyClass; 
+
+// The algorithm for which the key was generated. (kSecAttrKeyType)
+@property (nonatomic, readonly) CSSM_ALGORITHMS keyType;
+
+// Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)
+@property (nonatomic, readonly, getter = isPermanent) BOOL permanent; 
+
+// Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)
+@property (nonatomic, readonly) BOOL canEncrypt; 
+// Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)
+@property (nonatomic, readonly) BOOL canDecrypt;
+// Whether this key can be used to derive another key. (kSecAttrCanDerive)
+@property (nonatomic, readonly) BOOL canDerive;
+// Whether this key can be used to create a digital signature. (kSecAttrCanSign)
+@property (nonatomic, readonly) BOOL canSign; 
+// Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)
+@property (nonatomic, readonly) BOOL canVerify;
+// Whether this key can be used to wrap another key. (kSecAttrCanWrap)
+@property (nonatomic, readonly) BOOL canWrap; 
+// Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)
+@property (nonatomic, readonly) BOOL canUnwrap; 
+
+// The actual size of the key in the case of symmetric algorithms, 
+// and the modulus size of the key in the case of asymmetric algorithms. (kSecAttrKeySizeInBits)
+@property (nonatomic, readonly) int keySizeInBits; 
+// Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)
+@property (nonatomic, readonly) int effectiveKeySizeInBits; 
 
 #if 0
-@property (nonatomic, readonly) LKKCKeyClass keyClass; // kSecAttrKeyClass
-@property (nonatomic, retain) NSString *label; // kSecAttrLabel
-@property (nonatomic, retain) NSData *applicationLabel; // kSecAttrApplicationLabel
-
-@property (nonatomic, assign, getter = isPermanent) BOOL permanent; // kSecAttrIsPermanent
-@property (nonatomic, retain) NSData *applicationTag; // kSecAttrApplicationTag
-@property (nonatomic, assign) CSSM_ALGORITHMS keyType; // kSecAttrKeyType
-@property (nonatomic, assign) id pseudoRandomFunction; // kSecAttrPRF
-@property (nonatomic, retain) NSData *salt; // kSecAttrSalt
-@property (nonatomic, assign) int numberOfRounds; // kSecAttrRounds
-@property (nonatomic, assign) int keySizeInBits; // kSecAttrKeySizeInBits
-@property (nonatomic, assign) int effectiveKeySizeInBits; // kSecAttrEffectiveKeySize
-
-@property (nonatomic, assign) BOOL canEncrypt; // kSecAttrCanEncrypt
-@property (nonatomic, assign) BOOL canDecrypt; // kSecAttrCanDecrypt
-@property (nonatomic, assign) BOOL canDerive; // kSecAttrCanDerive
-@property (nonatomic, assign) BOOL canSign; // kSecAttrCanSign
-@property (nonatomic, assign) BOOL canVerify; // kSecAttrCanVerify
-@property (nonatomic, assign) BOOL canWrap; // kSecAttrCanWrap
-@property (nonatomic, assign) BOOL canUnwrap; // kSecAttrCanUnwrap
+// kSecAttrApplicationLabel
+@property (nonatomic, retain) NSData *applicationLabel; 
+// kSecAttrApplicationTag
+@property (nonatomic, retain) NSData *applicationTag; 
 #endif
-
 
 @property (nonatomic, readonly) SecKeyRef SecKey;
 
 @end
+
+//kSecClassKey item attributes:
+//kSecAttrAccess
+
