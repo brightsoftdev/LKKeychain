@@ -302,7 +302,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     if (protocolDesc == NULL)
         [self setAttribute:kSecAttrProtocol toValue:@"any"]; // will map to kSecProtocolTypeAny
     else
-        [self setAttribute:kSecAttrProtocol toValue:protocolDesc->sprotocol];
+        [self setAttribute:kSecAttrProtocol toValue:*(protocolDesc->sprotocol)];
 }
 
 - (LKKCAuthenticationType)authenticationType
@@ -320,7 +320,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
     if (desc == NULL)
         [self setAttribute:kSecAttrAuthenticationType toValue:@"any"]; // will map to kSecAuthenticationTypeAny
     else
-        [self setAttribute:kSecAttrAuthenticationType toValue:desc->sauthenticationType];
+        [self setAttribute:kSecAttrAuthenticationType toValue:*(desc->sauthenticationType)];
 }
 
 - (int)port
