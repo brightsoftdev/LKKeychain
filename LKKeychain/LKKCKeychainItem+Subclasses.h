@@ -20,4 +20,5 @@
 
 @property (nonatomic, readonly) NSDictionary *attributes;
 - (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value;
+- (id)valueForAttribute:(CFTypeRef)attribute;
 @end

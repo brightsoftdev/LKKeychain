@@ -25,7 +25,7 @@
 
 - (NSString *)label
 {
-    return [self.attributes objectForKey:kSecAttrLabel];
+    return [self valueForAttribute:kSecAttrLabel];
 }
 
 - (SecKeyRef)SecKey

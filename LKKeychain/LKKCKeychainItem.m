@@ -155,6 +155,14 @@ static CFMutableDictionaryRef knownItemClasses;
     return _attributes;
 }
 
+- (id)valueForAttribute:(CFTypeRef)attribute
+{
+    id value = [self.attributes valueForKey:attribute];
+    if (value == [NSNull null])
+        return nil;
+    return value;
+}
+
 - (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value 
 {
     if (_sitem == nil && _attributes == nil) {
@@ -201,7 +209,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (NSData *)rawData
 {
-    NSData *data = [self.attributes objectForKey:kSecValueData];
+    NSData *data = [self valueForAttribute:kSecValueData];
     if (data != nil)
         return data;
     if (_sitem == NULL)

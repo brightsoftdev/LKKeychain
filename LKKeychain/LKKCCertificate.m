@@ -49,7 +49,7 @@
 
 - (NSString *)label
 {
-    return [[self attributes] objectForKey:kSecAttrLabel];
+    return [self valueForAttribute:kSecAttrLabel];
 }
 
 - (void)setLabel:(NSString *)label
@@ -62,7 +62,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    NSData *subject = [[self attributes] objectForKey:kSecAttrSubject];
+    NSData *subject = [self valueForAttribute:kSecAttrSubject];
     if (subject == nil && SecCertificateCopyNormalizedSubjectContent != NULL) { // 10.7
         NSError *error = nil;
         subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(scertificate, (CFErrorRef *)&error);
@@ -79,7 +79,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    NSData *issuer = [[self attributes] objectForKey:kSecAttrIssuer];
+    NSData *issuer = [self valueForAttribute:kSecAttrIssuer];
     if (issuer == nil && SecCertificateCopyNormalizedIssuerContent != NULL) { // 10.7
         NSError *error = nil;
         issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(scertificate, (CFErrorRef *)&error);
@@ -96,7 +96,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [[self attributes] objectForKey:kSecAttrSerialNumber];
+    return [self valueForAttribute:kSecAttrSerialNumber];
 }
 
 - (NSData *)subjectKeyID
@@ -104,7 +104,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [[self attributes] objectForKey:kSecAttrSubjectKeyID];
+    return [self valueForAttribute:kSecAttrSubjectKeyID];
 }
 
 - (NSData *)publicKeyHash
@@ -112,7 +112,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [[self attributes] objectForKey:kSecAttrPublicKeyHash];
+    return [self valueForAttribute:kSecAttrPublicKeyHash];
 }
 
 - (id)certificateType
@@ -120,7 +120,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [[self attributes] objectForKey:kSecAttrCertificateType];
+    return [self valueForAttribute:kSecAttrCertificateType];
 }
 
 - (id)certificateEncoding
@@ -128,7 +128,7 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [[self attributes] objectForKey:kSecAttrCertificateEncoding];
+    return [self valueForAttribute:kSecAttrCertificateEncoding];
 }
 
 - (SecCertificateRef)SecCertificate

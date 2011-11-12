@@ -197,7 +197,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)label
 {
-    return [self.attributes objectForKey:kSecAttrLabel];
+    return [self valueForAttribute:kSecAttrLabel];
 }
 
 - (void)setLabel:(NSString *)label
@@ -207,7 +207,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)kind
 {
-    return [self.attributes objectForKey:kSecAttrDescription];
+    return [self valueForAttribute:kSecAttrDescription];
 }
 
 - (void)setKind:(NSString *)kind
@@ -217,7 +217,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)comment
 {
-    return [self.attributes objectForKey:kSecAttrComment];
+    return [self valueForAttribute:kSecAttrComment];
 }
 
 - (void)setComment:(NSString *)comment
@@ -227,17 +227,17 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSDate *)creationDate
 {
-    return [self.attributes objectForKey:kSecAttrCreationDate];
+    return [self valueForAttribute:kSecAttrCreationDate];
 }
 
 - (NSDate *)modificationDate
 {
-    return [self.attributes objectForKey:kSecAttrModificationDate];
+    return [self valueForAttribute:kSecAttrModificationDate];
 }
 
 - (BOOL)isInvisible
 {
-    CFBooleanRef value = (CFBooleanRef)[self.attributes objectForKey:kSecAttrIsInvisible];
+    CFBooleanRef value = (CFBooleanRef)[self valueForAttribute:kSecAttrIsInvisible];
     return (value ? CFBooleanGetValue(value) : NO);
 }
 
@@ -248,7 +248,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (BOOL)isNegative
 {
-    CFBooleanRef value = (CFBooleanRef)[self.attributes objectForKey:kSecAttrIsNegative];
+    CFBooleanRef value = (CFBooleanRef)[self valueForAttribute:kSecAttrIsNegative];
     return (value ? CFBooleanGetValue(value) : NO);
 }
 
@@ -259,7 +259,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)account 
 {
-    return [self.attributes objectForKey:kSecAttrAccount];
+    return [self valueForAttribute:kSecAttrAccount];
 }
 
 - (void)setAccount:(NSString *)account
@@ -269,7 +269,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)securityDomain
 {
-    return [self.attributes objectForKey:kSecAttrSecurityDomain];
+    return [self valueForAttribute:kSecAttrSecurityDomain];
 }
 
 - (void)setSecurityDomain:(NSString *)securityDomain
@@ -279,7 +279,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)server
 {
-    return [self.attributes objectForKey:kSecAttrServer];
+    return [self valueForAttribute:kSecAttrServer];
 }
 
 - (void)setServer:(NSString *)server
@@ -289,7 +289,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (LKKCProtocol)protocol 
 {
-    CFTypeRef sprotocol = [self.attributes objectForKey:kSecAttrProtocol];
+    CFTypeRef sprotocol = [self valueForAttribute:kSecAttrProtocol];
     ProtocolDesc *protocolDesc = ProtocolDescFromSecAttrProtocol(sprotocol);
     if (protocolDesc == NULL)
         return LKKCProtocolAny;
@@ -307,7 +307,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (LKKCAuthenticationType)authenticationType
 {
-    CFTypeRef sauthenticationType = [self.attributes objectForKey:kSecAttrAuthenticationType];
+    CFTypeRef sauthenticationType = [self valueForAttribute:kSecAttrAuthenticationType];
     AuthenticationTypeDesc *desc = AuthenticationTypeDescFromSecAttrAuthenticationType(sauthenticationType);
     if (desc == NULL)
         return LKKCAuthenticationTypeAny;
@@ -325,7 +325,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (int)port
 {
-    return [[self.attributes objectForKey:kSecAttrPort] intValue];
+    return [[self valueForAttribute:kSecAttrPort] intValue];
 }
 
 - (void)setPort:(int)port
@@ -335,7 +335,7 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 
 - (NSString *)path
 {
-    return [self.attributes objectForKey:kSecAttrPath];
+    return [self valueForAttribute:kSecAttrPath];
 }
 
 - (void)setPath:(NSString *)path

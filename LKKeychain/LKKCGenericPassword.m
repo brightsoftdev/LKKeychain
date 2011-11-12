@@ -47,7 +47,7 @@
 
 - (NSString *)label
 {
-    return [self.attributes objectForKey:kSecAttrLabel];
+    return [self valueForAttribute:kSecAttrLabel];
 }
 
 - (void)setLabel:(NSString *)label
@@ -57,7 +57,7 @@
 
 - (NSString *)kind
 {
-    return [self.attributes objectForKey:kSecAttrDescription];
+    return [self valueForAttribute:kSecAttrDescription];
 }
 
 - (void)setKind:(NSString *)kind
@@ -67,7 +67,7 @@
 
 - (NSString *)comment
 {
-    return [self.attributes objectForKey:kSecAttrComment];
+    return [self valueForAttribute:kSecAttrComment];
 }
 
 - (void)setComment:(NSString *)comment
@@ -77,18 +77,18 @@
 
 - (NSDate *)creationDate
 {
-    return [self.attributes objectForKey:kSecAttrCreationDate];
+    return [self valueForAttribute:kSecAttrCreationDate];
 }
 
 - (NSDate *)modificationDate
 {
-    return [self.attributes objectForKey:kSecAttrModificationDate];
+    return [self valueForAttribute:kSecAttrModificationDate];
 }
 
 
 - (NSString *)account 
 {
-    return [self.attributes objectForKey:kSecAttrAccount];
+    return [self valueForAttribute:kSecAttrAccount];
 }
 
 - (void)setAccount:(NSString *)account
@@ -98,7 +98,7 @@
 
 - (NSString *)service 
 {
-    return [self.attributes objectForKey:kSecAttrService];
+    return [self valueForAttribute:kSecAttrService];
 }
 
 - (void)setService:(NSString *)service 
@@ -108,7 +108,7 @@
 
 - (NSData *)appSpecificData
 {
-    return [self.attributes objectForKey:kSecAttrGeneric];
+    return [self valueForAttribute:kSecAttrGeneric];
 }
 
 - (void)setAppSpecificData:(NSData *)appSpecificData
@@ -118,7 +118,7 @@
 
 - (BOOL)isInvisible
 {
-    CFBooleanRef value = (CFBooleanRef)[self.attributes objectForKey:kSecAttrIsInvisible];
+    CFBooleanRef value = (CFBooleanRef)[self valueForAttribute:kSecAttrIsInvisible];
     return (value ? CFBooleanGetValue(value) : NO);
 }
 
@@ -129,7 +129,7 @@
 
 - (BOOL)isNegative
 {
-    CFBooleanRef value = (CFBooleanRef)[self.attributes objectForKey:kSecAttrIsNegative];
+    CFBooleanRef value = (CFBooleanRef)[self valueForAttribute:kSecAttrIsNegative];
     return (value ? CFBooleanGetValue(value) : NO);
 }
 
