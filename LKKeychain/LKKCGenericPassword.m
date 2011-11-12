@@ -34,6 +34,7 @@
     item.service = service;
     item.account = account;
     item.password = password;
+    item.label = service;
     return [item autorelease];
 }
 
