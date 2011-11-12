@@ -396,6 +396,9 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
 {
     self.protocol = [self.class protocolFromURLScheme:url.scheme];
     self.account = url.user;
+    if (url.password != nil) {
+        self.password = url.password;
+    }
     self.server = url.host;
     self.port = [url.port intValue];
     self.path = url.path;
