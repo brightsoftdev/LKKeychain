@@ -183,25 +183,8 @@ AuthenticationTypeDescFromLKKCAuthenticationType(LKKCAuthenticationType authenti
         return [NSString stringWithFormat:@"<%@ %p (deleted)>", [self className], self];
     
     NSMutableString *desc = [NSMutableString stringWithCapacity:256];
-    [desc appendFormat:@"<%@ %p ", [self className], self];
-    [desc appendFormat:@"%@://", [[self class] urlSchemeFromProtocol:self.protocol]];
-    
-    if ([self.server rangeOfString:@" "].location == NSNotFound) {
-        [desc appendString:self.server];
-    }
-    else {
-        [desc appendFormat:@"'%@'", self.server];
-    }
-    
-    if (self.port != 0) {
-        [desc appendFormat:@":%d", self.port];
-    }
-    if (self.path != nil) {
-        [desc appendString:self.path];
-    }
-    if (self.account != nil) {
-        [desc appendFormat:@" account='%@'", self.account];
-    }
+    [desc appendFormat:@"<%@ %p %@", [self className], self, self.url];
+
     if (self.authenticationType != LKKCAuthenticationTypeAny) {
         [desc appendFormat:@" type=%@", [[self class] stringFromAuthenticationType:self.authenticationType]];
     }
