@@ -141,6 +141,8 @@
 - (NSString *)password
 {
     NSData *data = self.rawData;
+    if (data == nil)
+        return nil;
     NSString *password = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
     return [password autorelease];
 }
