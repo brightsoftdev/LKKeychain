@@ -46,7 +46,7 @@
 // Identities.
 - (NSArray *)identities;
 
-// Public keys.
+// Keys.
 - (NSArray *)publicKeys;
 - (NSArray *)privateKeys;
 - (NSArray *)symmetricKeys;
