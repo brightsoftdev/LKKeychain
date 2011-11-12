@@ -73,7 +73,7 @@
         password.password = @"password";
         shouldBeEqual(password.password, @"password");
         
-        shouldBeEqual(password.label, nil);
+        shouldBeEqual(password.label, @"origservice");
         password.label = @"label";
         shouldBeEqual(password.label, @"label");
         
