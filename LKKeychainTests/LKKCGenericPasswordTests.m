@@ -199,10 +199,17 @@
         shouldBeEqual(password.comment, @"newcomment");
         should(password.creationDate != nil);
         should(password.modificationDate != nil);
-        
+
+        // Delete.
         result = [password deleteItemWithError:&error];
         should(result);
     }
+    
+    @autoreleasepool {
+        LKKCInternetPassword *password = [_keychain internetPasswordWithPersistentID:persistentID];
+        should(password == nil);
+    }
+
 }
 
 - (NSString *)randomStringOfLength:(NSInteger)length withPrefix:(int)prefix
