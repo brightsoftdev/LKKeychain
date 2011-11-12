@@ -27,13 +27,13 @@ static CFMutableDictionaryRef keychains = NULL;
 
 #pragma mark - Factory methods
 
-+ (LKKCKeychain *)defaultKeychainWithError:(NSError **)error
++ (LKKCKeychain *)defaultKeychain
 {
     OSStatus status;
     SecKeychainRef skeychain = NULL;
     status = SecKeychainCopyDefault(&skeychain);
     if (status) {
-        LKKCReportError(status, error, @"Can't get default keychain");
+        LKKCReportError(status, NULL, @"Can't get default keychain");
         return nil;
     }
     LKKCKeychain *keychain = [[LKKCKeychain alloc] initWithSecKeychain:skeychain];

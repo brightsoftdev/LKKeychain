@@ -15,7 +15,7 @@
 @class LKKCKey;
 
 @interface LKKCKeychain : NSObject
-+ (LKKCKeychain *)defaultKeychainWithError:(NSError **)error;
++ (LKKCKeychain *)defaultKeychain;
 + (LKKCKeychain *)keychainWithPath:(NSString *)path error:(NSError **)error;
 + (LKKCKeychain *)keychainWithSecKeychain:(SecKeychainRef)skeychain;
 + (LKKCKeychain *)createKeychainWithPath:(NSString *)path password:(NSString *)password error:(NSError **)error; // Prompts the user when password is nil.

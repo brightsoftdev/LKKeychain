@@ -19,7 +19,8 @@ are accessible as simple read-write properties. Once you've set up the attribute
                                                                 account:@"sample account"];
     password.label = [NSString stringWithFormat:@"%@ (%@)", password.service, password.account];
     
-    BOOL result = [password addToKeychain:[LKKCKeychain defaultKeychain] withError:NULL];
+    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+    BOOL result = [password addToKeychain:keychain withError:NULL];
     if (!result) {
         // Oops
     }
@@ -61,14 +62,16 @@ all of these components, but it also provides a `url` shortcut property that con
     item.securityDomain = @"Administration Interface";
     item.password = @"bananas";
     
-    result = [item addToKeychain:[LKKCKeychain defaultKeychain] withError:NULL];
+    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+    result = [item addToKeychain:keychain withError:NULL];
     if (!result) {
         // Oops
     }
     
 To retrieve a password for a URL, iterate over all passwords with the same server, and find the one that's the best match.
 
-    for (LKKCInternetPassword *item in [[LKKCKeychain defaultKeychain] internetPasswordsForServer:@"example.com"]) {
+    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
+    for (LKKCInternetPassword *item in [keychain internetPasswordsForServer:@"example.com"]) {
         if (item.authenticationType == LKKCAuthenticationTypeHTMLBasic
             && [item.securityDomain isEqualToString:@"Administration Interface"]) {
             return item.password;

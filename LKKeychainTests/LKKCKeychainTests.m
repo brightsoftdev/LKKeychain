@@ -160,8 +160,7 @@
 
 - (void)testDefaultKeychain
 {
-    NSError *error = nil;
-    LKKCKeychain *keychain = [LKKCKeychain defaultKeychainWithError:&error];
+    LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
     should(keychain != nil);
     [self logKeychainParameters:keychain];
 }
