@@ -15,16 +15,39 @@ typedef enum {
     LKKCKeyClassSymmetric
 } LKKCKeyClass;
 
+typedef enum {
+    LKKCKeyTypeUnknown,
+    LKKCKeyTypeRSA,
+    LKKCKeyTypeDSA,
+    LKKCKeyTypeAES,
+    LKKCKeyTypeDES,
+    LKKCKeyType3DES,
+    LKKCKeyTypeRC4,
+    LKKCKeyTypeRC2,
+    LKKCKeyTypeCAST,
+    LKKCKeyTypeECDSA
+} LKKCKeyType;
+
 @interface LKKCKey : LKKCKeychainItem
+
++ (LKKCKey *)keyWithSecKey:(SecKeyRef)skey;
+
++ (LKKCKey *)keyWithData:(NSData *)data 
+                keyClass:(LKKCKeyClass)keyClass
+                 keyType:(LKKCKeyType)keyType 
+                 keySize:(UInt32)keySize;
 
 // The human-readable name of this password. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
 @property (nonatomic, retain) NSString *label; 
+
+// Internal application-specific tag. kSecAttrApplicationTag
+@property (nonatomic, retain) NSString *tag; 
 
 // The class of the key. (kSecAttrKeyClass)
 @property (nonatomic, readonly) LKKCKeyClass keyClass; 
 
 // The algorithm for which the key was generated. (kSecAttrKeyType)
-@property (nonatomic, readonly) CSSM_ALGORITHMS keyType;
+@property (nonatomic, readonly) LKKCKeyType keyType;
 
 // Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)
 @property (nonatomic, readonly, getter = isPermanent) BOOL permanent; 
@@ -46,15 +69,13 @@ typedef enum {
 
 // The actual size of the key in the case of symmetric algorithms, 
 // and the modulus size of the key in the case of asymmetric algorithms. (kSecAttrKeySizeInBits)
-@property (nonatomic, readonly) int keySizeInBits; 
+@property (nonatomic, readonly) int keySize; 
 // Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)
-@property (nonatomic, readonly) int effectiveKeySizeInBits; 
+@property (nonatomic, readonly) int effectiveKeySize;
 
 #if 0
 // kSecAttrApplicationLabel
 @property (nonatomic, retain) NSData *applicationLabel; 
-// kSecAttrApplicationTag
-@property (nonatomic, retain) NSData *applicationTag; 
 #endif
 
 @property (nonatomic, readonly) SecKeyRef SecKey;

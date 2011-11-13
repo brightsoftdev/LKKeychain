@@ -24,6 +24,11 @@
 		BB23B282146D5FC600CF8EEB /* LKKCGenericPasswordTests.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B280146D5FC600CF8EEB /* LKKCGenericPasswordTests.h */; };
 		BB23B285146D5FDF00CF8EEB /* LKKCGenericPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B281146D5FC600CF8EEB /* LKKCGenericPasswordTests.m */; };
 		BB23B288146DF3D000CF8EEB /* LKKCInternetPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B287146DF3D000CF8EEB /* LKKCInternetPasswordTests.m */; };
+		BB23B2A4146F186500CF8EEB /* LKKCKeyPair.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2A2146F186400CF8EEB /* LKKCKeyPair.h */; };
+		BB23B2A5146F186500CF8EEB /* LKKCKeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B2A3146F186400CF8EEB /* LKKCKeyPair.m */; };
+		BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2A6146F3CA200CF8EEB /* LKKCKeyGenerator.h */; };
+		BB23B2A9146F3CA200CF8EEB /* LKKCKeyGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B2A7146F3CA200CF8EEB /* LKKCKeyGenerator.m */; };
+		BB23B2AC146F5F2D00CF8EEB /* LKKCKeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BB7B60AE145CB39500725E1C /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB7B60AD145CB39500725E1C /* Notes.rtf */; };
 		BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */; };
@@ -68,6 +73,12 @@
 		BB23B281146D5FC600CF8EEB /* LKKCGenericPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCGenericPasswordTests.m; sourceTree = "<group>"; };
 		BB23B286146DF3D000CF8EEB /* LKKCInternetPasswordTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCInternetPasswordTests.h; sourceTree = "<group>"; };
 		BB23B287146DF3D000CF8EEB /* LKKCInternetPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCInternetPasswordTests.m; sourceTree = "<group>"; };
+		BB23B2A2146F186400CF8EEB /* LKKCKeyPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeyPair.h; sourceTree = "<group>"; };
+		BB23B2A3146F186400CF8EEB /* LKKCKeyPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeyPair.m; sourceTree = "<group>"; };
+		BB23B2A6146F3CA200CF8EEB /* LKKCKeyGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeyGenerator.h; sourceTree = "<group>"; };
+		BB23B2A7146F3CA200CF8EEB /* LKKCKeyGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeyGenerator.m; sourceTree = "<group>"; };
+		BB23B2AA146F5F2D00CF8EEB /* LKKCKeyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeyTests.h; sourceTree = "<group>"; };
+		BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeyTests.m; sourceTree = "<group>"; };
 		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		BB7B60AD145CB39500725E1C /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LKKCKeychainItem+Subclasses.h"; sourceTree = "<group>"; };
@@ -176,6 +187,10 @@
 				BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */,
 				BB0A08F81454F6D400A5D44C /* LKKCKey.h */,
 				BB0A08F91454F6D400A5D44C /* LKKCKey.m */,
+				BB23B2A2146F186400CF8EEB /* LKKCKeyPair.h */,
+				BB23B2A3146F186400CF8EEB /* LKKCKeyPair.m */,
+				BB23B2A6146F3CA200CF8EEB /* LKKCKeyGenerator.h */,
+				BB23B2A7146F3CA200CF8EEB /* LKKCKeyGenerator.m */,
 				BB0E65841454636900C7FFF7 /* LKKCUtil.h */,
 				BB0E65821454635F00C7FFF7 /* LKKCUtil.m */,
 				BBD30A681453553700512B69 /* Supporting Files */,
@@ -202,6 +217,8 @@
 				BB23B281146D5FC600CF8EEB /* LKKCGenericPasswordTests.m */,
 				BB23B286146DF3D000CF8EEB /* LKKCInternetPasswordTests.h */,
 				BB23B287146DF3D000CF8EEB /* LKKCInternetPasswordTests.m */,
+				BB23B2AA146F5F2D00CF8EEB /* LKKCKeyTests.h */,
+				BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */,
 				BBD30A7E1453553700512B69 /* Supporting Files */,
 			);
 			path = LKKeychainTests;
@@ -233,6 +250,8 @@
 				BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */,
 				BBCC8B781466F89200691978 /* LKKeychain.h in Headers */,
 				BB23B282146D5FC600CF8EEB /* LKKCGenericPasswordTests.h in Headers */,
+				BB23B2A4146F186500CF8EEB /* LKKCKeyPair.h in Headers */,
+				BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +371,8 @@
 				BB0A08F31454F69A00A5D44C /* LKKCCertificate.m in Sources */,
 				BB0A08F71454F6AA00A5D44C /* LKKCIdentity.m in Sources */,
 				BB0A08FB1454F6D400A5D44C /* LKKCKey.m in Sources */,
+				BB23B2A5146F186500CF8EEB /* LKKCKeyPair.m in Sources */,
+				BB23B2A9146F3CA200CF8EEB /* LKKCKeyGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +383,7 @@
 				BBD30A851453553700512B69 /* LKKCKeychainTests.m in Sources */,
 				BB23B285146D5FDF00CF8EEB /* LKKCGenericPasswordTests.m in Sources */,
 				BB23B288146DF3D000CF8EEB /* LKKCInternetPasswordTests.m in Sources */,
+				BB23B2AC146F5F2D00CF8EEB /* LKKCKeyTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

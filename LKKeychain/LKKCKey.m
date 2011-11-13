@@ -7,15 +7,115 @@
 //
 
 #import "LKKCKey.h"
+#import "LKKCKeychain.h"
 #import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCUtil.h"
 
 @interface LKKCKey()
++ (CFTypeRef)_algorithmFromLKKCKeyType:(LKKCKeyType)keyType;
++ (LKKCKeyType)_keyTypeFromCSSMAlgorithm:(CSSM_ALGORITHMS)algorithm;
++ (NSString *)stringFromKeyType:(LKKCKeyType)keyType;
++ (NSString *)stringFromKeyClass:(LKKCKeyClass)keyClass;
+
 - (BOOL)_getBooleanAttribute:(CFTypeRef)attribute flag:(CSSM_KEYATTR_FLAGS)flag use:(CSSM_KEYUSE)use;
-- (BOOL)_getCSSMKeySize:(CSSM_KEY_SIZE_PTR)keySize;
 @end
 
 @implementation LKKCKey
+
++ (CFTypeRef)_algorithmFromLKKCKeyType:(LKKCKeyType)keyType
+{
+    switch (keyType) {
+        case LKKCKeyTypeRSA:
+            return kSecAttrKeyTypeRSA;
+        case LKKCKeyTypeDSA:
+            return kSecAttrKeyTypeDSA;
+        case LKKCKeyTypeAES:
+            return kSecAttrKeyTypeAES;
+        case LKKCKeyTypeDES:
+            return kSecAttrKeyTypeDES;
+        case LKKCKeyType3DES:
+            return kSecAttrKeyType3DES;
+        case LKKCKeyTypeRC4:
+            return kSecAttrKeyTypeRC4;
+        case LKKCKeyTypeRC2:
+            return kSecAttrKeyTypeRC2;
+        case LKKCKeyTypeCAST:
+            return kSecAttrKeyTypeCAST;
+        case LKKCKeyTypeECDSA:
+            return kSecAttrKeyTypeECDSA;
+        case LKKCKeyTypeUnknown:
+        default:
+            return NULL;
+    }
+}
+
++ (LKKCKeyType)_keyTypeFromCSSMAlgorithm:(CSSM_ALGORITHMS)algorithm
+{
+    switch (algorithm) {
+        case CSSM_ALGID_RSA:
+            return LKKCKeyTypeRSA;
+        case CSSM_ALGID_DSA:
+            return LKKCKeyTypeDSA;
+        case CSSM_ALGID_AES:
+            return LKKCKeyTypeAES;
+        case CSSM_ALGID_DES:
+            return LKKCKeyTypeDES;
+        case CSSM_ALGID_3DES:
+            return LKKCKeyType3DES;
+        case CSSM_ALGID_RC4:
+            return LKKCKeyTypeRC4;
+        case CSSM_ALGID_RC2:
+            return LKKCKeyTypeRC2;
+        case CSSM_ALGID_CAST:
+            return LKKCKeyTypeCAST;
+        case CSSM_ALGID_ECDSA:
+            return LKKCKeyTypeECDSA;
+        default:
+            return LKKCKeyTypeUnknown;
+    }
+}
+
++ (NSString *)stringFromKeyType:(LKKCKeyType)keyType
+{
+    switch (keyType) {
+        case LKKCKeyTypeRSA:
+            return @"RSA";
+        case LKKCKeyTypeDSA:
+            return @"DSA";
+        case LKKCKeyTypeAES:
+            return @"AES";
+        case LKKCKeyTypeDES:
+            return @"DES";
+        case LKKCKeyType3DES:
+            return @"3DES";
+        case LKKCKeyTypeRC4:
+            return @"RC4";
+        case LKKCKeyTypeRC2:
+            return @"RC2";
+        case LKKCKeyTypeCAST:
+            return @"CAST";
+        case LKKCKeyTypeECDSA:
+            return @"ECDSA";
+        case LKKCKeyTypeUnknown:
+        default:
+            return @"unknown";
+    }
+}
+
++ (NSString *)stringFromKeyClass:(LKKCKeyClass)keyClass
+{
+    switch (keyClass) {
+        case LKKCKeyClassPublic:
+            return @"public";
+        case LKKCKeyClassPrivate:
+            return @"private";
+        case LKKCKeyClassSymmetric:
+            return @"symmetric";
+        case LKKCKeyClassUnknown:
+        default:
+            return @"unknown";
+    }
+}
 
 + (void)load
 {
@@ -29,6 +129,70 @@
     return kSecClassKey;
 }
 
++ (LKKCKey *)keyWithSecKey:(SecKeyRef)skey
+{
+    return [[[LKKCKey alloc] initWithSecKeychainItem:(SecKeychainItemRef)skey attributes:nil] autorelease];
+}
+
++ (LKKCKey *)keyWithData:(NSData *)data 
+                keyClass:(LKKCKeyClass)keyClass
+                 keyType:(LKKCKeyType)keyType 
+                 keySize:(UInt32)keySize
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    CFTypeRef skeyType = [[self class] _algorithmFromLKKCKeyType:keyType];
+    if (skeyType == NULL) {
+        LKKCReportError(errSecParam, NULL, @"Invalid key type");
+        return nil;
+    }
+    [parameters setObject:skeyType forKey:kSecAttrKeyType];
+    
+    CFTypeRef skeyClass = NULL;
+    switch (keyClass) {
+        case LKKCKeyClassPublic:
+            skeyClass = kSecAttrKeyClassPublic;
+            break;
+        case LKKCKeyClassPrivate:
+            skeyClass = kSecAttrKeyClassPrivate;
+            break;
+        case LKKCKeyClassSymmetric:
+            skeyClass = kSecAttrKeyClassSymmetric;
+            break;
+        case LKKCKeyClassUnknown:
+        default:
+            LKKCReportError(errSecParam, NULL, @"Invalid key class");
+            return nil;
+    }
+    [parameters setObject:skeyClass forKey:kSecAttrKeyClass];
+    
+    [parameters setObject:[NSNumber numberWithInt:keySize] forKey:kSecAttrKeySizeInBits];
+    
+    CFErrorRef error = NULL;
+    SecKeyRef skey = SecKeyCreateFromData((CFDictionaryRef)parameters, (CFDataRef)data, &error);
+    if (skey == NULL) {
+        LKKCReportError((OSStatus)CFErrorGetCode(error), NULL, @"Can't create key");
+        return nil;
+    }
+    LKKCKey *key = [LKKCKey keyWithSecKey:skey];
+    CFRelease(skey);
+    return key;
+}
+
+- (NSString *)description
+{
+    NSMutableString *result = [NSMutableString string];
+    [result appendFormat:@"<%@ %p %d-bit %@ %@", [self className], self, self.keySize,
+     [[self class] stringFromKeyClass:self.keyClass],
+     [[self class] stringFromKeyType:self.keyType]];
+    NSString *label = self.label;
+    if (label != nil) {
+        [result appendFormat:@" '%@'", label];
+    }
+    [result appendString:@">"];
+    return result;
+}
+
 - (NSString *)label
 {
     return [self valueForAttribute:kSecAttrLabel];
@@ -37,6 +201,16 @@
 - (void)setLabel:(NSString *)label
 {
     [self setAttribute:kSecAttrLabel toValue:label];
+}
+
+- (NSString *)tag
+{
+    return [self valueForAttribute:kSecAttrApplicationTag];
+}
+
+- (void)setTag:(NSString *)tag
+{
+    [self setAttribute:kSecAttrApplicationTag toValue:tag];
 }
 
 - (LKKCKeyClass)keyClass
@@ -75,23 +249,25 @@
     }
 }
 
-- (CSSM_ALGORITHMS)keyType
+- (LKKCKeyType)keyType
 {
     SecKeyRef skey = self.SecKey;
     if (skey == NULL)
-        return CSSM_ALGID_NONE;
-    NSNumber *value = (NSNumber *)[self valueForAttribute:kSecAttrKeyType];
-    if (value != NULL) // CSSM_ALGORITHM value as a CFString in "%d" format
-        return [value intValue];
+        return LKKCKeyTypeUnknown;
+    CFTypeRef value = (CFTypeRef)[self valueForAttribute:kSecAttrKeyType];
+
+    // value is a CSSM_ALGORITHM value as a CFString in "%d" format
+    if (value != NULL)
+        return [[self class] _keyTypeFromCSSMAlgorithm:(CSSM_ALGORITHMS)[(id)value integerValue]];
 
     const CSSM_KEY *cssmkey;
     OSStatus status = SecKeyGetCSSMKey(skey, &cssmkey);
     if (status) {
         LKKCReportError(status, NULL, @"Can't get CSSM key");
-        return CSSM_ALGID_NONE;
+        return LKKCKeyTypeUnknown;
     }
     
-    return cssmkey->KeyHeader.AlgorithmId;
+    return [[self class] _keyTypeFromCSSMAlgorithm:cssmkey->KeyHeader.AlgorithmId];
 }
 
 - (BOOL)_getBooleanAttribute:(CFTypeRef)attribute flag:(CSSM_KEYATTR_FLAGS)flag use:(CSSM_KEYUSE)use
@@ -116,7 +292,7 @@
     if (flag != 0)
         return (cssmkey->KeyHeader.KeyAttr & flag) != 0;
     else if (use != 0)
-        return (cssmkey->KeyHeader.KeyUsage & use) != 0;
+        return (cssmkey->KeyHeader.KeyUsage & (use | CSSM_KEYUSE_ANY)) != 0;
     return NO;
 }
 

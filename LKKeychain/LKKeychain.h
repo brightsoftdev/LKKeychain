@@ -13,3 +13,5 @@
 #import "LKKCCertificate.h"
 #import "LKKCKey.h"
 #import "LKKCIdentity.h"
+#import "LKKCKeyPair.h"
+#import "LKKCKeyGenerator.h"

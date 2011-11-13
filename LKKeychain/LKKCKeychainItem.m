@@ -141,7 +141,9 @@ static CFMutableDictionaryRef knownItemClasses;
         NSDictionary *attrs = nil;
         OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&attrs);
         if (status) {
-            LKKCReportError(status, NULL, @"Can't query item attributes");
+            if (status != errSecItemNotFound) {
+                LKKCReportError(status, NULL, @"Can't query item attributes");
+            }
             return nil;
         }
         _attributes = [attrs mutableCopy];
@@ -219,11 +221,19 @@ static CFMutableDictionaryRef knownItemClasses;
                            kSecMatchLimitOne, kSecMatchLimit,
                            nil];
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&data);
+    if (!status)
+        return [data autorelease];
+    
+    UInt32 slength = 0;
+    void *sdata = NULL;
+    status = SecKeychainItemCopyAttributesAndData(_sitem, NULL, NULL, NULL, &slength, &sdata);
     if (status) {
-        LKKCReportError(status, NULL, @"Can't get raw data of item");
+        LKKCReportError(status, NULL, @"Can't get item data");
         return nil;
     }
-    return [data autorelease];
+    data = [NSData dataWithBytes:sdata length:slength];
+    SecKeychainItemFreeAttributesAndData(NULL, sdata);
+    return data;
 }
 
 - (void)setRawData:(NSData *)rawData
@@ -239,7 +249,9 @@ static CFMutableDictionaryRef knownItemClasses;
     SecKeychainRef skeychain = NULL;
     status = SecKeychainItemCopyKeychain(_sitem, &skeychain);
     if (status) {
-        LKKCReportError(status, NULL, @"Can't get keychain for item");
+        if (status != errSecNoSuchKeychain) {
+            LKKCReportError(status, NULL, @"Can't get keychain for item");
+        }
         return nil;
     }
     LKKCKeychain *keychain = [LKKCKeychain keychainWithSecKeychain:skeychain];
