@@ -182,40 +182,70 @@
     
     status = CSSM_QueryKeySizeInBits(cspHandle, 0, cssmkey, keySize);
     if (status != CSSM_OK) {
-        LKKCReportError(status, NULL, @"Can't query key size");
+        LKKCReportError(status, NULL, @"Can't get key size");
         return NO;
     }
     
     return YES;
 }
 
-- (int)keySizeInBits
+- (int)keySize
 {
     NSNumber *value = [self valueForAttribute:kSecAttrKeySizeInBits];
     if (value != nil)
         return [value intValue];
-    CSSM_KEY_SIZE keySize;
-    BOOL result = [self _getCSSMKeySize:&keySize];
-    if (!result)
+    
+    SecKeyRef skey = self.SecKey;
+    if (skey == NULL)
         return 0;
-    return keySize.LogicalKeySizeInBits;
+
+    const CSSM_KEY *cssmkey;
+    OSStatus status = SecKeyGetCSSMKey(skey, &cssmkey);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't get CSSM key");
+        return 0;
+    }
+    
+    return cssmkey->KeyHeader.LogicalKeySizeInBits;
 }
 
-- (int)effectiveKeySizeInBits
+- (int)effectiveKeySize
 {
     NSNumber *value = [self valueForAttribute:kSecAttrEffectiveKeySize];
     if (value != nil)
         return [value intValue];
+
+    SecKeyRef skey = self.SecKey;
+    if (skey == NULL)
+        return self.keySize;
+    
+    CSSM_CSP_HANDLE cspHandle;
+    OSStatus status = SecKeyGetCSPHandle(skey, &cspHandle);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't get CSP handle");
+        return self.keySize;
+    }
+    
+    const CSSM_KEY *cssmkey;
+    status = SecKeyGetCSSMKey(skey, &cssmkey);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't get CSSM key");
+        return self.keySize;
+    }
+    
     CSSM_KEY_SIZE keySize;
-    BOOL result = [self _getCSSMKeySize:&keySize];
-    if (!result)
-        return 0;
+    status = CSSM_QueryKeySizeInBits(cspHandle, 0, cssmkey, &keySize);
+    if (status != CSSM_OK) {
+        LKKCReportError(status, NULL, @"Can't get key size");
+        return self.keySize;
+    }
+    
     return keySize.EffectiveKeySizeInBits;
 }
 
 - (SecKeyRef)SecKey
 {
-    return (SecKeyRef)self.SecKeychainItem;
+    return (SecKeyRef)_sitem;
 }
 
 @end

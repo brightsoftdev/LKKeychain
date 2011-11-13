@@ -133,7 +133,7 @@
 
 - (SecCertificateRef)SecCertificate
 {
-    return (SecCertificateRef)self.SecKeychainItem;
+    return (SecCertificateRef)_sitem;
 }
 
 #pragma mark - Extra information

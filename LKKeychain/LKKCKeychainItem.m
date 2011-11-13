@@ -20,9 +20,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 @implementation LKKCKeychainItem
 {
-    // _sitem may be null for freshly created passwords that aren't on a keychain yet.
     // Deleted items have _sitem, _attributes and _updatedAttributes set to nil.
-    SecKeychainItemRef _sitem;
     NSMutableDictionary *_attributes;
     NSMutableDictionary *_updatedAttributes;
 }

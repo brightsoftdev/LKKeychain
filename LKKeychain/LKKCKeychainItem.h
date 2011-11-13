@@ -9,6 +9,11 @@
 @class LKKCKeychain;
 
 @interface LKKCKeychainItem : NSObject
+{
+@protected
+    SecKeychainItemRef _sitem; // May be null (new passwords and deleted items).
+}
+
 @property (nonatomic, readonly) NSData *persistentID;
 @property (nonatomic, copy) NSData *rawData;
 

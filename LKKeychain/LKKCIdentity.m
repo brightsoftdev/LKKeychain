@@ -64,6 +64,6 @@
 
 - (SecIdentityRef)SecIdentity
 {
-    return (SecIdentityRef)self.SecKeychainItem;
+    return (SecIdentityRef)_sitem;
 }
 @end
