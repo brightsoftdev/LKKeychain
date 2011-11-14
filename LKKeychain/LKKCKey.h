@@ -44,17 +44,17 @@ typedef enum {
 // Both these properties map to the same keychain attribute; it is part of the primary key for key items.
 // If you set one, the other is cleared. Use applicationLabel for symmetric keys and keyID for assymetric keys.
 // Originally kSecKeyLabel was a binary attribute, and assymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.
-// With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute's type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data (such as the hashes described above).
+// With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute's type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).
 @property (nonatomic, retain) NSData *keyID; // Uses old API, for public and private keys
 @property (nonatomic, retain) NSString *applicationLabel; // Uses new API, for symmetric keys
 
-// Internal application-specific tag. kSecAttrApplicationTag
+// Application-specific tag of your choice. (kSecAttrApplicationTag)
 @property (nonatomic, retain) NSString *tag; 
 
-// The class of the key. (kSecAttrKeyClass)
+// The class of the key (public, private or symmetric). (kSecAttrKeyClass)
 @property (nonatomic, readonly) LKKCKeyClass keyClass; 
 
-// The algorithm for which the key was generated. (kSecAttrKeyType)
+// The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)
 @property (nonatomic, readonly) LKKCKeyType keyType;
 
 // Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)
@@ -81,8 +81,8 @@ typedef enum {
 // Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)
 @property (nonatomic, readonly) int effectiveKeySize;
 
-// The raw bits of the key, or nil if the key is not extractable.
-@property (nonatomic, readonly) NSData *keyData;
+// Returns the raw bits of the key, or nil if the key is not extractable.
+- (NSData *)keyDataWithError:(NSError **)error;
 
 @property (nonatomic, readonly) SecKeyRef SecKey;
 

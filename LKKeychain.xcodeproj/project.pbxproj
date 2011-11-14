@@ -29,6 +29,7 @@
 		BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2A6146F3CA200CF8EEB /* LKKCKeyGenerator.h */; };
 		BB23B2A9146F3CA200CF8EEB /* LKKCKeyGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B2A7146F3CA200CF8EEB /* LKKCKeyGenerator.m */; };
 		BB23B2AC146F5F2D00CF8EEB /* LKKCKeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */; };
+		BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2B01471989900CF8EEB /* LKKCKey+Private.h */; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BB7B60AE145CB39500725E1C /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB7B60AD145CB39500725E1C /* Notes.rtf */; };
 		BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */; };
@@ -79,6 +80,7 @@
 		BB23B2A7146F3CA200CF8EEB /* LKKCKeyGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeyGenerator.m; sourceTree = "<group>"; };
 		BB23B2AA146F5F2D00CF8EEB /* LKKCKeyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKeyTests.h; sourceTree = "<group>"; };
 		BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeyTests.m; sourceTree = "<group>"; };
+		BB23B2B01471989900CF8EEB /* LKKCKey+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LKKCKey+Private.h"; sourceTree = "<group>"; };
 		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		BB7B60AD145CB39500725E1C /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LKKCKeychainItem+Subclasses.h"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				BB0A08F41454F6A900A5D44C /* LKKCIdentity.h */,
 				BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */,
 				BB0A08F81454F6D400A5D44C /* LKKCKey.h */,
+				BB23B2B01471989900CF8EEB /* LKKCKey+Private.h */,
 				BB0A08F91454F6D400A5D44C /* LKKCKey.m */,
 				BB23B2A2146F186400CF8EEB /* LKKCKeyPair.h */,
 				BB23B2A3146F186400CF8EEB /* LKKCKeyPair.m */,
@@ -252,6 +255,7 @@
 				BB23B282146D5FC600CF8EEB /* LKKCGenericPasswordTests.h in Headers */,
 				BB23B2A4146F186500CF8EEB /* LKKCKeyPair.h in Headers */,
 				BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */,
+				BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
