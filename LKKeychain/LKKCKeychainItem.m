@@ -305,6 +305,11 @@ static CFMutableDictionaryRef knownItemClasses;
     _attributesFilled = NO;
 }
 
+- (SecAccessRef)access
+{
+    return NULL;
+}
+
 - (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error
 {
     if (_sitem == NULL && _attributes == NULL) {
@@ -328,8 +333,12 @@ static CFMutableDictionaryRef knownItemClasses;
     }
     [attributes setObject:[[self class] itemClass] forKey:kSecClass];
     [attributes setObject:(id)skeychain forKey:kSecUseKeychain]; // Private in 10.6
+    SecAccessRef saccess = [self access];
+    if (saccess != NULL) {
+        [attributes setObject:(id)saccess forKey:kSecAttrAccess];
+    }
     [attributes setObject:[NSNumber numberWithBool:YES] forKey:kSecReturnRef];
-    
+
     CFTypeRef result = NULL;
     OSStatus status = SecItemAdd((CFDictionaryRef)attributes, &result);
     if (status) {

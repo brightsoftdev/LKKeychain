@@ -503,6 +503,18 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     }
 }
 
+- (SecAccessRef)access
+{
+    SecAccessRef saccess = NULL;
+    OSStatus status = SecAccessCreate((CFStringRef)self.label, NULL /* current app */, &saccess);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't create access object for newly generated key");
+        return nil;
+    }
+    [(id)saccess autorelease];
+    return saccess;
+}
+
 - (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error
 {
     if (self.keychain != nil || self.keyClass != LKKCKeyClassSymmetric)

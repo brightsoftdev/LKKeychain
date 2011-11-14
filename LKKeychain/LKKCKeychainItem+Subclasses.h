@@ -21,4 +21,5 @@
 
 - (void)setAttribute:(CFTypeRef)attribute toValue:(CFTypeRef)value;
 - (id)valueForAttribute:(CFTypeRef)attribute;
+- (SecAccessRef)access;
 @end

@@ -139,8 +139,15 @@
         
         CSSM_KEYATTR_FLAGS keyAttr = CSSM_KEYATTR_RETURN_DEFAULT | CSSM_KEYATTR_EXTRACTABLE;
         
+        SecAccessRef saccess = NULL;
+        OSStatus status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
+        if (status) {
+            LKKCReportError(status, NULL, @"Can't create access object for newly generated key");
+            return nil;
+        }
         SecKeyRef skey = NULL;
-        OSStatus status = SecKeyGenerate(skeychain, algid, keySize, 0, keyUse, keyAttr, NULL, &skey);
+        status = SecKeyGenerate(skeychain, algid, keySize, 0, keyUse, keyAttr, saccess, &skey);
+        CFRelease(saccess);
         if (status) {
             LKKCReportError(status, NULL, @"Can't generate symmetric key");
             return nil;
@@ -184,6 +191,15 @@
             [parameters setObject:(id)kCFBooleanFalse forKey:kSecAttrIsPermanent];
         }
         
+        SecAccessRef saccess = NULL;
+        OSStatus status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
+        if (status) {
+            LKKCReportError(status, NULL, @"Can't create access object for newly generated key");
+            return nil;
+        }
+        [parameters setObject:(id)saccess forKey:kSecAttrAccess];
+        CFRelease(saccess);
+
         CFErrorRef cferror = NULL;
         SecKeyRef skey = SecKeyGenerateSymmetric((CFDictionaryRef)parameters, &cferror);
         if (skey == NULL) {
