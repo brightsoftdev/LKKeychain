@@ -18,12 +18,11 @@
 
 static CFMutableDictionaryRef knownItemClasses;
 
+@interface LKKCKeychainItem()
+@property (nonatomic, readonly) NSDictionary *attributes;
+@end
+
 @implementation LKKCKeychainItem
-{
-    // Deleted items have _sitem, _attributes and _updatedAttributes set to nil.
-    NSMutableDictionary *_attributes;
-    NSMutableDictionary *_updatedAttributes;
-}
 
 + (void)registerSubclass:(Class)cls
 {
@@ -49,9 +48,11 @@ static CFMutableDictionaryRef knownItemClasses;
         [_attributes removeObjectForKey:kSecValueData];
         [_attributes removeObjectForKey:kSecValuePersistentRef];
         [_attributes removeObjectForKey:kSecValueRef];
+        _attributesFilled = YES;
     }
     else if (sitem == NULL) {
         _attributes = [[NSMutableDictionary alloc] init];
+        _attributesFilled = YES;
     }
     
     return self;
@@ -129,7 +130,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (NSDictionary *)attributes 
 {
-    if (_attributes == nil) {
+    if (_attributes == nil && !_attributesFilled) {
         if (_sitem == NULL)
             return nil;
         NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -144,6 +145,7 @@ static CFMutableDictionaryRef knownItemClasses;
             if (status != errSecItemNotFound) {
                 LKKCReportError(status, NULL, @"Can't query item attributes");
             }
+            _attributesFilled = YES;
             return nil;
         }
         _attributes = [attrs mutableCopy];
@@ -151,13 +153,16 @@ static CFMutableDictionaryRef knownItemClasses;
         if (_updatedAttributes != nil) {
             [_attributes addEntriesFromDictionary:_updatedAttributes];
         }
+        _attributesFilled = YES;
     }
     return _attributes;
 }
 
 - (id)valueForAttribute:(CFTypeRef)attribute
 {
-    id value = [self.attributes valueForKey:attribute];
+    id value = [_updatedAttributes valueForKey:attribute];
+    if (value == nil)
+        value = [self.attributes valueForKey:attribute];
     if (value == [NSNull null])
         return nil;
     return value;
@@ -171,13 +176,8 @@ static CFMutableDictionaryRef knownItemClasses;
     if (_updatedAttributes == nil) {
         _updatedAttributes = [[NSMutableDictionary alloc] init];
     }
-    if (_attributes == nil) {
-        [self attributes];
-    }
-    NSAssert(_attributes != nil, @"");
     if (value == nil)
         value = [NSNull null];
-    [_attributes setObject:value forKey:attribute];
     [_updatedAttributes setObject:value forKey:attribute];
 }
 
@@ -263,17 +263,20 @@ static CFMutableDictionaryRef knownItemClasses;
 
 - (BOOL)saveItemWithError:(NSError **)error
 {
+    OSStatus status;
     if (_sitem == nil) {
         [NSException raise:NSInvalidArgumentException format:@"Can't save items that aren't on a keychain"];
     }
+
     if (_updatedAttributes == nil || [_updatedAttributes count] == 0) {
         return YES;
     }
+    
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            [[self class] itemClass], kSecClass,
                            [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
                            nil];
-    OSStatus status = SecItemUpdate((CFDictionaryRef)query, (CFDictionaryRef)_updatedAttributes);
+    status = SecItemUpdate((CFDictionaryRef)query, (CFDictionaryRef)_updatedAttributes);
     if (status) {
         LKKCReportError(status, error, @"Can't update item attributes");
         return NO;
@@ -281,6 +284,7 @@ static CFMutableDictionaryRef knownItemClasses;
     [_updatedAttributes release];
     _updatedAttributes = nil;
     [self revertItem];
+    [self attributes];
     return YES;
 }
 
@@ -296,6 +300,7 @@ static CFMutableDictionaryRef knownItemClasses;
         [_attributes release];
         _attributes = nil;
     }
+    _attributesFilled = NO;
 }
 
 - (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error
@@ -307,37 +312,51 @@ static CFMutableDictionaryRef knownItemClasses;
     if (skeychain == NULL) {
         [NSException raise:NSInvalidArgumentException format:@"Keychain must not be zero"];
     }
-        
+    
+    BOOL needsSave = NO;
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     if (_sitem != NULL) {
         [attributes setObject:[NSArray arrayWithObject:(id)_sitem] forKey:kSecUseItemList];
+        if (self.keychain == nil) 
+            [attributes addEntriesFromDictionary:_updatedAttributes];
+        needsSave = YES;
     }
     else {
-        [attributes addEntriesFromDictionary:_attributes];
+        [attributes addEntriesFromDictionary:_updatedAttributes];
     }
     [attributes setObject:[[self class] itemClass] forKey:kSecClass];
     [attributes setObject:(id)skeychain forKey:kSecUseKeychain]; // Private in 10.6
     [attributes setObject:[NSNumber numberWithBool:YES] forKey:kSecReturnRef];
     
-    SecKeychainItemRef result = nil;
-    OSStatus status = SecItemAdd((CFDictionaryRef)attributes, (CFTypeRef *)&result);
+    CFTypeRef result = NULL;
+    OSStatus status = SecItemAdd((CFDictionaryRef)attributes, &result);
     if (status) {
         LKKCReportError(status, error, @"Can't add keychain item");
         return NO;
     }
     
-    if (_sitem != NULL) {
+    if (_sitem != NULL)
         CFRelease(_sitem);
-        _sitem = result; // pass ownership; retain isn't necessary
-        if (![self saveItemWithError:error]) {
-            [self revertItem];
+    if (CFGetTypeID(result) == CFArrayGetTypeID()) {
+        if (CFArrayGetCount(result) != 1) {
+            LKKCReportError(errSecMultipleValuesUnsupported, error, @"SecItemAdd returned multiple items");
+            CFRelease(result);
             return NO;
         }
+        _sitem = (SecKeychainItemRef)CFRetain(CFArrayGetValueAtIndex(result, 0));
     }
-    else { // _sitem was NULL
-        _sitem = result; // pass ownership; retain isn't necessary
+    else {
+        _sitem = (SecKeychainItemRef)CFRetain(result);
+    }
+    CFRelease(result);
+    
+    if (needsSave && ![self saveItemWithError:error]) {
+        [self revertItem];
+        [self attributes];
+        return NO;
     }
     [self revertItem];
+    [self attributes];
     return YES;
 }
 
@@ -362,6 +381,7 @@ static CFMutableDictionaryRef knownItemClasses;
     _updatedAttributes = nil;
     [_attributes release];
     _attributes = nil;
+    _attributesFilled = YES;
     return YES;
 }
 

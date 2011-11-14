@@ -11,7 +11,12 @@
 @interface LKKCKeychainItem : NSObject
 {
 @protected
-    SecKeychainItemRef _sitem; // May be null (new passwords and deleted items).
+    // Deleted items have _sitem, _attributes and _updatedAttributes set to nil.
+    // New passwords may also have a nil _sitem, but their _attributes is non-nil.
+    SecKeychainItemRef _sitem;
+    NSMutableDictionary *_attributes;
+    NSMutableDictionary *_updatedAttributes;
+    BOOL _attributesFilled;
 }
 
 @property (nonatomic, readonly) NSData *persistentID;
