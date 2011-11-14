@@ -10,6 +10,7 @@
 #import "LKKCKeychain.h"
 #import "LKKCKeyPair.h"
 #import "LKKCKey.h"
+#import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCUtil.h"
 
 @interface LKKCKeyGenerator()
@@ -22,16 +23,41 @@
     unsigned int _keySize;
     LKKCKeychain *_keychain;
     NSString *_label;
+    NSData *_keyID;
+    NSString *_applicationLabel;
     NSString *_tag;
+    BOOL _extractable;
 }
 @synthesize keySize = _keySize;
 @synthesize keychain = _keychain;
 @synthesize label = _label;
+@synthesize keyID = _keyID;
+@synthesize applicationLabel = _applicationLabel;
 @synthesize tag = _tag;
+@synthesize extractable = _extractable;
 
 + (LKKCKeyGenerator *)generator
 {
     return [[[LKKCKeyGenerator alloc] init] autorelease];
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self == nil)
+        return nil;
+    _extractable = YES;
+    return self;
+}
+
+- (void)dealloc
+{
+    [_keychain release];
+    [_label release];
+    [_keyID release];
+    [_applicationLabel release];
+    [_tag release];
+    [super dealloc];
 }
 
 - (LKKCKeyPair *)_generateKeyPairWithAlgorithm:(CFTypeRef)algorithm keySize:(uint32)keySize
@@ -99,45 +125,89 @@
 
 - (LKKCKey *)_generateSymmetricKeyWithAlgorithm:(CFTypeRef)algorithm keySize:(uint32)keySize
 {
-#if 0
-    SecKeyRef skey = NULL;
-    CSSM_ALGORITHMS algid = (CSSM_ALGORITHMS)[(id)algorithm integerValue];
-    CSSM_KEYUSE keyUse = CSSM_KEYUSE_ENCRYPT | CSSM_KEYUSE_DECRYPT | CSSM_KEYUSE_WRAP | CSSM_KEYUSE_UNWRAP | CSSM_KEYUSE_SIGN | CSSM_KEYUSE_VERIFY;
-    CSSM_KEYATTR_FLAGS keyAttr = CSSM_KEYATTR_EXTRACTABLE | CSSM_KEYATTR_RETURN_DEFAULT;
-    OSStatus status = SecKeyGenerate(NULL, algid, keySize, 0, keyUse, keyAttr, NULL, &skey);
-    if (status) {
-        LKKCReportError(status, NULL, @"Can't generate symmetric key");
-        return nil;
-    }
-#else
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    [parameters setObject:[NSNumber numberWithInt:keySize] forKey:kSecAttrKeySizeInBits];
-    [parameters setObject:algorithm forKey:kSecAttrKeyType];
-    
-    if (_label != nil)
-        [parameters setObject:_label forKey:kSecAttrLabel];
-    if (_tag != nil)
-        [parameters setObject:_tag forKey:kSecAttrApplicationTag];
-    
-    if (_keychain != nil) {
-        [parameters setObject:(id)_keychain.SecKeychain forKey:kSecUseKeychain];
-        [parameters setObject:(id)kCFBooleanTrue forKey:kSecAttrIsPermanent];
+    if (_extractable || _keychain == nil) {
+        // SecKeyGenerateSymmetric can only create non-extractable keys.
+        // When the user requested an extractable key or when we create a floating key,
+        // use the older SecKeyGenerate instead.
+        SecKeychainRef skeychain = NULL;
+        if (_keychain != nil)
+            skeychain = _keychain.SecKeychain;
+        
+        CSSM_ALGORITHMS algid = (CSSM_ALGORITHMS)[(id)algorithm integerValue];
+        
+        CSSM_KEYUSE keyUse = CSSM_KEYUSE_ANY | CSSM_KEYUSE_ENCRYPT | CSSM_KEYUSE_DECRYPT | CSSM_KEYUSE_WRAP | CSSM_KEYUSE_UNWRAP | CSSM_KEYUSE_SIGN | CSSM_KEYUSE_VERIFY;
+        
+        CSSM_KEYATTR_FLAGS keyAttr = CSSM_KEYATTR_RETURN_DEFAULT | CSSM_KEYATTR_EXTRACTABLE;
+        
+        SecKeyRef skey = NULL;
+        OSStatus status = SecKeyGenerate(skeychain, algid, keySize, 0, keyUse, keyAttr, NULL, &skey);
+        if (status) {
+            LKKCReportError(status, NULL, @"Can't generate symmetric key");
+            return nil;
+        }
+        LKKCKey *key = [LKKCKeychainItem itemWithClass:kSecClassKey
+                                       SecKeychainItem:(SecKeychainItemRef)skey 
+                                            attributes:nil];
+        CFRelease(skey);
+        
+        if (_label != nil)
+            key.label = _label;
+        if (_applicationLabel != nil)
+            key.applicationLabel = _applicationLabel;
+        if (_keyID != nil)
+            key.keyID = _keyID;
+        if (_tag != nil)
+            key.tag = _tag;
+        if (_keychain != nil && ![key saveItemWithError:NULL]) {
+            [key deleteItemWithError:NULL];
+            return nil;
+        }
+        
+        return key;    
     }
     else {
-        [parameters setObject:(id)kCFBooleanFalse forKey:kSecAttrIsPermanent];
-    }
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    CFErrorRef cferror = NULL;
-    SecKeyRef skey = SecKeyGenerateSymmetric((CFDictionaryRef)parameters, &cferror);
-    if (skey == NULL) {
-        LKKCReportError((OSStatus)CFErrorGetCode(cferror), NULL, @"Can't generate symmetric key");
-        return nil;
+        [parameters setObject:[NSNumber numberWithInt:keySize] forKey:kSecAttrKeySizeInBits];
+        [parameters setObject:algorithm forKey:kSecAttrKeyType];
+        
+        if (_label != nil)
+            [parameters setObject:_label forKey:kSecAttrLabel];
+        if (_tag != nil)
+            [parameters setObject:_tag forKey:kSecAttrApplicationTag];
+        
+        if (_keychain != nil) {
+            [parameters setObject:(id)_keychain.SecKeychain forKey:kSecUseKeychain];
+            [parameters setObject:(id)kCFBooleanTrue forKey:kSecAttrIsPermanent];
+        }
+        else {
+            [parameters setObject:(id)kCFBooleanFalse forKey:kSecAttrIsPermanent];
+        }
+        
+        CFErrorRef cferror = NULL;
+        SecKeyRef skey = SecKeyGenerateSymmetric((CFDictionaryRef)parameters, &cferror);
+        if (skey == NULL) {
+            LKKCReportError((OSStatus)CFErrorGetCode(cferror), NULL, @"Can't generate symmetric key");
+            return nil;
+        }
+
+        LKKCKey *key = [LKKCKeychainItem itemWithClass:kSecClassKey
+                                       SecKeychainItem:(SecKeychainItemRef)skey 
+                                            attributes:nil];
+        CFRelease(skey);
+        
+        if (_keychain == nil) {
+            // The label/tag attributes aren't saved to a keychain yet; store them in the 
+            // LKKCKey instance until the user calls -[LKKCKey addItemToKeychain:error:].
+            if (_label != nil)
+                key.label = _label;
+            if (_keyID != nil)
+                key.keyID = _keyID;
+            if (_tag != nil)
+                key.tag = _tag;
+        }
+        return key;    
     }
-#endif
-    LKKCKey *key = [LKKCKey keyWithSecKey:skey];
-    CFRelease(skey);
-    return key;    
 }
 
 - (LKKCKey *)generateAESKey
