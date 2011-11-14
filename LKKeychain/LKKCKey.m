@@ -20,6 +20,8 @@
 - (BOOL)_getBooleanAttribute:(CFTypeRef)attribute flag:(CSSM_KEYATTR_FLAGS)flag use:(CSSM_KEYUSE)use;
 @end
 
+static NSString *LKKCAttrKeyID = @"LKKCKeyID";
+
 @implementation LKKCKey
 
 + (CFTypeRef)_algorithmFromLKKCKeyType:(LKKCKeyType)keyType
@@ -201,6 +203,49 @@
 - (void)setLabel:(NSString *)label
 {
     [self setAttribute:kSecAttrLabel toValue:label];
+}
+
+- (NSData *)keyID
+{
+    NSData *value = [self valueForAttribute:LKKCAttrKeyID];
+    if (value != nil)
+        return value;
+    
+    UInt32 tags[] = { kSecKeyLabel };
+    UInt32 formats[] = { CSSM_DB_ATTRIBUTE_FORMAT_BLOB };
+    SecKeychainAttributeInfo info = { .count = 1, .tag = tags, .format = formats };
+    SecKeychainAttributeList *attrList;
+    OSStatus status = SecKeychainItemCopyAttributesAndData(_sitem, &info, NULL, &attrList, NULL, NULL);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't get kSecKeyLabel attribute");
+        return nil;
+    }
+    if (attrList->count == 1 && attrList->attr[0].tag == kSecKeyLabel) {
+        value = [NSData dataWithBytes:attrList->attr[0].data length:attrList->attr[0].length];
+        [_attributes setObject:value forKey:LKKCAttrKeyID];
+    }
+    SecKeychainItemFreeAttributesAndData(attrList, NULL);
+    
+    return value;
+}
+
+- (void)setKeyID:(NSData *)keyID
+{
+    [self setAttribute:LKKCAttrKeyID toValue:keyID];
+    [_attributes removeObjectForKey:kSecAttrApplicationLabel];
+    [_updatedAttributes removeObjectForKey:kSecAttrApplicationLabel];
+}
+
+- (NSString *)applicationLabel
+{
+    return [self valueForAttribute:kSecAttrApplicationLabel];
+}
+
+- (void)setApplicationLabel:(NSString *)applicationLabel
+{
+    [self setAttribute:kSecAttrApplicationLabel toValue:applicationLabel];
+    [_attributes removeObjectForKey:LKKCAttrKeyID];
+    [_updatedAttributes removeObjectForKey:LKKCAttrKeyID];
 }
 
 - (NSString *)tag
@@ -422,6 +467,40 @@
 - (SecKeyRef)SecKey
 {
     return (SecKeyRef)_sitem;
+}
+
+- (NSData *)keyData
+{
+    OSStatus status;
+    if (SecItemExport != NULL) {
+        SecItemImportExportFlags flags = 0;
+        SecItemImportExportKeyParameters params;
+        bzero(&params, sizeof(params));
+        params.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+
+        NSData *data = nil;
+        status = SecItemExport(_sitem, kSecFormatRawKey, flags, &params, (CFDataRef *)&data);
+        if (status) {
+            LKKCReportError(status, NULL, @"Can't export key");
+            return nil;
+        }
+        return [data autorelease];
+        
+    }
+    else {
+        SecItemImportExportFlags flags = 0;
+        SecKeyImportExportParameters params;
+        bzero(&params, sizeof(params));
+        params.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
+        
+        NSData *data = nil;
+        status = SecKeychainItemExport(_sitem, kSecFormatRawKey, flags, &params, (CFDataRef *)&data);
+        if (status) {
+            LKKCReportError(status, NULL, @"Can't export key");
+            return nil;
+        }
+        return [data autorelease];
+    }
 }
 
 @end

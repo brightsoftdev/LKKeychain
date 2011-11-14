@@ -40,6 +40,14 @@ typedef enum {
 // The human-readable name of this password. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
 @property (nonatomic, retain) NSString *label; 
 
+// Key identifier. (kSecAttrApplicationLabel, a.k.a kSecKeyLabel)
+// Both these properties map to the same keychain attribute; it is part of the primary key for key items.
+// If you set one, the other is cleared. Use applicationLabel for symmetric keys and keyID for assymetric keys.
+// Originally kSecKeyLabel was a binary attribute, and assymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.
+// With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute's type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data (such as the hashes described above).
+@property (nonatomic, retain) NSData *keyID; // Uses old API, for public and private keys
+@property (nonatomic, retain) NSString *applicationLabel; // Uses new API, for symmetric keys
+
 // Internal application-specific tag. kSecAttrApplicationTag
 @property (nonatomic, retain) NSString *tag; 
 
@@ -73,10 +81,8 @@ typedef enum {
 // Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)
 @property (nonatomic, readonly) int effectiveKeySize;
 
-#if 0
-// kSecAttrApplicationLabel
-@property (nonatomic, retain) NSData *applicationLabel; 
-#endif
+// The raw bits of the key, or nil if the key is not extractable.
+@property (nonatomic, readonly) NSData *keyData;
 
 @property (nonatomic, readonly) SecKeyRef SecKey;
 
