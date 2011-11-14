@@ -38,9 +38,11 @@
 @synthesize tag = _tag;
 @synthesize extractable = _extractable;
 
-+ (LKKCKeyGenerator *)generator
++ (LKKCKeyGenerator *)generatorWithKeychain:(LKKCKeychain *)keychain
 {
-    return [[[LKKCKeyGenerator alloc] init] autorelease];
+    LKKCKeyGenerator *generator = [[[LKKCKeyGenerator alloc] init] autorelease];
+    generator.keychain = keychain;
+    return generator;
 }
 
 - (id)init
