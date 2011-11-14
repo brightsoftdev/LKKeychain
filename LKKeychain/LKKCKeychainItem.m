@@ -366,12 +366,8 @@ static CFMutableDictionaryRef knownItemClasses;
 {
     if (_sitem == NULL)
         return YES;
-    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
-                           [[self class] itemClass], kSecClass,
-                           [NSArray arrayWithObject:(id)_sitem], kSecMatchItemList,
-                           kSecMatchLimitOne, kSecMatchLimit,
-                           nil];    
-    OSStatus status = SecItemDelete((CFDictionaryRef)query);
+    // Don't use SecItemDelete; it doesn't actually delete keys that have more than one application with decrypt rights.
+    OSStatus status = SecKeychainItemDelete(_sitem);
     if (status) {
         LKKCReportError(status, error, @"Can't delete keychain item");
         return NO;
