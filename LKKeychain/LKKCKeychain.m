@@ -391,7 +391,7 @@ static CFMutableDictionaryRef keychains = NULL;
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[items count]];
     for (NSDictionary *itemDict in items) {
         SecKeychainItemRef sitem = (SecKeychainItemRef)[itemDict objectForKey:(id)kSecValueRef];
-        LKKCKeychainItem *item = [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:itemDict error:error];
+        LKKCKeychainItem *item = [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:itemDict];
         if (item == nil) {
             return nil;
         }
@@ -422,7 +422,7 @@ static CFMutableDictionaryRef keychains = NULL;
     }
     
     SecKeychainItemRef sitem = (SecKeychainItemRef)[itemDict objectForKey:(id)kSecValueRef];
-    LKKCKeychainItem *item = [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:itemDict error:error];
+    LKKCKeychainItem *item = [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:itemDict];
     [itemDict release];
     return item;
 }

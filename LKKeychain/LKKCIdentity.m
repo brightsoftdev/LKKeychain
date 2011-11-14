@@ -39,7 +39,7 @@
         LKKCReportError(status, NULL, @"Can't get certificate from identity");
         return nil;
     }
-    LKKCCertificate *certificate = [LKKCCertificate itemWithClass:kSecClassCertificate SecKeychainItem:(SecKeychainItemRef)scertificate error:NULL];
+    LKKCCertificate *certificate = [LKKCCertificate itemWithClass:kSecClassCertificate SecKeychainItem:(SecKeychainItemRef)scertificate];
     CFRelease(scertificate);
     return certificate;
 }
@@ -52,7 +52,7 @@
         LKKCReportError(status, NULL, @"Can't get private key from identity");
         return nil;
     }
-    LKKCKey *key = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)skey error:NULL];
+    LKKCKey *key = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)skey];
     CFRelease(skey);
     return key;
 }

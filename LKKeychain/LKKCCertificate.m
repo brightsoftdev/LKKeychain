@@ -187,7 +187,7 @@
         return nil;
     }
     LKKCAssert(key != NULL);
-    LKKCKey *result = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)key error:NULL];
+    LKKCKey *result = [LKKCKey itemWithClass:kSecClassKey SecKeychainItem:(SecKeychainItemRef)key];
     CFRelease(key);
     return result;
 }

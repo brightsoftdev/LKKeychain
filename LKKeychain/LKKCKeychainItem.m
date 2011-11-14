@@ -81,7 +81,7 @@ static CFMutableDictionaryRef knownItemClasses;
 
 #pragma mark - Factory methods
 
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes error:(NSError **)error
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem attributes:(NSDictionary *)attributes
 {
     Class cls = CFDictionaryGetValue(knownItemClasses, itemClass);
     if (cls == NULL)
@@ -91,9 +91,9 @@ static CFMutableDictionaryRef knownItemClasses;
     return [item autorelease];
 }
 
-+ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem error:(NSError **)error
++ (id)itemWithClass:(CFTypeRef)itemClass SecKeychainItem:(SecKeychainItemRef)sitem
 {
-    return [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:nil error:error];
+    return [LKKCKeychainItem itemWithClass:itemClass SecKeychainItem:sitem attributes:nil];
 }
 
 + (id)itemWithClass:(CFTypeRef)itemClass persistentID:(NSData *)persistentID error:(NSError **)error
@@ -114,7 +114,7 @@ static CFMutableDictionaryRef knownItemClasses;
     
     [result autorelease];
     SecKeychainItemRef sitem = (SecKeychainItemRef)[result objectForKey:(id)kSecValueRef];
-    return [self itemWithClass:itemClass SecKeychainItem:sitem attributes:result error:error];
+    return [self itemWithClass:itemClass SecKeychainItem:sitem attributes:result];
 }
 
 #pragma mark -
