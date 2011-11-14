@@ -289,4 +289,32 @@
         shouldBeEqual(password.url, [NSURL URLWithString:@"https://account@example.com:1234/foo/bar"]);
     }
 }
+
+- (void)testDeletedItem
+{
+    NSError *error = nil;
+    BOOL result;
+    LKKCGenericPassword *password = [LKKCGenericPassword createPassword:@"secret" 
+                                                                service:@"service" 
+                                                                account:@"account"];
+    result = [password addToKeychain:_keychain error:&error];
+    should(result);
+    
+    LKKCGenericPassword *password2 = [_keychain genericPasswordWithService:@"service" account:@"account"];
+    result = [password2 deleteItemWithError:&error];
+    should(result);
+    
+    LKKCGenericPassword *password3 = [_keychain genericPasswordWithService:@"service" account:@"account"];
+    should(password3 == nil);
+    
+    LKKCGenericPassword *password4 = [LKKCGenericPassword createPassword:@"secret2" 
+                                                                 service:@"service"
+                                                                 account:@"account"];
+    result = [password4 addToKeychain:_keychain error:&error];
+    should(result);
+    result = [password4 addToKeychain:_keychain error:&error];
+    should(!result);
+    should([error code] == errSecDuplicateItem);
+    
+}
 @end
