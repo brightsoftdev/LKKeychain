@@ -201,7 +201,9 @@ static CFMutableDictionaryRef knownItemClasses;
     NSData *persistentID = nil;
     OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&persistentID);
     if (status) {
-        LKKCReportError(status, NULL, @"Can't get persistent reference to item");
+        if (status != errSecItemNotFound) {
+            LKKCReportError(status, NULL, @"Can't get persistent reference to item");
+        }
         return nil;
     }
     return [persistentID autorelease];
