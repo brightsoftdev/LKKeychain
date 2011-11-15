@@ -10,6 +10,7 @@
 #import "LKKCKeychain.h"
 #import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCUtil.h"
+#import "LKKCCryptoContext.h"
 
 @interface LKKCKey()
 + (NSString *)stringFromKeyType:(LKKCKeyType)keyType;
@@ -623,6 +624,36 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     }
     
     return [super saveItemWithError:error];
+}
+
+#pragma mark - Operations
+
+- (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error
+{
+    NSData *result = nil;
+    @autoreleasepool {
+        LKKCCryptoContext *cc = [LKKCCryptoContext cryptoContextForKey:self
+                                                             operation:CSSM_ACL_AUTHORIZATION_ENCRYPT
+                                                                 error:error];
+        if (cc == nil)
+            return nil;
+        result = [[cc encryptData:plaintext error:error] retain];
+    }
+    return [result autorelease];
+}
+
+- (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error
+{
+    NSData *result = nil;
+    @autoreleasepool {
+        LKKCCryptoContext *cc = [LKKCCryptoContext cryptoContextForKey:self
+                                                             operation:CSSM_ACL_AUTHORIZATION_DECRYPT
+                                                                 error:error];
+        if (cc == nil)
+            return nil;
+        result = [[cc decryptData:ciphertext error:error] retain];
+    }
+    return [result autorelease];
 }
 
 @end

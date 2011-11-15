@@ -86,6 +86,9 @@ typedef enum {
 
 @property (nonatomic, readonly) SecKeyRef SecKey;
 
+- (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error;
+- (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error;
+
 @end
 
 //kSecClassKey item attributes:
