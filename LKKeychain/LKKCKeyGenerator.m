@@ -73,15 +73,20 @@
     
     if (_label != nil)
         [parameters setObject:_label forKey:kSecAttrLabel];
-    if (_tag != nil)
-        [parameters setObject:_tag forKey:kSecAttrApplicationTag];
+    if (_tag != nil) {
+        // BUG: kSecAttrApplicationTag is a string attribute, but SecKeyGeneratePair expects an NSData.
+        [parameters setObject:[_tag dataUsingEncoding:NSUTF8StringEncoding] forKey:kSecAttrApplicationTag];
+    }
     
     if (_keychain != nil) {
         [parameters setObject:(id)_keychain.SecKeychain forKey:kSecUseKeychain];
         [parameters setObject:(id)kCFBooleanTrue forKey:kSecAttrIsPermanent];
     }
     else {
+        // BUG: This doesn't work. SecKeyGeneratePair always puts the result on a keychain.
         [parameters setObject:(id)kCFBooleanFalse forKey:kSecAttrIsPermanent];
+        LKKCReportError(errSecParam, NULL, @"Can't generate a key pair without a keychain");
+        return nil;
     }
     
     SecKeyRef spublicKey = NULL;

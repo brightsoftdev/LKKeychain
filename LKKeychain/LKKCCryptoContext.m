@@ -25,21 +25,12 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
 
 + (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key operation:(CSSM_ACL_AUTHORIZATION_TAG)operation error:(NSError **)error
 {
-    if (key == nil) {
-        LKKCReportError(errSecParam, error, @"Key must not be nil");
-        return nil;
-    }
-    if (key.keyClass != LKKCKeyClassSymmetric) { // TODO
-        LKKCReportError(errSecUnimplemented, error, @"Only symmetric keys are supported for now");
-        return nil;
-    }
-    
     SecKeyRef skey = key.SecKey;
     if (skey == nil) {
         LKKCReportError(errSecInvalidKeyRef, error, @"Key has been deleted");
         return nil;
     }
-
+    
     CSSM_CSP_HANDLE csphandle = 0;
     OSStatus status = SecKeyGetCSPHandle(skey, &csphandle);
     if (status) {
@@ -65,12 +56,13 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
     if (algid == CSSM_ALGID_3DES)
         algid = CSSM_ALGID_3DES_3KEY_EDE;
     
-    CSSM_ENCRYPT_MODE algmode;
-    CSSM_PADDING padding;
+    CSSM_ENCRYPT_MODE algmode = CSSM_ALGMODE_NONE;
+    CSSM_PADDING padding = CSSM_PADDING_NONE;
     switch(algid) {
             /* 8-byte block ciphers */
         case CSSM_ALGID_DES:
         case CSSM_ALGID_3DES_3KEY_EDE:
+        case CSSM_ALGID_RC5:
         case CSSM_ALGID_RC2:
             algmode = CSSM_ALGMODE_CBCPadIV8;
             padding = CSSM_PADDING_PKCS5;
@@ -83,24 +75,47 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
             break;
             
             /* stream ciphers */
+        case CSSM_ALGID_ASC:
         case CSSM_ALGID_RC4:
             algmode = CSSM_ALGMODE_NONE;
             padding = CSSM_PADDING_NONE;
             break;
             
+        case CSSM_ALGID_RSA:
+            padding = CSSM_PADDING_PKCS1;
+            break;
         default:
             LKKCReportError(errSecInvalidAlgorithm, error, @"Unsupported key type");
             return nil;
     }
     
     CSSM_CC_HANDLE cchandle = 0;
-    status = CSSM_CSP_CreateSymmetricContext(csphandle, algid, algmode, scredentials, cssmkey, &ivCommon, padding, NULL, &cchandle);
-    if (status) {
-        LKKCReportError(status, error, @"Can't create symmetric context");
-        return nil;
+    switch (key.keyClass) {
+        case LKKCKeyClassPublic:
+        case LKKCKeyClassPrivate: {
+            status = CSSM_CSP_CreateAsymmetricContext(csphandle, algid, scredentials, cssmkey, padding, &cchandle);
+            if (status) {
+                LKKCReportError(status, error, @"Can't create symmetric context");
+                return nil;
+            }
+            break;            
+        }
+        case LKKCKeyClassSymmetric: {
+            status = CSSM_CSP_CreateSymmetricContext(csphandle, algid, algmode, scredentials, cssmkey, &ivCommon, padding, NULL, &cchandle);
+            if (status) {
+                LKKCReportError(status, error, @"Can't create symmetric context");
+                return nil;
+            }
+            break;
+        }
+        case LKKCKeyClassUnknown:
+        default: {
+            LKKCReportError(errSecParam, error, @"Invalid key class");
+            return nil;
+        }
     }
-
-    return [[[LKKCCryptoContext alloc] initWithKey:key ccHandle:cchandle] autorelease];
+    
+    return [[[LKKCCryptoContext alloc] initWithKey:key ccHandle:cchandle] autorelease];    
 }
 
 - (id)initWithKey:(LKKCKey *)key ccHandle:(CSSM_CC_HANDLE)cchandle

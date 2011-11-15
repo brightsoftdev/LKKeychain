@@ -32,6 +32,12 @@
     [super dealloc];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ %p> {\n    public: %@\n    private: %@\n}", 
+            [self className], self, _publicKey, _privateKey];
+}
+
 - (LKKCKey *)publicKey
 {
     return _publicKey;
@@ -41,4 +47,15 @@
 {
     return _privateKey;
 }
+
+- (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error
+{
+    return [self.publicKey encryptData:plaintext error:error];
+}
+
+- (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error
+{
+    return [self.privateKey decryptData:ciphertext error:error];
+}
+
 @end

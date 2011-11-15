@@ -522,6 +522,22 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
 
 - (NSData *)keyDataWithError:(NSError **)error
 {
+    SecExternalFormat format;
+    switch (self.keyClass) {
+        case LKKCKeyClassSymmetric:
+            format = kSecFormatRawKey;
+            break;
+        case LKKCKeyClassPublic:
+            format = kSecFormatOpenSSL;
+            break;
+        case LKKCKeyClassPrivate:
+            format = kSecFormatOpenSSL;
+            break;
+        default:
+            LKKCReportError(errSecInvalidKeyRef, error, @"Invalid key class");
+            return nil;
+    }
+
     OSStatus status;
     if (SecItemExport != NULL) {
         SecItemImportExportFlags flags = 0;
@@ -530,13 +546,12 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
         params.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
 
         NSData *data = nil;
-        status = SecItemExport(_sitem, kSecFormatRawKey, flags, &params, (CFDataRef *)&data);
+        status = SecItemExport(_sitem, format, flags, &params, (CFDataRef *)&data);
         if (status) {
             LKKCReportError(status, error, @"Can't export key");
             return nil;
         }
         return [data autorelease];
-        
     }
     else {
         SecItemImportExportFlags flags = 0;
@@ -545,7 +560,7 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
         params.version = SEC_KEY_IMPORT_EXPORT_PARAMS_VERSION;
         
         NSData *data = nil;
-        status = SecKeychainItemExport(_sitem, kSecFormatRawKey, flags, &params, (CFDataRef *)&data);
+        status = SecKeychainItemExport(_sitem, format, flags, &params, (CFDataRef *)&data);
         if (status) {
             LKKCReportError(status, error, @"Can't export key");
             return nil;
