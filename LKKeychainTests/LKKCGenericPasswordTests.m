@@ -9,38 +9,16 @@
 #import "LKKCGenericPasswordTests.h"
 
 #import <Cocoa/Cocoa.h>
-#import "LKKeychain.h"
+#import "LKKeychainTestUtils.h"
 
 @implementation LKKCGenericPasswordTests
 {
     LKKCKeychain *_keychain;
 }
 
-- (LKKCKeychain *)createTestKeychain
-{
-    NSError *error = nil;
-    BOOL result;
-    
-    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Test.keychain"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        LKKCKeychain *oldkeychain = [LKKCKeychain keychainWithPath:path error:&error];
-        if (oldkeychain != nil) {
-            result = [oldkeychain deleteKeychainWithError:&error];
-            should(result);
-        }
-    }
-    LKKCKeychain *keychain = [[LKKCKeychain createKeychainWithPath:path password:@"foobar" error:&error] retain];
-    should(keychain != nil);
-    
-    should(!keychain.locked);
-    should(keychain.readable);
-    should(keychain.writable);
-    return keychain;
-}
-
 - (void)setUp
 {
-    _keychain = [[self createTestKeychain] retain];
+    _keychain = [[LKKeychainTestUtils createTestKeychain:@"Test"] retain];
 }
 
 - (void)tearDown

@@ -7,32 +7,10 @@
 //
 
 #import "LKKCKeychainTests.h"
-#import "LKKeychain.h"
+#import "LKKeychainTestUtils.h"
 
 @implementation LKKCKeychainTests {
     BOOL _userInteractionEnabled;
-}
-
-- (LKKCKeychain *)createTestKeychain
-{
-    NSError *error = nil;
-    BOOL result;
-    
-    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"Test.keychain"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        LKKCKeychain *oldkeychain = [LKKCKeychain keychainWithPath:path error:&error];
-        if (oldkeychain != nil) {
-            result = [oldkeychain deleteKeychainWithError:&error];
-            should(result);
-        }
-    }
-    LKKCKeychain *keychain = [[LKKCKeychain createKeychainWithPath:path password:@"foobar" error:&error] retain];
-    should(keychain != nil);
-        
-    should(!keychain.locked);
-    should(keychain.readable);
-    should(keychain.writable);
-    return keychain;
 }
 
 - (void)setUp
@@ -122,7 +100,7 @@
 
 - (void)testLock
 {
-    LKKCKeychain *keychain = [self createTestKeychain];
+    LKKCKeychain *keychain = [LKKeychainTestUtils createTestKeychain:@"LockTest"];
     should(!keychain.locked);
     NSError *error = nil;
     BOOL result = [keychain lockWithError:&error];

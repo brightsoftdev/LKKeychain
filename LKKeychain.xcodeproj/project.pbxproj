@@ -23,6 +23,11 @@
 		BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E658A1454B21500C7FFF7 /* LKKCKeychainItem.h */; };
 		BB209B421472062000735207 /* LKKCCryptoContext.h in Headers */ = {isa = PBXBuildFile; fileRef = BB209B401472062000735207 /* LKKCCryptoContext.h */; };
 		BB209B431472062000735207 /* LKKCCryptoContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BB209B411472062000735207 /* LKKCCryptoContext.m */; };
+		BB209B471472F8E500735207 /* AESTests.h in Headers */ = {isa = PBXBuildFile; fileRef = BB209B451472F8E500735207 /* AESTests.h */; };
+		BB209B4B1472F8FB00735207 /* TripleDESTests.h in Headers */ = {isa = PBXBuildFile; fileRef = BB209B491472F8FB00735207 /* TripleDESTests.h */; };
+		BB209B4F1472F92E00735207 /* LKKeychainTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB209B4E1472F92E00735207 /* LKKeychainTestUtils.m */; };
+		BB209B53147300D400735207 /* AESTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB209B461472F8E500735207 /* AESTests.m */; };
+		BB209B54147300D800735207 /* TripleDESTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB209B4A1472F8FB00735207 /* TripleDESTests.m */; };
 		BB23B282146D5FC600CF8EEB /* LKKCGenericPasswordTests.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B280146D5FC600CF8EEB /* LKKCGenericPasswordTests.h */; };
 		BB23B285146D5FDF00CF8EEB /* LKKCGenericPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B281146D5FC600CF8EEB /* LKKCGenericPasswordTests.m */; };
 		BB23B288146DF3D000CF8EEB /* LKKCInternetPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB23B287146DF3D000CF8EEB /* LKKCInternetPasswordTests.m */; };
@@ -74,6 +79,12 @@
 		BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKeychainItem.m; sourceTree = "<group>"; };
 		BB209B401472062000735207 /* LKKCCryptoContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCCryptoContext.h; sourceTree = "<group>"; };
 		BB209B411472062000735207 /* LKKCCryptoContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCCryptoContext.m; sourceTree = "<group>"; };
+		BB209B451472F8E500735207 /* AESTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESTests.h; sourceTree = "<group>"; };
+		BB209B461472F8E500735207 /* AESTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESTests.m; sourceTree = "<group>"; };
+		BB209B491472F8FB00735207 /* TripleDESTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripleDESTests.h; sourceTree = "<group>"; };
+		BB209B4A1472F8FB00735207 /* TripleDESTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripleDESTests.m; sourceTree = "<group>"; };
+		BB209B4D1472F92E00735207 /* LKKeychainTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKeychainTestUtils.h; sourceTree = "<group>"; };
+		BB209B4E1472F92E00735207 /* LKKeychainTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKeychainTestUtils.m; sourceTree = "<group>"; };
 		BB23B280146D5FC600CF8EEB /* LKKCGenericPasswordTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCGenericPasswordTests.h; sourceTree = "<group>"; };
 		BB23B281146D5FC600CF8EEB /* LKKCGenericPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCGenericPasswordTests.m; sourceTree = "<group>"; };
 		BB23B286146DF3D000CF8EEB /* LKKCInternetPasswordTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCInternetPasswordTests.h; sourceTree = "<group>"; };
@@ -220,6 +231,8 @@
 		BBD30A7D1453553700512B69 /* LKKeychainTests */ = {
 			isa = PBXGroup;
 			children = (
+				BB209B4D1472F92E00735207 /* LKKeychainTestUtils.h */,
+				BB209B4E1472F92E00735207 /* LKKeychainTestUtils.m */,
 				BBD30A831453553700512B69 /* LKKCKeychainTests.h */,
 				BBD30A841453553700512B69 /* LKKCKeychainTests.m */,
 				BB23B280146D5FC600CF8EEB /* LKKCGenericPasswordTests.h */,
@@ -228,6 +241,10 @@
 				BB23B287146DF3D000CF8EEB /* LKKCInternetPasswordTests.m */,
 				BB23B2AA146F5F2D00CF8EEB /* LKKCKeyTests.h */,
 				BB23B2AB146F5F2D00CF8EEB /* LKKCKeyTests.m */,
+				BB209B451472F8E500735207 /* AESTests.h */,
+				BB209B461472F8E500735207 /* AESTests.m */,
+				BB209B491472F8FB00735207 /* TripleDESTests.h */,
+				BB209B4A1472F8FB00735207 /* TripleDESTests.m */,
 				BBD30A7E1453553700512B69 /* Supporting Files */,
 			);
 			path = LKKeychainTests;
@@ -263,6 +280,8 @@
 				BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */,
 				BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */,
 				BB209B421472062000735207 /* LKKCCryptoContext.h in Headers */,
+				BB209B471472F8E500735207 /* AESTests.h in Headers */,
+				BB209B4B1472F8FB00735207 /* TripleDESTests.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +415,9 @@
 				BB23B285146D5FDF00CF8EEB /* LKKCGenericPasswordTests.m in Sources */,
 				BB23B288146DF3D000CF8EEB /* LKKCInternetPasswordTests.m in Sources */,
 				BB23B2AC146F5F2D00CF8EEB /* LKKCKeyTests.m in Sources */,
+				BB209B4F1472F92E00735207 /* LKKeychainTestUtils.m in Sources */,
+				BB209B53147300D400735207 /* AESTests.m in Sources */,
+				BB209B54147300D800735207 /* TripleDESTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
