@@ -10,7 +10,14 @@
 
 @class LKKCKey;
 @interface LKKCKeyPair : NSObject
+{
+@private
+    LKKCKey *_publicKey;
+    LKKCKey *_privateKey;
+}
+
 - (id)initWithPublicKey:(LKKCKey *)publicKey privateKey:(LKKCKey *)privateKey;
+
 @property (nonatomic, readonly) LKKCKey *publicKey;
 @property (nonatomic, readonly) LKKCKey *privateKey;
 

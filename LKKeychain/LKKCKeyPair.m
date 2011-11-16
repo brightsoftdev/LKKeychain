@@ -10,10 +10,6 @@
 #import "LKKCKey.h"
 
 @implementation LKKCKeyPair 
-{
-    LKKCKey *_publicKey;
-    LKKCKey *_privateKey;
-}
 
 - (id)initWithPublicKey:(LKKCKey *)publicKey privateKey:(LKKCKey *)privateKey
 {

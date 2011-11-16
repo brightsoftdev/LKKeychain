@@ -7,12 +7,8 @@
 //
 
 #import "TripleDESTests.h"
-#import "LKKeychainTestUtils.h"
 
 @implementation TripleDESTests
-{
-    LKKCKeychain *_keychain;
-}
 
 - (void)setUp
 {

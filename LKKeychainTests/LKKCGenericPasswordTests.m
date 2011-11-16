@@ -8,13 +8,7 @@
 
 #import "LKKCGenericPasswordTests.h"
 
-#import <Cocoa/Cocoa.h>
-#import "LKKeychainTestUtils.h"
-
 @implementation LKKCGenericPasswordTests
-{
-    LKKCKeychain *_keychain;
-}
 
 - (void)setUp
 {

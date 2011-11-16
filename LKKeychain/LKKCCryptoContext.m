@@ -18,10 +18,6 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
 @end
 
 @implementation LKKCCryptoContext
-{
-    LKKCKey *_key;
-    CSSM_CC_HANDLE _cchandle;
-}
 
 + (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key operation:(CSSM_ACL_AUTHORIZATION_TAG)operation error:(NSError **)error
 {

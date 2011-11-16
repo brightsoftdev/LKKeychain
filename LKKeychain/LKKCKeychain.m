@@ -21,9 +21,6 @@ static CFMutableDictionaryRef keychains = NULL;
 @end
 
 @implementation LKKCKeychain
-{
-    SecKeychainRef _skeychain;
-}
 
 #pragma mark - Factory methods
 

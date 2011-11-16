@@ -13,6 +13,16 @@
 @class LKKCKey;
 
 @interface LKKCKeyGenerator : NSObject
+{
+@private
+    unsigned int _keySize;
+    LKKCKeychain *_keychain;
+    NSString *_label;
+    NSData *_keyID;
+    NSString *_applicationLabel;
+    NSString *_tag;
+    BOOL _extractable;
+}
 
 // Returns a generator that creates keys in the specified keychain.
 // The keychain may be nil if you don't plan to store the generated keys permanently.

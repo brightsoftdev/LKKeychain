@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LKKeychain.h"
+#import <LKKeychain/LKKeychain.h>
 
 @interface LKKeychainTestUtils : NSObject
 

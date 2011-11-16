@@ -6,6 +6,9 @@
 //  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <Security/Security.h>
+
 @class LKKCKeychain;
 
 @interface LKKCKeychainItem : NSObject

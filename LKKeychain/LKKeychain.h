@@ -6,12 +6,12 @@
 //  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
 //
 
-#import "LKKCKeychain.h"
-#import "LKKCKeychainItem.h"
-#import "LKKCGenericPassword.h"
-#import "LKKCInternetPassword.h"
-#import "LKKCCertificate.h"
-#import "LKKCKey.h"
-#import "LKKCIdentity.h"
-#import "LKKCKeyPair.h"
-#import "LKKCKeyGenerator.h"
+#import <LKKeychain/LKKCKeychain.h>
+#import <LKKeychain/LKKCKeychainItem.h>
+#import <LKKeychain/LKKCGenericPassword.h>
+#import <LKKeychain/LKKCInternetPassword.h>
+#import <LKKeychain/LKKCCertificate.h>
+#import <LKKeychain/LKKCKey.h>
+#import <LKKeychain/LKKCIdentity.h>
+#import <LKKeychain/LKKCKeyPair.h>
+#import <LKKeychain/LKKCKeyGenerator.h>

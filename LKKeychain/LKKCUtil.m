@@ -18,7 +18,7 @@ LKKCReportErrorImpl(char *file, int line, OSStatus status, NSError **error, NSSt
     NSString *bakedMessage = [[[NSString alloc] initWithFormat:message arguments:args] autorelease];
     va_end(args);
     CFStringRef errorString = SecCopyErrorMessageString(status, NULL);
-    NSLog(@"%s:%d: %@: %@ (%d)", file, line, bakedMessage, (errorString ? (NSString *)errorString : @"unknown error"),  status);
+    NSLog(@"%s:%d: %@: %@ (%d)", file, line, bakedMessage, (errorString ? (NSString *)errorString : @"unknown error"),  (int)status);
     if (error != NULL) {
         *error = [NSError errorWithDomain:LKKCErrorDomain 
                                      code:status 

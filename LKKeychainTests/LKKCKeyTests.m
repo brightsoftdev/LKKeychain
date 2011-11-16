@@ -7,12 +7,8 @@
 //
 
 #import "LKKCKeyTests.h"
-#import "LKKeychainTestUtils.h"
 
 @implementation LKKCKeyTests
-{
-    LKKCKeychain *_keychain;
-}
 
 - (void)setUp
 {

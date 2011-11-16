@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 @class LKKCGenericPassword;
 @class LKKCInternetPassword;
@@ -15,6 +16,11 @@
 @class LKKCKey;
 
 @interface LKKCKeychain : NSObject
+{
+@private
+    SecKeychainRef _skeychain;
+}
+
 + (LKKCKeychain *)defaultKeychain;
 + (LKKCKeychain *)keychainWithPath:(NSString *)path error:(NSError **)error;
 + (LKKCKeychain *)keychainWithSecKeychain:(SecKeychainRef)skeychain;

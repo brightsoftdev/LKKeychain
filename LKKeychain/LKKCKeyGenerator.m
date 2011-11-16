@@ -21,15 +21,6 @@
 @end
 
 @implementation LKKCKeyGenerator
-{
-    unsigned int _keySize;
-    LKKCKeychain *_keychain;
-    NSString *_label;
-    NSData *_keyID;
-    NSString *_applicationLabel;
-    NSString *_tag;
-    BOOL _extractable;
-}
 @synthesize keySize = _keySize;
 @synthesize keychain = _keychain;
 @synthesize label = _label;

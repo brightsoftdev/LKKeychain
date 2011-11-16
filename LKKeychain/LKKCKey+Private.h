@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
 //
 
-#import "LKKCKey.h"
+#import <LKKeychain/LKKCKey.h>
 
 @interface LKKCKey (Private)
 + (CFTypeRef)_algorithmFromLKKCKeyType:(LKKCKeyType)keyType;

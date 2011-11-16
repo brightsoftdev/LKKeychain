@@ -7,13 +7,9 @@
 //
 
 #import "RSATests.h"
-#import "LKKeychainTestUtils.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation RSATests
-{
-    LKKCKeychain *_keychain;
-}
 
 - (void)setUp
 {

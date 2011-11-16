@@ -7,11 +7,8 @@
 //
 
 #import "LKKCKeychainTests.h"
-#import "LKKeychainTestUtils.h"
 
-@implementation LKKCKeychainTests {
-    BOOL _userInteractionEnabled;
-}
+@implementation LKKCKeychainTests 
 
 - (void)setUp
 {
@@ -127,13 +124,13 @@
     NSLog(@"- lock interval: %g", keychain.lockInterval);
     NSLog(@"- locks on sleep: %d", keychain.lockOnSleep);
     NSLog(@"- contents:");
-    NSLog(@"   - %lu generic passwords", [[keychain genericPasswords] count]);
-    NSLog(@"   - %lu internet passwords", [[keychain internetPasswords] count]);
-    NSLog(@"   - %lu certificates", [[keychain certificates] count]);
-    NSLog(@"   - %lu public keys", [[keychain publicKeys] count]);
-    NSLog(@"   - %lu private keys", [[keychain privateKeys] count]);
-    NSLog(@"   - %lu identitites", [[keychain identities] count]);
-    NSLog(@"   - %lu symmetric keys", [[keychain symmetricKeys] count]);    
+    NSLog(@"   - %u generic passwords", (unsigned int)[[keychain genericPasswords] count]);
+    NSLog(@"   - %u internet passwords", (unsigned int)[[keychain internetPasswords] count]);
+    NSLog(@"   - %u certificates", (unsigned int)[[keychain certificates] count]);
+    NSLog(@"   - %u public keys", (unsigned int)[[keychain publicKeys] count]);
+    NSLog(@"   - %u private keys", (unsigned int)[[keychain privateKeys] count]);
+    NSLog(@"   - %u identitites", (unsigned int)[[keychain identities] count]);
+    NSLog(@"   - %u symmetric keys", (unsigned int)[[keychain symmetricKeys] count]);    
 }
 
 - (void)testDefaultKeychain

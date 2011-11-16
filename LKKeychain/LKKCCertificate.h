@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
 //
 
-#import "LKKCKeychainItem.h"
+#import <LKKeychain/LKKCKeychainItem.h>
 
 @class LKKCKey;
 @interface LKKCCertificate : LKKCKeychainItem

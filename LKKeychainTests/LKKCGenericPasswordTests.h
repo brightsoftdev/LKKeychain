@@ -8,7 +8,12 @@
 
 #define STEnableDeprecatedAssertionMacros
 #import <SenTestingKit/SenTestingKit.h>
+#import "LKKeychainTestUtils.h"
 
 @interface LKKCGenericPasswordTests : SenTestCase
+{
+@private
+    LKKCKeychain *_keychain;
+}
 
 @end

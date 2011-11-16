@@ -7,9 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 @class LKKCKey;
 @interface LKKCCryptoContext : NSObject
+{
+@private
+    LKKCKey *_key;
+    CSSM_CC_HANDLE _cchandle;
+}
 
 + (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key operation:(CSSM_ACL_AUTHORIZATION_TAG)operation error:(NSError **)error;
 
