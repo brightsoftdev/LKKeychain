@@ -63,15 +63,18 @@
     if (scertificate == NULL)
         return nil;
     NSData *subject = [self valueForAttribute:kSecAttrSubject];
-    if (subject == nil && SecCertificateCopyNormalizedSubjectContent != NULL) { // 10.7
-        NSError *error = nil;
-        subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(scertificate, (CFErrorRef *)&error);
+    if (subject != nil)
+        return subject;
+    if (SecCertificateCopyNormalizedSubjectContent != NULL) { // 10.7
+        CFErrorRef error = NULL;
+        subject = (NSData *)SecCertificateCopyNormalizedSubjectContent(scertificate, &error);
         if (subject == nil) {
-            LKKCReportErrorObj(error, NULL, @"Can't get normalized subject content");
+            LKKCReportErrorObj((NSError *)error, NULL, @"Can't get normalized subject content");
+            CFRelease(error);
         }
-        [subject autorelease];
+        return [subject autorelease];
     }
-    return subject;
+    return nil;
 }
 
 - (NSData *)issuer
@@ -80,15 +83,18 @@
     if (scertificate == NULL)
         return nil;
     NSData *issuer = [self valueForAttribute:kSecAttrIssuer];
-    if (issuer == nil && SecCertificateCopyNormalizedIssuerContent != NULL) { // 10.7
-        NSError *error = nil;
-        issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(scertificate, (CFErrorRef *)&error);
+    if (issuer != nil)
+        return issuer;
+    if (SecCertificateCopyNormalizedIssuerContent != NULL) { // 10.7
+        CFErrorRef error = NULL;
+        issuer = (NSData *)SecCertificateCopyNormalizedIssuerContent(scertificate, &error);
         if (issuer == nil) {
-            LKKCReportErrorObj(error, NULL, @"Can't get normalized issuer content");
+            LKKCReportErrorObj((NSError *)error, NULL, @"Can't get normalized issuer content");
+            CFRelease(error);
         }
-        [issuer autorelease];
+        return [issuer autorelease];
     }
-    return issuer;
+    return nil;
 }
 
 - (NSData *)serialNumber

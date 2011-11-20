@@ -225,6 +225,7 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     SecKeyRef skey = SecKeyCreateFromData((CFDictionaryRef)parameters, (CFDataRef)data, &error);
     if (skey == NULL) {
         LKKCReportError((OSStatus)CFErrorGetCode(error), NULL, @"Can't create key");
+        CFRelease(error);
         return nil;
     }
     LKKCKey *key = [LKKCKey keyWithSecKey:skey];

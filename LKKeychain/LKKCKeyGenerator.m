@@ -149,6 +149,7 @@
         skeyCopy = SecKeyCreateFromData((CFDictionaryRef)attributes, (CFDataRef)data, &cferror);
         if (skey == NULL) {
             LKKCReportError((OSStatus)CFErrorGetCode(cferror), NULL, @"Can't create key copy");
+            CFRelease(cferror);
             return NULL;
         }
     }
@@ -249,6 +250,7 @@
         SecKeyRef skey = SecKeyGenerateSymmetric((CFDictionaryRef)parameters, &cferror);
         if (skey == NULL) {
             LKKCReportError((OSStatus)CFErrorGetCode(cferror), NULL, @"Can't generate symmetric key");
+            CFRelease(cferror);
             return nil;
         }
         
