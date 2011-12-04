@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>LKKCKey Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.4 (build 703)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">LKKeychain </a></h1>
+				<a id="developerHome" href="../index.html">Károly Lőrentey</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">LKKCKey Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/SecKey">&nbsp;&nbsp;&nbsp;&nbsp;SecKey</option>
+	
+	<option value="//api/name/applicationLabel">&nbsp;&nbsp;&nbsp;&nbsp;applicationLabel</option>
+	
+	<option value="//api/name/canDecrypt">&nbsp;&nbsp;&nbsp;&nbsp;canDecrypt</option>
+	
+	<option value="//api/name/canDerive">&nbsp;&nbsp;&nbsp;&nbsp;canDerive</option>
+	
+	<option value="//api/name/canEncrypt">&nbsp;&nbsp;&nbsp;&nbsp;canEncrypt</option>
+	
+	<option value="//api/name/canSign">&nbsp;&nbsp;&nbsp;&nbsp;canSign</option>
+	
+	<option value="//api/name/canUnwrap">&nbsp;&nbsp;&nbsp;&nbsp;canUnwrap</option>
+	
+	<option value="//api/name/canVerify">&nbsp;&nbsp;&nbsp;&nbsp;canVerify</option>
+	
+	<option value="//api/name/canWrap">&nbsp;&nbsp;&nbsp;&nbsp;canWrap</option>
+	
+	<option value="//api/name/effectiveKeySize">&nbsp;&nbsp;&nbsp;&nbsp;effectiveKeySize</option>
+	
+	<option value="//api/name/keyClass">&nbsp;&nbsp;&nbsp;&nbsp;keyClass</option>
+	
+	<option value="//api/name/keyID">&nbsp;&nbsp;&nbsp;&nbsp;keyID</option>
+	
+	<option value="//api/name/keyType">&nbsp;&nbsp;&nbsp;&nbsp;keyType</option>
+	
+	<option value="//api/name/permanent">&nbsp;&nbsp;&nbsp;&nbsp;permanent</option>
+	
+	<option value="//api/name/tag">&nbsp;&nbsp;&nbsp;&nbsp;tag</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/keyDataWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- keyDataWithError:</option>
+	
+	<option value="//api/name/saveItemWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- saveItemWithError:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Key identifiers">Key identifiers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Key attributes">Key attributes</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/SecKey">SecKey</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/applicationLabel">applicationLabel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canDecrypt">canDecrypt</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canDerive">canDerive</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canEncrypt">canEncrypt</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canSign">canSign</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canUnwrap">canUnwrap</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canVerify">canVerify</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/canWrap">canWrap</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/effectiveKeySize">effectiveKeySize</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyClass">keyClass</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyID">keyID</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyType">keyType</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/permanent">permanent</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tag">tag</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyDataWithError:">keyDataWithError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveItemWithError:">saveItemWithError:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="LKKCKey Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">LKKCKey Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value"><a href="../Classes/LKKCKeychainItem.html">LKKCKeychainItem</a> : NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">LKKCKey.h<br />LKKCKey.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Represents a cryptographic key.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Key identifiers" name="task_Key identifiers"></a>
+						<h3 class="subsubtitle task-title">Key identifiers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/keyID">&nbsp;&nbsp;keyID</a></code>
+		<span class="tooltip"><p>Key identifier for public and private keys. (kSecAttrApplicationLabel, a.k.a kSecKeyLabel)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/applicationLabel">&nbsp;&nbsp;applicationLabel</a></code>
+		<span class="tooltip"><p>Key identifier for symmetric keys. (kSecAttrApplicationLabel, a.k.a kSecKeyLabel)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Key attributes" name="task_Key attributes"></a>
+						<h3 class="subsubtitle task-title">Key attributes</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tag">&nbsp;&nbsp;tag</a></code>
+		<span class="tooltip"><p>Application-specific tag of your choice. (kSecAttrApplicationTag)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/keyClass">&nbsp;&nbsp;keyClass</a></code>
+		<span class="tooltip"><p>The class of the key (public, private or symmetric). (kSecAttrKeyClass)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/keyType">&nbsp;&nbsp;keyType</a></code>
+		<span class="tooltip"><p>The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/permanent">&nbsp;&nbsp;permanent</a></code>
+		<span class="tooltip"><p>Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canEncrypt">&nbsp;&nbsp;canEncrypt</a></code>
+		<span class="tooltip"><p>Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canDecrypt">&nbsp;&nbsp;canDecrypt</a></code>
+		<span class="tooltip"><p>Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canDerive">&nbsp;&nbsp;canDerive</a></code>
+		<span class="tooltip"><p>Whether this key can be used to derive another key. (kSecAttrCanDerive)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canSign">&nbsp;&nbsp;canSign</a></code>
+		<span class="tooltip"><p>Whether this key can be used to create a digital signature. (kSecAttrCanSign)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canVerify">&nbsp;&nbsp;canVerify</a></code>
+		<span class="tooltip"><p>Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canWrap">&nbsp;&nbsp;canWrap</a></code>
+		<span class="tooltip"><p>Whether this key can be used to wrap another key. (kSecAttrCanWrap)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/canUnwrap">&nbsp;&nbsp;canUnwrap</a></code>
+		<span class="tooltip"><p>Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/effectiveKeySize">&nbsp;&nbsp;effectiveKeySize</a></code>
+		<span class="tooltip"><p>Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/keyDataWithError:">&ndash;&nbsp;keyDataWithError:</a></code>
+		<span class="tooltip"><p>Returns the raw bits of the key.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/SecKey">&nbsp;&nbsp;SecKey</a></code>
+		<span class="tooltip"><p>The underlying <code>SecKey</code> reference.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/saveItemWithError:">&ndash;&nbsp;saveItemWithError:</a></code>
+		<span class="tooltip"><p>Save previous modifications to this item&rsquo;s properties to the keychain.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/SecKey" title="SecKey"></a>
+	<h3 class="subsubtitle method-title">SecKey</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The underlying <code>SecKey</code> reference.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) SecKeyRef SecKey</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/applicationLabel" title="applicationLabel"></a>
+	<h3 class="subsubtitle method-title">applicationLabel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Key identifier for symmetric keys. (kSecAttrApplicationLabel, a.k.a kSecKeyLabel)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSString *applicationLabel</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Both <a href="#//api/name/keyID">keyID</a> and <a href="#//api/name/applicationLabel">applicationLabel</a>  map to the same keychain attribute; it is part of the primary key for key items.
+If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel">applicationLabel</a> for symmetric keys and <a href="#//api/name/keyID">keyID</a> for asymetric keys.</p>
+
+<p>Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.</p>
+
+<p>With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute&rsquo;s type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canDecrypt" title="canDecrypt"></a>
+	<h3 class="subsubtitle method-title">canDecrypt</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canDecrypt</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canDerive" title="canDerive"></a>
+	<h3 class="subsubtitle method-title">canDerive</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to derive another key. (kSecAttrCanDerive)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canDerive</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canEncrypt" title="canEncrypt"></a>
+	<h3 class="subsubtitle method-title">canEncrypt</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canEncrypt</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canSign" title="canSign"></a>
+	<h3 class="subsubtitle method-title">canSign</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to create a digital signature. (kSecAttrCanSign)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canSign</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canUnwrap" title="canUnwrap"></a>
+	<h3 class="subsubtitle method-title">canUnwrap</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canUnwrap</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canVerify" title="canVerify"></a>
+	<h3 class="subsubtitle method-title">canVerify</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canVerify</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/canWrap" title="canWrap"></a>
+	<h3 class="subsubtitle method-title">canWrap</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key can be used to wrap another key. (kSecAttrCanWrap)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL canWrap</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/effectiveKeySize" title="effectiveKeySize"></a>
+	<h3 class="subsubtitle method-title">effectiveKeySize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) int effectiveKeySize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/keyClass" title="keyClass"></a>
+	<h3 class="subsubtitle method-title">keyClass</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The class of the key (public, private or symmetric). (kSecAttrKeyClass)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) LKKCKeyClass keyClass</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/keyID" title="keyID"></a>
+	<h3 class="subsubtitle method-title">keyID</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Key identifier for public and private keys. (kSecAttrApplicationLabel, a.k.a kSecKeyLabel)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSData *keyID</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Both <a href="#//api/name/keyID">keyID</a> and <a href="#//api/name/applicationLabel">applicationLabel</a>  map to the same keychain attribute; it is part of the primary key for key items.
+If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel">applicationLabel</a> for symmetric keys and <a href="#//api/name/keyID">keyID</a> for asymetric keys.</p>
+
+<p>Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.</p>
+
+<p>With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute&rsquo;s type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/keyType" title="keyType"></a>
+	<h3 class="subsubtitle method-title">keyType</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) LKKCKeyType keyType</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/permanent" title="permanent"></a>
+	<h3 class="subsubtitle method-title">permanent</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly, getter=isPermanent) BOOL permanent</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tag" title="tag"></a>
+	<h3 class="subsubtitle method-title">tag</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Application-specific tag of your choice. (kSecAttrApplicationTag)</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSString *tag</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/keyDataWithError:" title="keyDataWithError:"></a>
+	<h3 class="subsubtitle method-title">keyDataWithError:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the raw bits of the key.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSData *)keyDataWithError:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the data could not be extraced (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The raw bits of the key, of nil if the key data is not extractable from the keychain.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/saveItemWithError:" title="saveItemWithError:"></a>
+	<h3 class="subsubtitle method-title">saveItemWithError:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Save previous modifications to this item&rsquo;s properties to the keychain.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)saveItemWithError:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the item could not be saved (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the operation succeeded, or NO if an error happened.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychainItem.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.4 (build 703)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>
