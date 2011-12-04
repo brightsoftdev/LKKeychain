@@ -13,34 +13,24 @@
 - (void)setUp
 {
     [super setUp];
-
-    NSError *error = nil;
-    _userInteractionEnabled = [LKKCKeychain userInteractionEnabled];
-    BOOL result = [LKKCKeychain setUserInteractionEnabled:NO error:&error];
-    should(result);
+    _userInteractionEnabled = [LKKCKeychain userInteractionAllowed];
+    [LKKCKeychain setUserInteractionAllowed:NO];
 }
 
 - (void)tearDown
 {
-    NSError *error = nil;
-    BOOL result = [LKKCKeychain setUserInteractionEnabled:_userInteractionEnabled error:&error];
-    should(result);
-
+    [LKKCKeychain setUserInteractionAllowed:_userInteractionEnabled];
     [super tearDown];
 }
 
 - (void)testUserInteraction
 {
-    BOOL enabled = [LKKCKeychain userInteractionEnabled];
-    NSLog(@"User interaction enabled: %d", enabled);
-    NSError *error = nil;
-    BOOL result;
-    result = [LKKCKeychain setUserInteractionEnabled:!enabled error:&error];
-    should(result);
-    should([LKKCKeychain userInteractionEnabled] == !enabled);
-    result = [LKKCKeychain setUserInteractionEnabled:enabled error:&error];
-    should(result);
-    should([LKKCKeychain userInteractionEnabled] == enabled);
+    BOOL allowed = [LKKCKeychain userInteractionAllowed];
+    NSLog(@"User interaction allowed: %d", allowed);
+    [LKKCKeychain setUserInteractionAllowed:!allowed];
+    should([LKKCKeychain userInteractionAllowed] == !allowed);
+    [LKKCKeychain setUserInteractionAllowed:allowed];
+    should([LKKCKeychain userInteractionAllowed] == allowed);
 }
 
 - (void)testNonexistentKeychain
@@ -142,8 +132,7 @@
 
 - (void)testSearchList
 {
-    NSError *error = nil;
-    NSArray *searchList = [LKKCKeychain keychainsInSearchListWithError:&error];
+    NSArray *searchList = [LKKCKeychain keychainsOnSearchList];
     should(searchList != nil);
     should([searchList count] > 0);
     

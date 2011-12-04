@@ -3,8 +3,31 @@
 //  LKKeychain
 //
 //  Created by Karoly Lorentey on 2011-11-13.
-//  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
-//
+//  Copyright © 2011, Károly Lőrentey. All rights reserved.
+//  
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//  
+//  * Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+//  * Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//  * Neither the name of Károly Lőrentey nor the names of its contributors 
+//    may be used to endorse or promote products derived from this software 
+//    without specific prior written permission.
+//  
+//  **This software is provided by the copyright holders and contributors "as is" and
+//  any express or implied warranties, including, but not limited to, the implied
+//  warranties of merchantability and fitness for a particular purpose are
+//  disclaimed. In no event shall Károly Lőrentey be liable for any
+//  direct, indirect, incidental, special, exemplary, or consequential damages
+//  (including, but not limited to, procurement of substitute goods or services;
+//  loss of use, data, or profits; or business interruption) however caused and
+//  on any theory of liability, whether in contract, strict liability, or tort
+//  (including negligence or otherwise) arising in any way out of the use of this
+//  software, even if advised of the possibility of such damage.**
+// 
 
 #import <Foundation/Foundation.h>
 
@@ -12,6 +35,7 @@
 @class LKKCKeyPair;
 @class LKKCKey;
 
+/** A key generator that can generate symmetric and asymmetric keys for various cryptographic algorithms. */
 @interface LKKCKeyGenerator : NSObject
 {
 @private
@@ -36,14 +60,15 @@
 - (LKKCKey *)generateAESKey;
 - (LKKCKey *)generate3DESKey;
 
-// The size (in bits) of the generated key. Valid sizes depend on the algorithm.
-// If you leave this at 0, the generated key will have a suitable default key size.
+/** The size (in bits) of the generated key. Valid sizes depend on the algorithm.
+
+ If you leave this at 0, the generated key will have a suitable default key size. */
 @property (nonatomic, assign) unsigned int keySize;
 
-// The keychain into which to put the generated key. 
+/// The keychain into which to put the generated key. 
 @property (nonatomic, retain) LKKCKeychain *keychain;
 
-// Whether it will be possible to get the raw data of the generated keys. Defaults to YES.
+/// Whether it will be possible to get the raw data of the generated keys. Defaults to YES.
 @property (nonatomic, assign, getter = isExtractable) BOOL extractable;
 
 // These properties correspond to those in LKKCKey.

@@ -1,107 +1,75 @@
-# LKKeychain #
+# About LKKeychain #
+
+_Are you frustrated by the Mac OS X Keychain API?_
+
+_Do you ever wish it was a little less inconvenient? Less inconsistent? Less Carbon?_
+
+_Are you dreaming of a Cocoa Keychain?_
+
+_**You can now `git clone` your dreams!**_
 
 LKKeychain is a full-featured Objective-C wrapper for Mac OS X's Keychain API and some related subsystems in the Security Framework.
-It currently requires Mac OS 10.7 Lion; adding (possibly limited) support for 10.6 is on my todo list.
 
-It supports listing, finding, adding, modifying and deleting generic passwords, internet passwords, certificates, public, private and symmetric keys.
+It supports listing, finding, creating, modifying and deleting all kinds of keychain items, including generic passwords, internet passwords, certificates, and public, private and symmetric keys. It'll soon be able sign, encrypt and decrypt data, verify signatures, validate certificates, and whatever else strikes my fancy while perusing the [Security Framework Reference](http://developer.apple.com/library/mac/#documentation/Security/Reference/SecurityFrameworkReference/_index.html).
 
-I'm rapidly adding new functionality, but LKKeychain is not yet intended for production use.
+I'm rapidly adding new functionality, but I don't think LKKeychain is ready for production use yet.
 
-## Generic Passwords ##
+LKKeychain currently requires Mac OS 10.7 Lion; I have vague plans to add (possibly limited) support for 10.6.
+An iOS port is also possible, if there is any interest. ([Tell me about it.](mailto:karoly@lorentey.hu))
 
-You can create a new generic password by calling the class method `+[LKKCGenericPassword createPassword:service:account:]`. 
-It returns a floating password item that isn't on a keychain yet. The password's attributes (such as its label and comment)
-are accessible as simple read-write properties. Once you've set up the attributes you want, call 
-`-[LKKCKeychainItem addToKeychain:withError:]` to add the item to a keychain.
+# Documentation #
 
-```Objective-C
-LKKCGenericPassword *password = [LKKCGenericPassword createPassword:@"secretPassword" 
-                                                            service:[[NSBundle mainBundle] bundleIdentifier]
-                                                            account:@"sample account"];
-password.label = [NSString stringWithFormat:@"%@ (%@)", password.service, password.account];
-    
-LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-BOOL result = [password addToKeychain:keychain withError:NULL];
-if (!result) {
-    // Oops
-}
-```
+The [LKKeychain Reference](http://lorentey.github.com/LKKeychain/reference) is available online.
+To integrate it into Xcode, simply add the following feed URL in the Downloads tab of the Documentation
+section of Xcode's Preferences:
 
-`LKKCKeychain` instances have methods for retrieving passwords stored on a particular keychain.
+    http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain.atom
 
-```Objective-C
-LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-LKKCGenericPassword *password = [keychain genericPasswordWithService:[[NSBundle mainBundle] bundleIdentifier] 
-                                                             account:@"sample account"];
-NSLog(@"Password: %@", password.password);
-```
+This adds the LKKeychain API docs right into your Organizer window, Quick Help panel and Option-click
+popups.
 
-To modify an existing password, simply assign new values to its properties and save the changes using `-[LKKCKeychainItem saveItemWithError:]`.
+# Installation #
 
-```Objective-C
-password.password = @"NewP4ssword";
-password.comment = @"This is a comment for the sample account password.";
+Prebuilt binaries aren't available yet, so for now you have to clone the LKKeychain repository and
+build them yourself. The single Xcode project file has targets for both a dynamic framework and a 
+static library. Use whichever you prefer.
 
-result = [password saveItemWithError:NULL];
-if (!result) {
-    // Oops
-}
-```
-    
-To delete a password, just call `-[LKKCKeychainItem deleteItemWithError:]`.
+The [LKKeychain Reference](http://lorentey.github.com/LKKeychain/reference) is produced by 
+the excellent [appledoc](https://github.com/tomaz/appledoc) tool. You can build the docs yourself
+using the Documentation target in `LKKeychain.xcodeproj`. 
+Building this target will automatically integrate the resulting docset into your Xcode installation.
 
-```Objective-C
-result = [password deleteItemWithError:NULL];
-if (!result) {
-    // Oops
-}
-```
-    
-## Internet Passwords ##
+# License #
 
-Internet passwords associate a password with a URL (extended by an optional authentication type and security domain string).
-The URL is not stored directly on the keychain; it is instead split up into its components (protocol, account, server, port, and path),
-each of which is stored separately in its own attribute. `LKKCInternetPassword` has a separate readwrite property for
-all of these components, but it also provides a `url` shortcut property that converts to/from simple `NSURL` instances.
+LKKeychain is licensed with the three-clause BSD license. In plain language: you're allowed to do
+whatever you wish with the code, modify, redistribute, embed in your products (free or commercial), 
+but you must include copyright, terms of usage and disclaimer as stated in the license, the same way
+as any other BSD licensed code.
 
-```Objective-C
-LKKCInternetPassword *item = [LKKCInternetPassword createPassword];
-item.url = [NSURL urlWithString:@"http://username@example.com:8080/admin/login.php"];
-item.authenticationType = LKKCAuthenticationTypeHTMLBasic;
-item.securityDomain = @"Administration Interface";
-item.password = @"bananas";
+If for whatever reason you cannot agree to these terms, please [contact me](mailto:karoly@lorentey.hu),
+and I'll do my best to find a solution for you.
 
-LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-result = [item addToKeychain:keychain withError:NULL];
-if (!result) {
-    // Oops
-}
-```
-    
-To retrieve a password for a URL, iterate over all passwords with the same server, and find the one that's the best match.
+Copyright © 2011, Károly Lőrentey. All rights reserved.
 
-```Objective-C
-LKKCKeychain *keychain = [LKKCKeychain defaultKeychain];
-for (LKKCInternetPassword *item in [keychain internetPasswordsForServer:@"example.com"]) {
-    if (item.authenticationType == LKKCAuthenticationTypeHTMLBasic
-        && [item.securityDomain isEqualToString:@"Administration Interface"]) {
-        return item.password;
-    }
-}
-```
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
 
-## Certificates ##
+* Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+* Neither the name of Károly Lőrentey nor the names of its contributors 
+  may be used to endorse or promote products derived from this software 
+  without specific prior written permission.
 
-To be done. You'll be able to validate certificates using LKKeychain.
-
-## Public and private keys ##
-
-To be done. You'll be able to use an assymetric `LKKCKey` to encrypt/decrypt data, and to create/verify signatures.
-
-## Identities ##
-
-To be done. You'll be able to encrypt/decrypt data, and to create/verify signatures.
-
-## Symmetric keys ##
-
-To be done. You'll be able to use a symmetric `LKKCKey` to encrypt or decrypt data.
+**This software is provided by the copyright holders and contributors "as is" and
+any express or implied warranties, including, but not limited to, the implied
+warranties of merchantability and fitness for a particular purpose are
+disclaimed. In no event shall Károly Lőrentey be liable for any
+direct, indirect, incidental, special, exemplary, or consequential damages
+(including, but not limited to, procurement of substitute goods or services;
+loss of use, data, or profits; or business interruption) however caused and
+on any theory of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.**

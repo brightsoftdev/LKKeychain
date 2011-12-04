@@ -3,8 +3,31 @@
 //  LKKCKeychain
 //
 //  Created by Karoly Lorentey on 2011-10-22.
-//  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
-//
+//  Copyright © 2011, Károly Lőrentey. All rights reserved.
+//  
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//  
+//  * Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+//  * Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//  * Neither the name of Károly Lőrentey nor the names of its contributors 
+//    may be used to endorse or promote products derived from this software 
+//    without specific prior written permission.
+//  
+//  **This software is provided by the copyright holders and contributors "as is" and
+//  any express or implied warranties, including, but not limited to, the implied
+//  warranties of merchantability and fitness for a particular purpose are
+//  disclaimed. In no event shall Károly Lőrentey be liable for any
+//  direct, indirect, incidental, special, exemplary, or consequential damages
+//  (including, but not limited to, procurement of substitute goods or services;
+//  loss of use, data, or profits; or business interruption) however caused and
+//  on any theory of liability, whether in contract, strict liability, or tort
+//  (including negligence or otherwise) arising in any way out of the use of this
+//  software, even if advised of the possibility of such damage.**
+// 
 
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
@@ -15,72 +38,262 @@
 @class LKKCIdentity;
 @class LKKCKey;
 
+/** Represents a keychain.
+ */
 @interface LKKCKeychain : NSObject
 {
 @private
     SecKeychainRef _skeychain;
 }
 
+/** --------------------------------------------------------------------------------
+ @name Opening keychains 
+ -------------------------------------------------------------------------------- */
+
+/** Returns the default keychain. */
 + (LKKCKeychain *)defaultKeychain;
+
+/** Opens a keychain at a given filesystem path. 
+ @param path The path to open.
+ @param error On output, the error that occurred in case the keychain could not be opened (optional).
+ @return An LKKCKeychain object representing the keychain at path, or nil in case of an error.
+ */
 + (LKKCKeychain *)keychainWithPath:(NSString *)path error:(NSError **)error;
+
+/** Initializes an LKKCKeychain object wrapping the specified keychain reference.
+ @param skeychain The SecKeychainRef value.
+ @return An LKKCKeychain object representing the given keychain reference.
+ */
 + (LKKCKeychain *)keychainWithSecKeychain:(SecKeychainRef)skeychain;
-+ (LKKCKeychain *)createKeychainWithPath:(NSString *)path password:(NSString *)password error:(NSError **)error; // Prompts the user when password is nil.
-+ (NSArray *)keychainsInSearchListWithError:(NSError **)error; // Array of LKKCKeychain objects.
 
-// Controls whether the system is allowed to prompt the user (to unlock a keychain, to confirm an operation, etc.).
-// When user interaction is disabled, operations that require it return an error.
-+ (BOOL)userInteractionEnabled;
-+ (BOOL)setUserInteractionEnabled:(BOOL)enabled error:(NSError **)error;
+/** Creates a new keychain.
+ 
+ The new keychain is automatically unlocked.
+ 
+ @param path The filesystem path of the new keychain.
+ @param password The password for the new keychain. If nil, the system prompts the user for a password.
+ @param error On output, the error on occured in case the keychain could not be created (optional).
+ @return An LKKCKeychain object representing the new keychain.
+ */
++ (LKKCKeychain *)createKeychainWithPath:(NSString *)path password:(NSString *)password error:(NSError **)error; 
 
-// Generic passwords.
+/** Returns all keychains on the keychain search list.
+ @return All keychains on the keychain search list.
+ */
++ (NSArray *)keychainsOnSearchList;
+
+/** --------------------------------------------------------------------------------
+ @name Controlling user interaction
+ -------------------------------------------------------------------------------- */
+
+/** Returns whether the system is allowed to prompt the user.
+ 
+ Prompts are used to unlock a keychain, to confirm a protected operation, etc. 
+ When user interactions are disabled, operations that would require a prompt return an error. 
+ @see setUserInteractionAllowed: 
+ */
++ (BOOL)userInteractionAllowed;
+
+/** Controls whether the system is allowed to prompt the user.
+ 
+ Prompts are used to unlock a keychain, to confirm a protected operation, etc. 
+ When user interactions are disabled, operations that would require a prompt return an error. 
+ @param allowed If YES, prompts are allowed, otherwise they are supressed.
+ @see userInteractionAllowed
+ */
++ (void)setUserInteractionAllowed:(BOOL)allowed;
+
+/** --------------------------------------------------------------------------------
+ @name Generic passwords
+ -------------------------------------------------------------------------------- */
+
+/** Returns an array of all generic passwords on this keychain. 
+ @return An array of all generic passwords on this keychain. 
+ */
 - (NSArray *)genericPasswords;
+
+/** Returns the generic password with the given persistent ID.
+ @param persistentID A persistent ID previously returned by -[LKKCGenericPassword persistentID].
+ @return The generic password with _persistentID_, or nil if not found.
+ */
 - (LKKCGenericPassword *)genericPasswordWithPersistentID:(NSData *)persistentID;
+
+/** Returns the generic password with the given _service_ and _account_ values.
+ 
+ Generic passwords are uniquely identified by these two attributes.
+ 
+ @param service The value of the service attribute.
+ @param account The value of the account attribute.
+ @return The generic password with _service_ and _account_, or nil if there is no such password on this keychain. */
 - (LKKCGenericPassword *)genericPasswordWithService:(NSString *)service account:(NSString *)account;
 
-// Internet passwords.
+/** --------------------------------------------------------------------------------
+ @name Internet passwords
+ -------------------------------------------------------------------------------- */
+
+/** Returns an array of all internet passwords on this keychain. 
+ @return An array of all internet passwords on this keychain. 
+ */
 - (NSArray *)internetPasswords;
+
+/** Returns the internet password with the given persistent ID.
+ @param persistentID A persistent ID previously returned by -[LKKCInternetPassword persistentID].
+ @return The internet password with _persistentID_, or nil if not found.
+ */
 - (LKKCInternetPassword *)internetPasswordWithPersistentID:(NSData *)persistentID;
+
 - (NSArray *)internetPasswordsForServer:(NSString *)server;
 
-// Certificates.
+/** --------------------------------------------------------------------------------
+ @name Certificates
+ -------------------------------------------------------------------------------- */
+
+/** Returns an array of all certificates on this keychain. 
+ @return An array of all certificates on this keychain. 
+ */
 - (NSArray *)certificates;
+
+/** Returns the certificate with the given persistent ID.
+ @param persistentID A persistent ID previously returned by -[LKKCCertificate persistentID].
+ @return The certificate with _persistentID_, or nil if not found.
+ */
 - (LKKCCertificate *)certificateWithPersistentID:(NSData *)persistentID;
+
 - (NSArray *)certificatesWithSubject:(NSData *)subject;
 - (NSArray *)certificatesWithPublicKeyHash:(NSData *)publicKeyHash;
 - (NSArray *)certificatesWithLabel:(NSString *)label;
 
-// Identities.
+/** --------------------------------------------------------------------------------
+ @name Identities
+ -------------------------------------------------------------------------------- */
+
+/** Returns an array of all identities on this keychain. 
+ @return An array of all identities on this keychain. 
+ */
 - (NSArray *)identities;
 
-// Keys.
+/** --------------------------------------------------------------------------------
+ @name Keys
+ -------------------------------------------------------------------------------- */
+
+/** Returns an array of all public keys on this keychain. 
+ @return An array of all public keys on this keychain. 
+ */
 - (NSArray *)publicKeys;
+
+/** Returns an array of all private keys on this keychain. 
+ @return An array of all private keys on this keychain. 
+ */
 - (NSArray *)privateKeys;
+
+/** Returns an array of all symmetric keys on this keychain. 
+ @return An array of all symmetric keys on this keychain. 
+ */
 - (NSArray *)symmetricKeys;
+
+/** Returns the key with the given persistent ID.
+ @param persistentID A persistent ID previously returned by -[LKKCKey persistentID].
+ @return The key with _persistentID_, or nil if not found.
+ */
 - (LKKCKey *)keyWithPersistentID:(NSData *)persistentID;
+
 - (NSArray *)publicKeysWithLabel:(NSString *)label;
 - (NSArray *)privateKeysWithLabel:(NSString *)label;
 - (NSArray *)symmetricKeysWithLabel:(NSString *)label;
 
-// Path to this keychain.
-@property (readonly) NSString *path;
 
-// Current Keychain status.
+/** --------------------------------------------------------------------------------
+ @name Keychain status
+ -------------------------------------------------------------------------------- */
+
+/** Whether this keychain is currently locked.
+ 
+ The contents of locked keychains are inaccessible.
+ @see lockWithError:
+ @see unlockWithPassword:error:
+ */
 @property (readonly, getter = isLocked) BOOL locked;
+
+/** Whether this keychain is currently readable to this application. */
 @property (readonly, getter = isReadable) BOOL readable;
+/** Whether this keychain is currently writable by this application. */
 @property (readonly, getter = isWritable) BOOL writable;
 
-// Keychain properties.  
-// The keychain must be unlocked to access these.
+/** --------------------------------------------------------------------------------
+ @name Keychain properties
+ -------------------------------------------------------------------------------- */
+
+/** The filesystem path to this keychain.
+ 
+ This is a readonly property. 
+ You can move a keychain by using the filesystem API to move the file that represents it.
+ */
+@property (readonly) NSString *path;
+
+
+/** Whether this keychain is automatically locked when the system goes to sleep.
+ 
+ The keychain must be unlocked to access this value. 
+ If the keychain is locked, this property returns NO.
+ @see setLockOnSleep:error:
+ */
 @property (nonatomic, readonly) BOOL lockOnSleep;
-@property (nonatomic, readonly) NSTimeInterval lockInterval; // 0 when there is no lock interval.
+
+/** The time interval after which this keychain is automatically locked, or 0 if there is no such timeout.
+ 
+ The keychain must be unlocked to access this value. 
+ If the keychain is locked, this property returns -1.
+ 
+ @see setLockInterval:error:
+ */
+@property (nonatomic, readonly) NSTimeInterval lockInterval;
+
+/** Controls whether this keychain is automatically locked when the system goes to sleep.
+ @param lockOnSleep If YES, the keychain will be automatically locked when the system goes to sleep.
+ @param error On output, the error that occurred in case the property could not be set (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ @see lockOnSleep 
+ */
 - (BOOL)setLockOnSleep:(BOOL)lockOnSleep error:(NSError **)error;
+
+/** Sets the time interval after which this keychain is automatically locked.
+ @param lockInterval The lock time interval. Zero value disables automatic locking.
+ @param error On output, the error that occurred in case the property could not be set (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ @see lockInterval
+ */
 - (BOOL)setLockInterval:(NSTimeInterval)lockInterval error:(NSError **)error;
 
-// Keychain operations.
+/** --------------------------------------------------------------------------------
+ @name Keychain operations
+ -------------------------------------------------------------------------------- */
+
+/** Lock this keychain.
+ @param error On output, the error that occurred in case the keychain could not be locked (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ @see unlockWithPassword:error:
+ */
 - (BOOL)lockWithError:(NSError **)error;
-- (BOOL)unlockWithPassword:(NSString *)password error:(NSError **)error; // Prompts the user when password is nil.
+
+/** Unlock this keychain.
+ @param password The password to use to unlock the keychain. If nil, the system will prompt the user for a password.
+ @param error On output, the error that occurred in case the keychain could not be unlocked (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ @see lockWithError:
+ @see setUserInteractionAllowed: */
+- (BOOL)unlockWithPassword:(NSString *)password error:(NSError **)error;
+
+/** Delete this keychain.
+ 
+ If this operation succeeds, the contents of this keychain are irretrievably lost, 
+ and this object becomes invalidated. All subsequent operations will throw an exception.
+ @param error On output, the error that occurred in case the keychain could not be deleted (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ */
 - (BOOL)deleteKeychainWithError:(NSError **)error;
 
-// Access to the underlying keychain reference.
+/** Returns the underlying keychain reference.
+ @return The SecKeychainRef value that belongs to this keychain object.
+ */
 - (SecKeychainRef)SecKeychain;
 @end

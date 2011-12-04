@@ -6,6 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		BB3E2AEB1477EC41009803B6 /* All targets */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BB3E2AEE1477EC41009803B6 /* Build configuration list for PBXAggregateTarget "All targets" */;
+			buildPhases = (
+			);
+			dependencies = (
+				BB3E2AF11477EC4E009803B6 /* PBXTargetDependency */,
+				BB3E2AF31477EC4E009803B6 /* PBXTargetDependency */,
+				BB889324148A70C60017E6FD /* PBXTargetDependency */,
+			);
+			name = "All targets";
+			productName = "All targets";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		BB0A08EA1454E19800A5D44C /* LKKCKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E658B1454B21500C7FFF7 /* LKKCKeychainItem.m */; };
 		BB0A08EB1454F0FD00A5D44C /* LKKCGenericPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E65871454B1BC00C7FFF7 /* LKKCGenericPassword.m */; };
@@ -63,6 +79,7 @@
 		BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2B01471989900CF8EEB /* LKKCKey+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BB88934D148B1C1A0017E6FD /* Keychain Bugs.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */; };
 		BBCC8B781466F89200691978 /* LKKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BBCC8B771466F89200691978 /* LKKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
@@ -76,6 +93,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BB3E2AF01477EC4E009803B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBD30A541453553600512B69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBD30A5D1453553700512B69;
+			remoteInfo = LKKeychain;
+		};
+		BB3E2AF21477EC4E009803B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBD30A541453553600512B69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB209B5814732D6A00735207;
+			remoteInfo = lkkeychain;
+		};
+		BB889323148A70C60017E6FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBD30A541453553600512B69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB88931E148A70860017E6FD;
+			remoteInfo = Documentation;
+		};
 		BBD30A7A1453553700512B69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BBD30A541453553600512B69 /* Project object */;
@@ -125,6 +163,10 @@
 		BB7B60AB145CA8CD00725E1C /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		BB7B60AD145CB39500725E1C /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LKKCKeychainItem+Subclasses.h"; sourceTree = "<group>"; };
+		BB889341148A854A0017E6FD /* AppledocSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
+		BB889342148A9C7E0017E6FD /* index.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.markdown; sourceTree = "<group>"; };
+		BB889343148AF0F20017E6FD /* LICENSE.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.markdown; sourceTree = "<group>"; };
+		BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Keychain Bugs.rtf"; sourceTree = "<group>"; };
 		BBCC8B771466F89200691978 /* LKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKeychain.h; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -181,7 +223,9 @@
 			isa = PBXGroup;
 			children = (
 				BB7B60AB145CA8CD00725E1C /* README.markdown */,
+				BB889343148AF0F20017E6FD /* LICENSE.markdown */,
 				BB7B60AD145CB39500725E1C /* Notes.rtf */,
+				BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */,
 				BBD30A671453553700512B69 /* LKKeychain */,
 				BBD30A7D1453553700512B69 /* LKKeychainTests */,
 				BBD30A601453553700512B69 /* Frameworks */,
@@ -223,6 +267,8 @@
 		BBD30A671453553700512B69 /* LKKeychain */ = {
 			isa = PBXGroup;
 			children = (
+				BB889341148A854A0017E6FD /* AppledocSettings.plist */,
+				BB889342148A9C7E0017E6FD /* index.markdown */,
 				BBCC8B771466F89200691978 /* LKKeychain.h */,
 				BBD30A6E1453553700512B69 /* LKKCKeychain.h */,
 				BBD30A6F1453553700512B69 /* LKKCKeychain.m */,
@@ -342,10 +388,27 @@
 		};
 /* End PBXHeadersBuildPhase section */
 
+/* Begin PBXLegacyTarget section */
+		BB88931E148A70860017E6FD /* Documentation */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "--output $(SOURCE_ROOT)/docs LKKeychain";
+			buildConfigurationList = BB889321148A70860017E6FD /* Build configuration list for PBXLegacyTarget "Documentation" */;
+			buildPhases = (
+			);
+			buildToolPath = appledoc;
+			buildWorkingDirectory = "$(SOURCE_ROOT)";
+			dependencies = (
+			);
+			name = Documentation;
+			passBuildSettingsInEnvironment = 1;
+			productName = "LKKeychain Reference";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
-		BB209B5814732D6A00735207 /* lkkeychain */ = {
+		BB209B5814732D6A00735207 /* Static lib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BB209B6114732D6B00735207 /* Build configuration list for PBXNativeTarget "lkkeychain" */;
+			buildConfigurationList = BB209B6114732D6B00735207 /* Build configuration list for PBXNativeTarget "Static lib" */;
 			buildPhases = (
 				BB209B5514732D6A00735207 /* Sources */,
 				BB209B5614732D6A00735207 /* Frameworks */,
@@ -355,14 +418,14 @@
 			);
 			dependencies = (
 			);
-			name = lkkeychain;
+			name = "Static lib";
 			productName = liblkkeychain;
 			productReference = BB209B5914732D6A00735207 /* liblkkeychain.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		BBD30A5D1453553700512B69 /* LKKeychain */ = {
+		BBD30A5D1453553700512B69 /* Framework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychain" */;
+			buildConfigurationList = BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "Framework" */;
 			buildPhases = (
 				BBD30A591453553700512B69 /* Sources */,
 				BBD30A5A1453553700512B69 /* Frameworks */,
@@ -373,14 +436,14 @@
 			);
 			dependencies = (
 			);
-			name = LKKeychain;
+			name = Framework;
 			productName = LKKeychain;
 			productReference = BBD30A5E1453553700512B69 /* LKKeychain.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BBD30A751453553700512B69 /* LKKeychainTests */ = {
+		BBD30A751453553700512B69 /* Test bundle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychainTests" */;
+			buildConfigurationList = BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "Test bundle" */;
 			buildPhases = (
 				BBD30A711453553700512B69 /* Sources */,
 				BBD30A721453553700512B69 /* Frameworks */,
@@ -392,7 +455,7 @@
 			dependencies = (
 				BBD30A7B1453553700512B69 /* PBXTargetDependency */,
 			);
-			name = LKKeychainTests;
+			name = "Test bundle";
 			productName = LKKeychainTests;
 			productReference = BBD30A761453553700512B69 /* LKKeychainTests.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -418,9 +481,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BBD30A5D1453553700512B69 /* LKKeychain */,
-				BB209B5814732D6A00735207 /* lkkeychain */,
-				BBD30A751453553700512B69 /* LKKeychainTests */,
+				BBD30A5D1453553700512B69 /* Framework */,
+				BB209B5814732D6A00735207 /* Static lib */,
+				BBD30A751453553700512B69 /* Test bundle */,
+				BB88931E148A70860017E6FD /* Documentation */,
+				BB3E2AEB1477EC41009803B6 /* All targets */,
 			);
 		};
 /* End PBXProject section */
@@ -431,6 +496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */,
+				BB88934D148B1C1A0017E6FD /* Keychain Bugs.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,9 +581,24 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BB3E2AF11477EC4E009803B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBD30A5D1453553700512B69 /* Framework */;
+			targetProxy = BB3E2AF01477EC4E009803B6 /* PBXContainerItemProxy */;
+		};
+		BB3E2AF31477EC4E009803B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB209B5814732D6A00735207 /* Static lib */;
+			targetProxy = BB3E2AF21477EC4E009803B6 /* PBXContainerItemProxy */;
+		};
+		BB889324148A70C60017E6FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB88931E148A70860017E6FD /* Documentation */;
+			targetProxy = BB889323148A70C60017E6FD /* PBXContainerItemProxy */;
+		};
 		BBD30A7B1453553700512B69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BBD30A5D1453553700512B69 /* LKKeychain */;
+			target = BBD30A5D1453553700512B69 /* Framework */;
 			targetProxy = BBD30A7A1453553700512B69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -548,7 +629,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = lkkeychain;
 			};
 			name = Debug;
 		};
@@ -558,7 +639,36 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = lkkeychain;
+			};
+			name = Release;
+		};
+		BB3E2AEC1477EC41009803B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BB3E2AED1477EC41009803B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		BB88931F148A70860017E6FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "LKKeychain Reference";
+			};
+			name = Debug;
+		};
+		BB889320148A70860017E6FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "LKKeychain Reference";
 			};
 			name = Release;
 		};
@@ -618,7 +728,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				INFOPLIST_FILE = "LKKeychain/LKKeychain-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LKKeychain;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -632,7 +742,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				INFOPLIST_FILE = "LKKeychain/LKKeychain-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LKKeychain;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -644,7 +754,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				INFOPLIST_FILE = "LKKeychainTests/LKKeychainTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LKKeychainTests;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -656,7 +766,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LKKeychain/LKKeychain-Prefix.pch";
 				INFOPLIST_FILE = "LKKeychainTests/LKKeychainTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LKKeychainTests;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -664,13 +774,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BB209B6114732D6B00735207 /* Build configuration list for PBXNativeTarget "lkkeychain" */ = {
+		BB209B6114732D6B00735207 /* Build configuration list for PBXNativeTarget "Static lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BB209B6214732D6B00735207 /* Debug */,
 				BB209B6314732D6B00735207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB3E2AEE1477EC41009803B6 /* Build configuration list for PBXAggregateTarget "All targets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB3E2AEC1477EC41009803B6 /* Debug */,
+				BB3E2AED1477EC41009803B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB889321148A70860017E6FD /* Build configuration list for PBXLegacyTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB88931F148A70860017E6FD /* Debug */,
+				BB889320148A70860017E6FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBD30A571453553600512B69 /* Build configuration list for PBXProject "LKKeychain" */ = {
 			isa = XCConfigurationList;
@@ -681,7 +810,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychain" */ = {
+		BBD30A881453553700512B69 /* Build configuration list for PBXNativeTarget "Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BBD30A891453553700512B69 /* Debug */,
@@ -690,7 +819,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "LKKeychainTests" */ = {
+		BBD30A8B1453553700512B69 /* Build configuration list for PBXNativeTarget "Test bundle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BBD30A8C1453553700512B69 /* Debug */,

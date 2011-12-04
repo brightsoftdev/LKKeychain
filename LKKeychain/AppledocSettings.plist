@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--project-company</key>
+	<string>Károly Lőrentey</string>
+	<key>--company-id</key>
+	<string>hu.lorentey</string>
+	<key>--project-name</key>
+	<string>LKKeychain</string>
+	<key>--project-version</key>
+	<string>1.0</string>
+	<key>--docset-feed-url</key>
+	<string>http://lorentey.github.com/LKKeychain/downloads/%DOCSETATOMFILENAME</string>
+	<key>--docset-package-url</key>
+	<string>http://lorentey.github.com/LKKeychain/downloads/%DOCSETPACKAGEFILENAME</string>
+	<key>--docset-fallback-url</key>
+	<string>http://lorentey.github.com/LKKeychain/reference</string>
+	<key>--docset-copyright</key>
+	<string>Copyright © 2011 Károly Lőrentey. All rights reserved.</string>
+	<key>--docset-desc</key>
+	<string>LKKeychain Reference</string>
+	<key>--create-html</key>
+	<true/>
+	<key>--create-docset</key>
+	<true/>
+	<key>--install-docset</key>
+	<true/>
+	<key>--publish-docset</key>
+	<true/>
+	<key>--logformat</key>
+	<string>xcode</string>
+	<key>--explicit-crossref</key>
+	<true/>
+	<key>--repeat-first-par</key>
+	<false/>
+	<key>--keep-intermediate-files</key>
+	<true/>
+	<key>--index-desc</key>
+	<string>LKKeychain/index.markdown</string>
+</dict>
+</plist>
