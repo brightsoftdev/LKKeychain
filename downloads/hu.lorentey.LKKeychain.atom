@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain.atom/20111204031828</id>
+    <id>http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain.atom/20111204072940</id>
     <title type="text">LKKeychain Documentation</title>
     <rights>Copyright © 2011 Károly Lőrentey. All rights reserved.</rights>
     <link rel="self" href="http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain.atom"></link>
     <docset:publisherName>Károly Lőrentey</docset:publisherName>
     <docset:publisherID>hu.lorentey.documentation</docset:publisherID>
-    <updated>2011-12-04T03:18:28+01:00</updated>
+    <updated>2011-12-04T07:29:40+01:00</updated>
     <entry>
         <id>tag:lorentey.github.com,2011-12-04:hu.lorentey.LKKeychain/1.0.0</id>
         <title type="text">LKKeychain Documentation</title>
-        <updated>2011-12-04T03:18:28+01:00</updated>
-        <content type="text">LKKeychain Documentation (v1.0.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain-1.0.xar" length="93970"></link>
+        <updated>2011-12-04T07:29:40+01:00</updated>
+        <content type="text">LKKeychain Reference</content>
+        <link rel="enclosure" type="application/octet-stream" href="http://lorentey.github.com/LKKeychain/downloads/hu.lorentey.LKKeychain-1.0.xar" length="103794"></link>
         <docset:identifier>hu.lorentey.LKKeychain</docset:identifier>
         <docset:version>1.0.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>

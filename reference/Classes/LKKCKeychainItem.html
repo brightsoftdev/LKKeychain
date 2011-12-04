@@ -61,6 +61,8 @@
 	
 	<option value="//api/name/isDeleted">&nbsp;&nbsp;&nbsp;&nbsp;- isDeleted</option>
 	
+	<option value="//api/name/rawDataWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- rawDataWithError:</option>
+	
 	<option value="//api/name/revertItem">&nbsp;&nbsp;&nbsp;&nbsp;- revertItem</option>
 	
 	<option value="//api/name/saveItemWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- saveItemWithError:</option>
@@ -110,6 +112,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deleteItemWithError:">deleteItemWithError:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isDeleted">isDeleted</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rawDataWithError:">rawDataWithError:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/revertItem">revertItem</a></span></li>
 	
@@ -192,6 +196,13 @@
 		<span class="tooltip"><p>The raw data of this item, or nil of the data is not accessible.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/rawDataWithError:">&ndash;&nbsp;rawDataWithError:</a></code>
+		<span class="tooltip"><p>Returns the raw data of this item, or nil of the data is not accessible.</p></span>
+	</span>
+	
 	
 </li><li>
 	<span class="tooltip">
@@ -582,6 +593,77 @@ They only work on the system on which they were created, but can be used as long
 	
 	
 	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychainItem.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/rawDataWithError:" title="rawDataWithError:"></a>
+	<h3 class="subsubtitle method-title">rawDataWithError:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the raw data of this item, or nil of the data is not accessible.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSData *)rawDataWithError:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the data could not be accessed (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The raw data that is stored by this item, or nil if an error happened.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property is provided for completeness, but it is generally a better idea to use the class-specific properties provided by subclasses.</p>
+
+<p>The format and availability of this data depends on the class of the item and how it was imported into the keychain.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="../Classes/LKKCGenericPassword.html#//api/name/password">[LKKCGenericPassword password]</a></p></code></li>
+			
+			<li><code><p><a href="../Classes/LKKCInternetPassword.html#//api/name/password">[LKKCInternetPassword password]</a></p></code></li>
+			
+			<li><code><p><a href="../Classes/LKKCCertificate.html#//api/name/data">[LKKCCertificate data]</a></p></code></li>
+			
+			<li><code><p><a href="../Classes/LKKCKey.html#//api/name/keyDataWithError:">[LKKCKey keyDataWithError:]</a></p></code></li>
+			
+		</ul>
+	</div>
 	
 	
 	
