@@ -10,17 +10,6 @@
 
 @implementation LKKCGenericPasswordTests
 
-- (void)setUp
-{
-    _keychain = [[LKKeychainTestUtils createTestKeychain:@"Test"] retain];
-}
-
-- (void)tearDown
-{
-    [_keychain release];
-    _keychain = nil;
-}
-
 - (void)testBasic
 {
     BOOL result;

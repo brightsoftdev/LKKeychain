@@ -6,14 +6,8 @@
 //  Copyright (c) 2011 Karoly Lorentey. All rights reserved.
 //
 
-#define STEnableDeprecatedAssertionMacros
-#import <SenTestingKit/SenTestingKit.h>
-#import "LKKeychainTestUtils.h"
+#import "LKKeychainTestCase.h"
 
-@interface LKKCInternetPasswordTests : SenTestCase
-{
-@private
-    LKKCKeychain *_keychain;
-}
+@interface LKKCInternetPasswordTests : LKKeychainTestCase
 
 @end

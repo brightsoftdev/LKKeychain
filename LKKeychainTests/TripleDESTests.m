@@ -10,17 +10,6 @@
 
 @implementation TripleDESTests
 
-- (void)setUp
-{
-    _keychain = [[LKKeychainTestUtils createTestKeychain:@"Test"] retain];
-}
-
-- (void)tearDown
-{
-    [_keychain release];
-    _keychain = nil;
-}
-
 - (void)test3DESGeneration
 {
     BOOL result;

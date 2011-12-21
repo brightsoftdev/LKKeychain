@@ -87,7 +87,7 @@
 
 - (void)testLock
 {
-    LKKCKeychain *keychain = [LKKeychainTestUtils createTestKeychain:@"LockTest"];
+    LKKCKeychain *keychain = [self createTestKeychain:@"LockTest"];
     should(!keychain.locked);
     NSError *error = nil;
     BOOL result = [keychain lockWithError:&error];

@@ -10,17 +10,6 @@
 
 @implementation AESTests
 
-- (void)setUp
-{
-    _keychain = [[LKKeychainTestUtils createTestKeychain:@"Test"] retain];
-}
-
-- (void)tearDown
-{
-    [_keychain release];
-    _keychain = nil;
-}
-
 - (void)testAESGeneration
 {
     BOOL result;
