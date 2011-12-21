@@ -41,10 +41,14 @@
 {
 @private
     LKKCKey *_key;
+    NSData *_iv;
     CSSM_CC_HANDLE _cchandle;
 }
 
-+ (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key operation:(CSSM_ACL_AUTHORIZATION_TAG)operation error:(NSError **)error;
++ (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key
+                                 operation:(CSSM_ACL_AUTHORIZATION_TAG)operation 
+                                initVector:(NSData *)iv
+                                     error:(NSError **)error;
 
 - (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error;
 - (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error;

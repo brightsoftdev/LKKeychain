@@ -149,12 +149,14 @@
     LKKCKey *key = [generator generateAESKey];
     should(key != nil);
     
+    NSData *iv = [key randomInitVector];
+    
     NSString *message = @"This is some sample plaintext";
     NSData *plaintext = [message dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *ciphertext = [key encryptData:plaintext error:&error];
+    NSData *ciphertext = [key encryptData:plaintext initVector:iv error:&error];
     should(ciphertext != nil);
     
-    NSData *decryptedtext = [key decryptData:ciphertext error:&error];
+    NSData *decryptedtext = [key decryptData:ciphertext initVector:iv error:&error];
     should(decryptedtext != nil);
     shouldBeEqual(decryptedtext, plaintext);
     NSString *decryptedMessage = [[[NSString alloc] initWithData:decryptedtext encoding:NSUTF8StringEncoding] autorelease];
@@ -169,18 +171,20 @@
     NSData *plaintext = [NSData dataWithBytes:"\x32\x43\xf6\xa8\x88\x5a\x30\x8d\x31\x31\x98\xa2\xe0\x37\x07\x34" length:16];
     NSData *cipherkey = [NSData dataWithBytes:"\x2b\x7e\x15\x16\x28\xae\xd2\xa6\xab\xf7\x15\x88\x09\xcf\x4f\x3c" length:16];
     NSData *sampleresult = [NSData dataWithBytes:"\x39\x25\x84\x1d\x02\xdc\x09\xfb\xdc\x11\x85\x97\x19\x6a\x0b\x32" length:16];
+    NSData *iv = [NSData dataWithBytes:"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0" length:16];
     
     LKKCKey *key = [LKKCKey keyWithData:cipherkey keyClass:LKKCKeyClassSymmetric keyType:LKKCKeyTypeAES keySize:128];
     should(key != nil);
     
-    NSData *ciphertext = [key encryptData:plaintext error:&error];
+    
+    NSData *ciphertext = [key encryptData:plaintext initVector:iv error:&error];
     should(ciphertext != nil);
     // TODO:
     // The sample result expects no padding, but currently we only support PKCS7.
     // Our result will be different after the first block, but that first block should match.
     shouldBeEqual([ciphertext subdataWithRange:NSMakeRange(0, 16)], sampleresult);
     
-    NSData *decryptedtext = [key decryptData:ciphertext error:&error];
+    NSData *decryptedtext = [key decryptData:ciphertext initVector:iv error:&error];
     should(decryptedtext != nil);
     shouldBeEqual(decryptedtext, plaintext);
 }

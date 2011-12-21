@@ -671,12 +671,47 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
 
 #pragma mark - Operations
 
-- (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error
+- (size_t)blockSize
+{
+    switch (self.keyType) {
+        case LKKCKeyTypeDES:
+        case LKKCKeyType3DES:
+        case LKKCKeyTypeRC2:
+        case LKKCKeyTypeCAST: // TODO: CAST is not yet supported.
+            return 8;
+        case LKKCKeyTypeAES:
+            return 16;
+        case LKKCKeyTypeRC4:
+            // Stream cipher.
+            return 1;
+        case LKKCKeyTypeRSA:
+        case LKKCKeyTypeDSA:
+        case LKKCKeyTypeECDSA:
+            // Asymmetric ciphers; block size is related to key size (minus padding overhead).
+            return 0; 
+        case LKKCKeyTypeUnknown:
+        default:
+            return 0;
+    }
+}
+
+- (NSData *)randomInitVector
+{
+    size_t blockSize = self.blockSize;
+    if (blockSize < 2)
+        return nil;
+    char *buf[blockSize];
+    arc4random_buf(&buf, blockSize);
+    return [NSData dataWithBytes:buf length:blockSize];
+}
+
+- (NSData *)encryptData:(NSData *)plaintext initVector:(NSData *)iv error:(NSError **)error
 {
     NSData *result = nil;
     @autoreleasepool {
         LKKCCryptoContext *cc = [LKKCCryptoContext cryptoContextForKey:self
                                                              operation:CSSM_ACL_AUTHORIZATION_ENCRYPT
+                                                            initVector:iv 
                                                                  error:error];
         if (cc == nil)
             return nil;
@@ -685,12 +720,13 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     return [result autorelease];
 }
 
-- (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error
+- (NSData *)decryptData:(NSData *)ciphertext initVector:(NSData *)iv error:(NSError **)error
 {
     NSData *result = nil;
     @autoreleasepool {
         LKKCCryptoContext *cc = [LKKCCryptoContext cryptoContextForKey:self
                                                              operation:CSSM_ACL_AUTHORIZATION_DECRYPT
+                                                            initVector:iv 
                                                                  error:error];
         if (cc == nil)
             return nil;

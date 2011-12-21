@@ -37,16 +37,16 @@
 #import "LKKCKey.h"
 #import "LKKCUtil.h"
 
-static uint8 iv[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
-
 @interface LKKCCryptoContext()
-- (id)initWithKey:(LKKCKey *)key ccHandle:(CSSM_CC_HANDLE)cchandle;
+- (id)initWithKey:(LKKCKey *)key initVector:(NSData *)iv ccHandle:(CSSM_CC_HANDLE)cchandle;
 @end
 
 @implementation LKKCCryptoContext
 
-+ (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key operation:(CSSM_ACL_AUTHORIZATION_TAG)operation error:(NSError **)error
++ (LKKCCryptoContext *)cryptoContextForKey:(LKKCKey *)key 
+                                 operation:(CSSM_ACL_AUTHORIZATION_TAG)operation 
+                                initVector:(NSData *)iv
+                                     error:(NSError **)error
 {
     SecKeyRef skey = key.SecKey;
     if (skey == nil) {
@@ -124,7 +124,12 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
             break;            
         }
         case LKKCKeyClassSymmetric: {
-            status = CSSM_CSP_CreateSymmetricContext(csphandle, algid, algmode, scredentials, cssmkey, &ivCommon, padding, NULL, &cchandle);
+            if (iv == nil) {
+                LKKCReportError(errSecParam, error, @"Missing initialization vector");
+                return nil;
+            }
+            CSSM_DATA cssm_iv = { .Length = [iv length], .Data = (void *)[iv bytes] };
+            status = CSSM_CSP_CreateSymmetricContext(csphandle, algid, algmode, scredentials, cssmkey, &cssm_iv, padding, NULL, &cchandle);
             if (status) {
                 LKKCReportError(status, error, @"Can't create symmetric context");
                 return nil;
@@ -138,15 +143,16 @@ static const CSSM_DATA ivCommon = { .Length = 16, .Data = iv};
         }
     }
     
-    return [[[LKKCCryptoContext alloc] initWithKey:key ccHandle:cchandle] autorelease];    
+    return [[[LKKCCryptoContext alloc] initWithKey:key initVector:iv ccHandle:cchandle] autorelease];    
 }
 
-- (id)initWithKey:(LKKCKey *)key ccHandle:(CSSM_CC_HANDLE)cchandle
+- (id)initWithKey:(LKKCKey *)key initVector:(NSData *)iv ccHandle:(CSSM_CC_HANDLE)cchandle
 {
     self = [super init];
     if (self == nil)
         return nil;
     _key = [key retain];
+    _iv = [iv retain];
     _cchandle = cchandle;
     return self;
 }

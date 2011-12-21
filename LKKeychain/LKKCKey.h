@@ -80,6 +80,8 @@ typedef enum {
  Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.
  
  With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute's type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).
+ 
+ This property is part of the primary key for Key items.
  */
 @property (nonatomic, retain) NSData *keyID;
 
@@ -91,6 +93,8 @@ typedef enum {
  Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.
  
  With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute's type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).
+ 
+ This property is part of the primary key for Key items.
  */
 @property (nonatomic, retain) NSString *applicationLabel;
 
@@ -98,39 +102,96 @@ typedef enum {
  @name Key attributes
  -------------------------------------------------------------------------------- */
 
-/// Application-specific tag of your choice. (kSecAttrApplicationTag)
+/** Application-specific tag of your choice.
+ 
+ This property corresponds to the `kSecAttrApplicationTag` attribute.
+ 
+ This property is part of the primary key for Key items.
+ */
 @property (nonatomic, retain) NSString *tag; 
 
-/// The class of the key (public, private or symmetric). (kSecAttrKeyClass)
+/** The class of the key (public, private or symmetric).
+ 
+ This property corresponds to the `kSecAttrKeyClass` attribute.
+ */
 @property (nonatomic, readonly) LKKCKeyClass keyClass; 
 
-/// The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)
+/** The algorithm for which the key was generated (RSA, AES, etc).
+ 
+ This property corresponds to the `kSecAttrKeyType` attribute.
+ 
+ This property is part of the primary key for Key items.
+ */
 @property (nonatomic, readonly) LKKCKeyType keyType;
 
-/// Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)
+/** Whether this key is stored permanently in a keychain. 
+ 
+ This property corresponds to the `kSecAttrIsPermanent` attribute.
+ */
 @property (nonatomic, readonly, getter = isPermanent) BOOL permanent; 
 
-/// Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)
+/** Whether this key can be used to encrypt data.
+ 
+ This property corresponds to the `kSecAttrCanEncrypt` attribute.
+ */
 @property (nonatomic, readonly) BOOL canEncrypt; 
-/// Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)
+
+/** Whether this key can be used to encrypt data.
+ 
+ This property corresponds to the `kSecAttrCanDecrypt` attribute.
+ */
 @property (nonatomic, readonly) BOOL canDecrypt;
-/// Whether this key can be used to derive another key. (kSecAttrCanDerive)
+
+/** Whether this key can be used to derive another key.
+ 
+ This property corresponds to the `kSecAttrCanDerive` attribute.
+ */
 @property (nonatomic, readonly) BOOL canDerive;
-/// Whether this key can be used to create a digital signature. (kSecAttrCanSign)
+
+/** Whether this key can be used to create a digital signature.
+ 
+ This property corresponds to the `kSecAttrCanSign` attribute.
+ */
 @property (nonatomic, readonly) BOOL canSign; 
-/// Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)
+
+/** Whether this key can be used to verify a digital signature.
+ 
+ This property corresponds to the `kSecAttrCanVerify` attribute.
+ */
 @property (nonatomic, readonly) BOOL canVerify;
-/// Whether this key can be used to wrap another key. (kSecAttrCanWrap)
+
+/** Whether this key can be used to wrap another key.
+ 
+ This property corresponds to the `kSecAttrCanWrap` attribute.
+ */
 @property (nonatomic, readonly) BOOL canWrap; 
-/// Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)
+
+/** Whether this key can be used to unwrap another key.
+ 
+ This property corresponds to the `kSecAttrCanUnwrap` attribute.
+ */
 @property (nonatomic, readonly) BOOL canUnwrap; 
 
-/* The actual size of the key in the case of symmetric algorithms, 
- and the modulus size of the key in the case of asymmetric algorithms. (kSecAttrKeySizeInBits)
+/** The actual size of the key in the case of symmetric algorithms, 
+ and the modulus size of the key in the case of asymmetric algorithms.
+ 
+ This property corresponds to the `kSecAttrKeySizeInBits` attribute.
+ 
+ This property is part of the primary key for Key items.
  */
 @property (nonatomic, readonly) int keySize; 
-/// Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)
+
+/** Number of key bits that can be used in a cryptographic operation.
+ 
+ This property corresponds to the `kSecAttrEffectiveKeySize` attribute.
+ 
+ This property is part of the primary key for Key items.
+ */
 @property (nonatomic, readonly) int effectiveKeySize;
+
+/** --------------------------------------------------------------------------------
+ @name Accessing The Raw Key Data
+ -------------------------------------------------------------------------------- */
 
 /** Returns the raw bits of the key.
  @param error On output, the error that occurred in case the data could not be extraced (optional).
@@ -138,12 +199,50 @@ typedef enum {
  */
 - (NSData *)keyDataWithError:(NSError **)error;
 
+/** --------------------------------------------------------------------------------
+ @name Low-Level Access
+ -------------------------------------------------------------------------------- */
 
-/// The underlying `SecKey` reference.
+/** The underlying `SecKey` reference.
+ */
 @property (nonatomic, readonly) SecKeyRef SecKey;
 
-- (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error;
-- (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error;
+/** --------------------------------------------------------------------------------
+ @name Encryption and Decryption
+ -------------------------------------------------------------------------------- */
+
+/** Return the block size for this key. */
+- (UInt32)blockSize;
+
+/** Return a pseudorandom piece of data that is a suitable initialization vector for this key.
+ Returns nil for assymetric keys.
+ */
+- (NSData *)randomInitVector;
+
+/** Encrypt a piece of data with this key. 
+ 
+ To decrypt data encrypted by a symmetric key, you'll need a copy of the same key 
+ and the same initialization vector. You don't need to keep the IV private; it is usually transmitted
+ in the same channel as the encrypted data (for example, by prepending the IV to the ciphertext).
+ 
+ To decrypt data encrypted by an asymmetric key, you'll need a copy of the other key in the keypair.
+ 
+ @param plaintext The data to encrypt.
+ @param initVector The initialization vector to use. Required for symmetric keys.
+ @param error On output, the error that occured in case the data could not be encrypted (optional).
+ @return The encrypted data.
+ @see randomInitVector
+ */
+- (NSData *)encryptData:(NSData *)plaintext initVector:(NSData *)iv error:(NSError **)error;
+
+/** Decrypt a piece of ciphertext with this key.
+
+ @param ciphertext The encrypted data.
+ @param initVector The initialization vector that was used to encrypt.
+ @param error
+ @return The decrypted data.
+ */
+- (NSData *)decryptData:(NSData *)ciphertext initVector:(NSData *)iv error:(NSError **)error;
 
 @end
 

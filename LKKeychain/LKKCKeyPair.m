@@ -73,12 +73,12 @@
 
 - (NSData *)encryptData:(NSData *)plaintext error:(NSError **)error
 {
-    return [self.publicKey encryptData:plaintext error:error];
+    return [self.publicKey encryptData:plaintext initVector:nil error:error];
 }
 
 - (NSData *)decryptData:(NSData *)ciphertext error:(NSError **)error
 {
-    return [self.privateKey decryptData:ciphertext error:error];
+    return [self.privateKey decryptData:ciphertext initVector:nil error:error];
 }
 
 @end
