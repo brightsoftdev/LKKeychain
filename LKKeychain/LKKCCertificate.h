@@ -43,50 +43,88 @@
 + (LKKCCertificate *)certificateWithDERData:(NSData *)data;
 + (LKKCCertificate *)certificateWithSecCertificate:(SecCertificateRef)scertificate;
 
-//- (BOOL)validateWithError:(NSError **)error;
-//- (BOOL)validateWithSSLHost:(NSString *)hostname server:(BOOL)server error:(NSError **)error;
-
 @property (nonatomic, readonly) LKKCKey *publicKey;
 
-/// The human-readable name of this certificate. Shows up as "Name" in Keychain Access. (kSecAttrLabel)
+/** --------------------------------------------------------------------------------
+ @name Certificate Attributes
+ -------------------------------------------------------------------------------- */
+
+/** The human-readable name of this certificate. Shows up as "Name" in Keychain Access.
+ 
+ This property corresponds to the `kSecAttrLabel` attribute.
+*/
 @property (nonatomic, retain) NSString *label;
 
-/// The normalized subject of this certificate. (kSecAttrSubject)
+/** The normalized subject of this certificate.
+
+ This property corresponds to the `kSecAttrSubject` attribute.
+*/
 @property (nonatomic, readonly) NSData *subject;
 
-/// The normalized issuer of this certificate. (kSecAttrIssuer)
+/** The normalized issuer of this certificate.
+ 
+ This property corresponds to the `kSecAttrIssuer` attribute.
+ 
+ This property is part of the primary key for certificate items, along with <certificateType> and <serialNumber>.
+ */
 @property (nonatomic, readonly) NSData *issuer;
 
-/// The serial numbr of this certificate. (kSecAttrSerialNumber)
+/** The serial number of this certificate.
+ 
+ This property corresponds to the `kSecAttrSerialNumber` attribute.
+
+ This property is part of the primary key for certificate items, along with <certificateType> and <issuer>.
+ */
 @property (nonatomic, readonly) NSData *serialNumber;
 
-/// The subject key ID of this certificate. (kSecAttrSubjectKeyID)
+/** The subject key ID of this certificate.
+ 
+ This property corresponds to the `kSecAttrSubjectKeyID` attribute.
+ */
 @property (nonatomic, readonly) NSData *subjectKeyID;
 
-/// The SHA-1 hash of this certificate's public key. (kSecAttrPublicKeyHash)
+/** The SHA-1 hash of this certificate's public key.
+ 
+ This property corresponds to the `kSecAttrPublicKeyHash` attribute.
+ */
 @property (nonatomic, readonly) NSData *publicKeyHash;
 
-/// The type of this certificate (kSecAttrCertificateType)
+/** The type of this certificate.
+ 
+ This property corresponds to the `kSecAttrCertificateType` attribute.
+ 
+ This property is part of the primary key for certificate items, along with <issuer> and <serialNumber>.
+ */
 @property (nonatomic, readonly) id certificateType;
 
-/// The encoding of this certificate (kSecAttrCertificateEncoding)
+/** The encoding of this certificate.
+ 
+ This property corresponds to the `kSecAttrCertificateEncoding` attribute.
+ */
 @property (nonatomic, readonly) id certificateEncoding;
 
+/** --------------------------------------------------------------------------------
+ @name Miscellaneous Properties
+ -------------------------------------------------------------------------------- */
 
-/// The Common Name of the certificate subject.
+/** The Common Name of the certificate subject.
+ */
 @property (nonatomic, readonly) NSString *commonName;
 
-/// Human-readable summary of certificate subject.
+/** Human-readable summary of the certificate subject.
+ */
 @property (nonatomic, readonly) NSString *subjectSummary;
 
-/// Email addresses included in the certificate subject.
+/** Email addresses included in the certificate subject.
+ */
 @property (nonatomic, readonly) NSArray *emailAddresses;
 
 /** The certificate data in DER format.
  */
 @property (nonatomic, readonly) NSData *data;
 
-/// The underlying `SecCertificate` reference.
+/** The underlying `SecCertificate` reference.
+ */
 @property (nonatomic, readonly) SecCertificateRef SecCertificate;
 
 @end

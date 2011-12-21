@@ -222,7 +222,7 @@ typedef enum {
  
  This property corresponds to the `kSecAttrProtocol` attribute.
  
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, assign) LKKCProtocol protocol;
@@ -231,7 +231,7 @@ typedef enum {
  
  This property corresponds to the `kSecAttrAccount` attribute.
  
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, retain) NSString *account;
@@ -240,7 +240,7 @@ typedef enum {
 
  This property corresponds to the `kSecAttrServer` attribute.
 
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, retain) NSString *server;
@@ -249,7 +249,7 @@ typedef enum {
 
  This property corresponds to the `kSecAttrPort` attribute.
  
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, assign) int port;
@@ -258,7 +258,7 @@ typedef enum {
 
  This property corresponds to the `kSecAttrPath` attribute.
  
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, assign) NSString *path;
@@ -274,7 +274,7 @@ typedef enum {
 
  This property corresponds to the `kSecAttrSecurityDomain` attribute.
 
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, retain) NSString *securityDomain;
@@ -297,9 +297,9 @@ typedef enum {
  
  This property corresponds to the `kSecAttrAuthenticationType` attribute.
 
- This property is a primary key for generic password items. 
+ This property is part of the primary key for internet password items. 
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
-  */
+ */
 @property (nonatomic, assign) LKKCAuthenticationType authenticationType;
 
 

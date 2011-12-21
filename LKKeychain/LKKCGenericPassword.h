@@ -126,7 +126,7 @@
  
  This property corresponds to the `kSecAttrService` attribute.
  
- This property is a primary key for generic password items. 
+ This property is part of the primary key for generic password items, along with <account>.
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
  */
 @property (nonatomic, retain) NSString *service;
@@ -135,7 +135,7 @@
 
  This property corresponds to the `kSecAttrAccount` attribute.
 
- This property is a primary key for generic password items. 
+ This property is part of the primary key for generic password items, along with <service>.
  Modifying it may invalidate previously generated persistent IDs that refer to this item.
 */
 @property (nonatomic, retain) NSString *account;
