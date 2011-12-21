@@ -42,3 +42,4 @@
 #import <LKKeychain/LKKCIdentity.h>
 #import <LKKeychain/LKKCKeyPair.h>
 #import <LKKeychain/LKKCKeyGenerator.h>
+#import <LKKeychain/LKKCTrust.h>

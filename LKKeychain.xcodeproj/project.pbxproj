@@ -33,6 +33,21 @@
 		BB0A08F71454F6AA00A5D44C /* LKKCIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */; };
 		BB0A08FA1454F6D400A5D44C /* LKKCKey.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0A08F81454F6D400A5D44C /* LKKCKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BB0A08FB1454F6D400A5D44C /* LKKCKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0A08F91454F6D400A5D44C /* LKKCKey.m */; };
+		BB0D9CA3149E2DCF00537099 /* LKKCTrust.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0D9CA1149E2DCF00537099 /* LKKCTrust.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB0D9CA4149E2DCF00537099 /* LKKCTrust.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0D9CA2149E2DCF00537099 /* LKKCTrust.m */; };
+		BB0D9CB714A227E600537099 /* example.com (Expired CA).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CA714A227D200537099 /* example.com (Expired CA).cer */; };
+		BB0D9CB814A227F100537099 /* example.com (Expired).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CA814A227D200537099 /* example.com (Expired).cer */; };
+		BB0D9CB914A227F100537099 /* example.com (Expired, Intermediate CA).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CA914A227D200537099 /* example.com (Expired, Intermediate CA).cer */; };
+		BB0D9CBA14A227F100537099 /* example.com (Valid).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CAA14A227D200537099 /* example.com (Valid).cer */; };
+		BB0D9CBB14A227F100537099 /* example.com (Valid, Intermediate CA).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CAB14A227D200537099 /* example.com (Valid, Intermediate CA).cer */; };
+		BB0D9CBC14A227F100537099 /* LKKeychain Expired Test CA.cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CAC14A227D200537099 /* LKKeychain Expired Test CA.cer */; };
+		BB0D9CBD14A227F100537099 /* LKKeychain Intermediate CA.cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CAD14A227D200537099 /* LKKeychain Intermediate CA.cer */; };
+		BB0D9CBE14A227F100537099 /* LKKeychain Test CA.cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CAE14A227D200537099 /* LKKeychain Test CA.cer */; };
+		BB0D9CC114A2281E00537099 /* LKKCTrustTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0D9CC014A2281E00537099 /* LKKCTrustTests.m */; };
+		BB0D9CC214A22C7400537099 /* LKKCKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BBD30A6E1453553700512B69 /* LKKCKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB0D9CC314A22C7500537099 /* LKKCTrust.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0D9CA1149E2DCF00537099 /* LKKCTrust.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB0D9CC414A22C7500537099 /* LKKCTrust.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0D9CA2149E2DCF00537099 /* LKKCTrust.m */; };
+		BB0D9CC614A2371100537099 /* example.com (Corrupt).cer in Resources */ = {isa = PBXBuildFile; fileRef = BB0D9CC514A2371100537099 /* example.com (Corrupt).cer */; };
 		BB0E65831454635F00C7FFF7 /* LKKCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0E65821454635F00C7FFF7 /* LKKCUtil.m */; };
 		BB0E65851454636900C7FFF7 /* LKKCUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E65841454636900C7FFF7 /* LKKCUtil.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BB0E65881454B1BC00C7FFF7 /* LKKCGenericPassword.h in Headers */ = {isa = PBXBuildFile; fileRef = BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -132,6 +147,19 @@
 		BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCIdentity.m; sourceTree = "<group>"; };
 		BB0A08F81454F6D400A5D44C /* LKKCKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCKey.h; sourceTree = "<group>"; };
 		BB0A08F91454F6D400A5D44C /* LKKCKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCKey.m; sourceTree = "<group>"; };
+		BB0D9CA1149E2DCF00537099 /* LKKCTrust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCTrust.h; sourceTree = "<group>"; };
+		BB0D9CA2149E2DCF00537099 /* LKKCTrust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCTrust.m; sourceTree = "<group>"; };
+		BB0D9CA714A227D200537099 /* example.com (Expired CA).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Expired CA).cer"; sourceTree = "<group>"; };
+		BB0D9CA814A227D200537099 /* example.com (Expired).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Expired).cer"; sourceTree = "<group>"; };
+		BB0D9CA914A227D200537099 /* example.com (Expired, Intermediate CA).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Expired, Intermediate CA).cer"; sourceTree = "<group>"; };
+		BB0D9CAA14A227D200537099 /* example.com (Valid).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Valid).cer"; sourceTree = "<group>"; };
+		BB0D9CAB14A227D200537099 /* example.com (Valid, Intermediate CA).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Valid, Intermediate CA).cer"; sourceTree = "<group>"; };
+		BB0D9CAC14A227D200537099 /* LKKeychain Expired Test CA.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LKKeychain Expired Test CA.cer"; sourceTree = "<group>"; };
+		BB0D9CAD14A227D200537099 /* LKKeychain Intermediate CA.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LKKeychain Intermediate CA.cer"; sourceTree = "<group>"; };
+		BB0D9CAE14A227D200537099 /* LKKeychain Test CA.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LKKeychain Test CA.cer"; sourceTree = "<group>"; };
+		BB0D9CBF14A2281D00537099 /* LKKCTrustTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCTrustTests.h; sourceTree = "<group>"; };
+		BB0D9CC014A2281E00537099 /* LKKCTrustTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCTrustTests.m; sourceTree = "<group>"; };
+		BB0D9CC514A2371100537099 /* example.com (Corrupt).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Corrupt).cer"; sourceTree = "<group>"; };
 		BB0E65821454635F00C7FFF7 /* LKKCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCUtil.m; sourceTree = "<group>"; };
 		BB0E65841454636900C7FFF7 /* LKKCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCUtil.h; sourceTree = "<group>"; };
 		BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCGenericPassword.h; sourceTree = "<group>"; };
@@ -219,6 +247,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB0D9CA614A227D200537099 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB0D9CA714A227D200537099 /* example.com (Expired CA).cer */,
+				BB0D9CA814A227D200537099 /* example.com (Expired).cer */,
+				BB0D9CA914A227D200537099 /* example.com (Expired, Intermediate CA).cer */,
+				BB0D9CAA14A227D200537099 /* example.com (Valid).cer */,
+				BB0D9CC514A2371100537099 /* example.com (Corrupt).cer */,
+				BB0D9CAB14A227D200537099 /* example.com (Valid, Intermediate CA).cer */,
+				BB0D9CAC14A227D200537099 /* LKKeychain Expired Test CA.cer */,
+				BB0D9CAD14A227D200537099 /* LKKeychain Intermediate CA.cer */,
+				BB0D9CAE14A227D200537099 /* LKKeychain Test CA.cer */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BBD30A521453553600512B69 = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +325,8 @@
 				BB0A08ED1454F68A00A5D44C /* LKKCInternetPassword.m */,
 				BB0A08F01454F69A00A5D44C /* LKKCCertificate.h */,
 				BB0A08F11454F69A00A5D44C /* LKKCCertificate.m */,
+				BB0D9CA1149E2DCF00537099 /* LKKCTrust.h */,
+				BB0D9CA2149E2DCF00537099 /* LKKCTrust.m */,
 				BB0A08F41454F6A900A5D44C /* LKKCIdentity.h */,
 				BB0A08F51454F6A900A5D44C /* LKKCIdentity.m */,
 				BB0A08F81454F6D400A5D44C /* LKKCKey.h */,
@@ -312,6 +358,7 @@
 		BBD30A7D1453553700512B69 /* LKKeychainTests */ = {
 			isa = PBXGroup;
 			children = (
+				BB0D9CA614A227D200537099 /* Resources */,
 				BB209B4D1472F92E00735207 /* LKKeychainTestUtils.h */,
 				BB209B4E1472F92E00735207 /* LKKeychainTestUtils.m */,
 				BBD30A831453553700512B69 /* LKKCKeychainTests.h */,
@@ -328,6 +375,8 @@
 				BB209B4A1472F8FB00735207 /* TripleDESTests.m */,
 				BB209B501472FBAB00735207 /* RSATests.h */,
 				BB209B511472FBAB00735207 /* RSATests.m */,
+				BB0D9CBF14A2281D00537099 /* LKKCTrustTests.h */,
+				BB0D9CC014A2281E00537099 /* LKKCTrustTests.m */,
 				BBD30A7E1453553700512B69 /* Supporting Files */,
 			);
 			path = LKKeychainTests;
@@ -360,6 +409,7 @@
 				BB209B771473366500735207 /* LKKCCryptoContext.h in Headers */,
 				BB209B781473366500735207 /* LKKCKeyPair.h in Headers */,
 				BB209B791473366500735207 /* LKKCKeyGenerator.h in Headers */,
+				BB0D9CC314A22C7500537099 /* LKKCTrust.h in Headers */,
 				BB209B7A1473368000735207 /* LKKCKeychainItem+Subclasses.h in Headers */,
 				BB209B7B1473368000735207 /* LKKCKey+Private.h in Headers */,
 				BB209B7C1473368000735207 /* LKKCUtil.h in Headers */,
@@ -371,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBCC8B781466F89200691978 /* LKKeychain.h in Headers */,
+				BB0D9CC214A22C7400537099 /* LKKCKeychain.h in Headers */,
 				BB0E658C1454B21500C7FFF7 /* LKKCKeychainItem.h in Headers */,
 				BB0E65881454B1BC00C7FFF7 /* LKKCGenericPassword.h in Headers */,
 				BB0A08EE1454F68A00A5D44C /* LKKCInternetPassword.h in Headers */,
@@ -380,6 +431,7 @@
 				BB0A08F21454F69A00A5D44C /* LKKCCertificate.h in Headers */,
 				BB23B2A8146F3CA200CF8EEB /* LKKCKeyGenerator.h in Headers */,
 				BB209B421472062000735207 /* LKKCCryptoContext.h in Headers */,
+				BB0D9CA3149E2DCF00537099 /* LKKCTrust.h in Headers */,
 				BB0E65851454636900C7FFF7 /* LKKCUtil.h in Headers */,
 				BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */,
 				BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */,
@@ -505,6 +557,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBD30A821453553700512B69 /* InfoPlist.strings in Resources */,
+				BB0D9CB714A227E600537099 /* example.com (Expired CA).cer in Resources */,
+				BB0D9CB814A227F100537099 /* example.com (Expired).cer in Resources */,
+				BB0D9CB914A227F100537099 /* example.com (Expired, Intermediate CA).cer in Resources */,
+				BB0D9CBA14A227F100537099 /* example.com (Valid).cer in Resources */,
+				BB0D9CBB14A227F100537099 /* example.com (Valid, Intermediate CA).cer in Resources */,
+				BB0D9CBC14A227F100537099 /* LKKeychain Expired Test CA.cer in Resources */,
+				BB0D9CBD14A227F100537099 /* LKKeychain Intermediate CA.cer in Resources */,
+				BB0D9CBE14A227F100537099 /* LKKeychain Test CA.cer in Resources */,
+				BB0D9CC614A2371100537099 /* example.com (Corrupt).cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +603,7 @@
 				BB209B6C14732E4D00735207 /* LKKCKeyPair.m in Sources */,
 				BB209B6D14732E4D00735207 /* LKKCKeyGenerator.m in Sources */,
 				BB209B6E14732E4D00735207 /* LKKCUtil.m in Sources */,
+				BB0D9CC414A22C7500537099 /* LKKCTrust.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +622,7 @@
 				BB23B2A5146F186500CF8EEB /* LKKCKeyPair.m in Sources */,
 				BB23B2A9146F3CA200CF8EEB /* LKKCKeyGenerator.m in Sources */,
 				BB209B431472062000735207 /* LKKCCryptoContext.m in Sources */,
+				BB0D9CA4149E2DCF00537099 /* LKKCTrust.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +638,7 @@
 				BB209B521472FBAC00735207 /* RSATests.m in Sources */,
 				BB209B53147300D400735207 /* AESTests.m in Sources */,
 				BB209B54147300D800735207 /* TripleDESTests.m in Sources */,
+				BB0D9CC114A2281E00537099 /* LKKCTrustTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
