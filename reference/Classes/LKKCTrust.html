@@ -1,0 +1,1114 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>LKKCTrust Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.4 (build 703)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">LKKeychain </a></h1>
+				<a id="developerHome" href="../index.html">Károly Lőrentey</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">LKKCTrust Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/SecTrust">&nbsp;&nbsp;&nbsp;&nbsp;SecTrust</option>
+	
+	<option value="//api/name/anchors">&nbsp;&nbsp;&nbsp;&nbsp;anchors</option>
+	
+	<option value="//api/name/certificateChain">&nbsp;&nbsp;&nbsp;&nbsp;certificateChain</option>
+	
+	<option value="//api/name/publicKey">&nbsp;&nbsp;&nbsp;&nbsp;publicKey</option>
+	
+	<option value="//api/name/verifyDate">&nbsp;&nbsp;&nbsp;&nbsp;verifyDate</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/systemAnchors">&nbsp;&nbsp;&nbsp;&nbsp;+ systemAnchors</option>
+	
+	<option value="//api/name/trustForBasicX509CertificateChain:">&nbsp;&nbsp;&nbsp;&nbsp;+ trustForBasicX509CertificateChain:</option>
+	
+	<option value="//api/name/trustForSSLClientCertificateChain:hostname:">&nbsp;&nbsp;&nbsp;&nbsp;+ trustForSSLClientCertificateChain:hostname:</option>
+	
+	<option value="//api/name/trustForSSLServerCertificateChain:hostname:">&nbsp;&nbsp;&nbsp;&nbsp;+ trustForSSLServerCertificateChain:hostname:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/addCustomAnchors:">&nbsp;&nbsp;&nbsp;&nbsp;- addCustomAnchors:</option>
+	
+	<option value="//api/name/evaluateWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- evaluateWithError:</option>
+	
+	<option value="//api/name/setKeychains:">&nbsp;&nbsp;&nbsp;&nbsp;- setKeychains:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Creating Trust Instances">Creating Trust Instances</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Anchor Certificates">Anchor Certificates</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Evaluation parameters">Evaluation parameters</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Evaluating Trust">Evaluating Trust</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Low-level Access">Low-level Access</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/SecTrust">SecTrust</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/anchors">anchors</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificateChain">certificateChain</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/publicKey">publicKey</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/verifyDate">verifyDate</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/systemAnchors">systemAnchors</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trustForBasicX509CertificateChain:">trustForBasicX509CertificateChain:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trustForSSLClientCertificateChain:hostname:">trustForSSLClientCertificateChain:hostname:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trustForSSLServerCertificateChain:hostname:">trustForSSLServerCertificateChain:hostname:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addCustomAnchors:">addCustomAnchors:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/evaluateWithError:">evaluateWithError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setKeychains:">setKeychains:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="LKKCTrust Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">LKKCTrust Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">LKKCTrust.h<br />LKKCTrust.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>LKKCTrust verifies certificates and evaluates their trust settings.</p>
+
+<p>It supports verifying certificates under three policies: the basic X.509 policy,
+and the SSL server and client policies.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Creating Trust Instances" name="task_Creating Trust Instances"></a>
+						<h3 class="subsubtitle task-title">Creating Trust Instances</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trustForBasicX509CertificateChain:">+&nbsp;trustForBasicX509CertificateChain:</a></code>
+		<span class="tooltip"><p>Returns a trust management object for verifying a certificate using the Basic X.509 policy.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trustForSSLServerCertificateChain:hostname:">+&nbsp;trustForSSLServerCertificateChain:hostname:</a></code>
+		<span class="tooltip"><p>Returns a trust management object for verifying a certificate using the SSL Server policy.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trustForSSLClientCertificateChain:hostname:">+&nbsp;trustForSSLClientCertificateChain:hostname:</a></code>
+		<span class="tooltip"><p>Returns a trust management object for verifying a certificate using the SSL Client policy.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Anchor Certificates" name="task_Anchor Certificates"></a>
+						<h3 class="subsubtitle task-title">Anchor Certificates</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/anchors">&nbsp;&nbsp;anchors</a></code>
+		<span class="tooltip"><p>The set of anchor certificates to trust while evaluating the certificate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addCustomAnchors:">&ndash;&nbsp;addCustomAnchors:</a></code>
+		<span class="tooltip"><p>Extend the set of trusted anchor certificates.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/systemAnchors">+&nbsp;systemAnchors</a></code>
+		<span class="tooltip"><p>The system-wide set of trusted anchor certificates.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Evaluation parameters" name="task_Evaluation parameters"></a>
+						<h3 class="subsubtitle task-title">Evaluation parameters</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setKeychains:">&ndash;&nbsp;setKeychains:</a></code>
+		<span class="tooltip"><p>Set the list of keychains that will be searched for intermediate certificates.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/verifyDate">&nbsp;&nbsp;verifyDate</a></code>
+		<span class="tooltip"><p>The time at which to verify the certificate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Evaluating Trust" name="task_Evaluating Trust"></a>
+						<h3 class="subsubtitle task-title">Evaluating Trust</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/evaluateWithError:">&ndash;&nbsp;evaluateWithError:</a></code>
+		<span class="tooltip"><p>Evaluates trust by verifying signatures and checking trust settings.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/certificateChain">&nbsp;&nbsp;certificateChain</a></code>
+		<span class="tooltip"><p>The full certificate chain for the evaluated certificate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/publicKey">&nbsp;&nbsp;publicKey</a></code>
+		<span class="tooltip"><p>The public key of the evaluated certificate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Low-level Access" name="task_Low-level Access"></a>
+						<h3 class="subsubtitle task-title">Low-level Access</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/SecTrust">&nbsp;&nbsp;SecTrust</a></code>
+		<span class="tooltip"><p>The underlying <code>SecTrust</code> reference.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/SecTrust" title="SecTrust"></a>
+	<h3 class="subsubtitle method-title">SecTrust</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The underlying <code>SecTrust</code> reference.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) SecTrustRef SecTrust</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/anchors" title="anchors"></a>
+	<h3 class="subsubtitle method-title">anchors</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The set of anchor certificates to trust while evaluating the certificate.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSArray *anchors</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Setting this property to a non-nil value disables trusting the system-wide anchors.</p>
+
+<p>Setting this property to nil reverts to trusting the system-wide anchor certificates.</p>
+
+<p>If you want to edit the system-wide anchors, use <a href="#//api/name/systemAnchors">systemAnchors</a> to get them,
+copy and edit that list as you wish, then assign the result back to this property.</p>
+
+<p>If you simply want to specify additional root certificates to extend the system-wide list, see
+<a href="#//api/name/addCustomAnchors:">addCustomAnchors:</a>.</p>
+
+<p>The value of this property is the complete set of currently trusted anchors,
+including system-wide anchors (if not previously disabled) and any anchors
+added with <a href="#//api/name/addCustomAnchors:">addCustomAnchors:</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/systemAnchors">[LKKCTrust systemAnchors]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/addCustomAnchors:">[LKKCTrust addCustomAnchors:]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/certificateChain" title="certificateChain"></a>
+	<h3 class="subsubtitle method-title">certificateChain</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The full certificate chain for the evaluated certificate.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSArray *certificateChain</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The leaf certificate is at index 0 of the returned array; the item at the highest index is the
+anchor certificate (or the last known intermediate certificate if the anchor could not be found).</p>
+
+<p>This property has a nil value if the trust has not been evaluated yet.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/publicKey" title="publicKey"></a>
+	<h3 class="subsubtitle method-title">publicKey</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The public key of the evaluated certificate.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) LKKCKey *publicKey</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/verifyDate" title="verifyDate"></a>
+	<h3 class="subsubtitle method-title">verifyDate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The time at which to verify the certificate.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSDate *verifyDate</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If this property is set to nil (which is the default), the certificate is evaluated using the current time.
+In this case, getting the value of this property finalizes the &ldquo;current time&rdquo; at which to verify the certificate.
+Thus, the value of this is never nil.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/systemAnchors" title="systemAnchors"></a>
+	<h3 class="subsubtitle method-title">systemAnchors</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The system-wide set of trusted anchor certificates.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (NSArray *)systemAnchors</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trustForBasicX509CertificateChain:" title="trustForBasicX509CertificateChain:"></a>
+	<h3 class="subsubtitle method-title">trustForBasicX509CertificateChain:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a trust management object for verifying a certificate using the Basic X.509 policy.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (LKKCTrust *)trustForBasicX509CertificateChain:(NSArray *)<em>certificateChain</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>certificateChain</em></dt>
+			<dd><p>The certificate to verify along with additional certificates that may be of interest while evaluating trust.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An LKKCTrust object for verifying the specified certificate.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The certificate to verify must be the first item (at index 0) in the <em>certificateChain</em> argument.
+The rest of the items are additional certificates that may be on the certificate chain.
+You should include all known certificates on the certificate chain, preferably in order.</p>
+
+<p><a href="#//api/name/evaluateWithError:">evaluateWithError:</a> will search the keychain search list and the set of trusted anchors to find
+any missing certificiates.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/setKeychains:">[LKKCTrust setKeychains:]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/anchors">[LKKCTrust anchors]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/evaluateWithError:">[LKKCTrust evaluateWithError:]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trustForSSLClientCertificateChain:hostname:" title="trustForSSLClientCertificateChain:hostname:"></a>
+	<h3 class="subsubtitle method-title">trustForSSLClientCertificateChain:hostname:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a trust management object for verifying a certificate using the SSL Client policy.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (LKKCTrust *)trustForSSLClientCertificateChain:(NSArray *)<em>certificateChain</em> hostname:(NSString *)<em>hostname</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>certificateChain</em></dt>
+			<dd><p>The certificate to verify along with additional certificates that may be of interest while evaluating trust.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>hostname</em></dt>
+			<dd><p>The client hostname to match against the certificate.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An LKKCTrust object for verifying the specified certificate.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The certificate to verify must be the first item (at index 0) in the <em>certificateChain</em> argument.
+The rest of the items are additional certificates that may be on the certificate chain.
+You should include all known certificates on the certificate chain, preferably in order.</p>
+
+<p><a href="#//api/name/evaluateWithError:">evaluateWithError:</a> will search the keychain search list and the set of trusted anchors to find
+any missing certificiates.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/setKeychains:">[LKKCTrust setKeychains:]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/anchors">[LKKCTrust anchors]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/evaluateWithError:">[LKKCTrust evaluateWithError:]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trustForSSLServerCertificateChain:hostname:" title="trustForSSLServerCertificateChain:hostname:"></a>
+	<h3 class="subsubtitle method-title">trustForSSLServerCertificateChain:hostname:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a trust management object for verifying a certificate using the SSL Server policy.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (LKKCTrust *)trustForSSLServerCertificateChain:(NSArray *)<em>certificateChain</em> hostname:(NSString *)<em>hostname</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>certificateChain</em></dt>
+			<dd><p>The certificate to verify along with additional certificates that may be of interest while evaluating trust.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>hostname</em></dt>
+			<dd><p>The server hostname to match against the certificate.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An LKKCTrust object for verifying the specified certificate.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The certificate to verify must be the first item (at index 0) in the <em>certificateChain</em> argument.
+The rest of the items are additional certificates that may be on the certificate chain.
+You should include all known certificates on the certificate chain, preferably in order.</p>
+
+<p><a href="#//api/name/evaluateWithError:">evaluateWithError:</a> will search the keychain search list and the set of trusted anchors to find
+any missing certificiates.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/setKeychains:">[LKKCTrust setKeychains:]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/anchors">[LKKCTrust anchors]</a></p></code></li>
+			
+			<li><code><p><a href="#//api/name/evaluateWithError:">[LKKCTrust evaluateWithError:]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/addCustomAnchors:" title="addCustomAnchors:"></a>
+	<h3 class="subsubtitle method-title">addCustomAnchors:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Extend the set of trusted anchor certificates.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)addCustomAnchors:(NSArray *)<em>anchors</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>anchors</em></dt>
+			<dd><p>A set of additional anchor certificates to trust while verifying the certificate.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Adds the certificates in <em>anchors</em> as trusted anchor certificates, without disabling any
+previously trusted anchor.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/anchors">[LKKCTrust anchors]</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/evaluateWithError:" title="evaluateWithError:"></a>
+	<h3 class="subsubtitle method-title">evaluateWithError:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Evaluates trust by verifying signatures and checking trust settings.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (LKKCTrustResult)evaluateWithError:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case trust could not be evaluated (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A trust result.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Each certificate on the certificate chain is checked according to the policy (X.509, SSL)
+specified when creating this trust object.</p>
+
+<p>If there is a user-specified trust setting for one or more certificates on the chain, the trust setting
+that is closest to the leaf certificate determines the trust result (Proceed, Confirm, or Deny).
+If the result is Confirm, you should pop up a confirmation dialog to let the user decide whether to
+trust this certificate.</p>
+
+<p>If there is no user-specified trust setting for any certificates on the chain, the trust result
+will be Unspecified. In this case, you should pop up a confirmation dialog (using <code>SFCertificateTrustPanel</code>),
+or use a default action (allow or deny).</p>
+
+<p>The following results are possible:</p>
+
+<ul>
+<li><code>LKKCTrustResultProceed</code> &mdash; The user explicitly indicated to trust this certificate chain.</li>
+<li><code>LKKCTrustResultConfirm</code> &mdash; Interactive confirmation is necessary before proceeding.</li>
+<li><code>LKKCTrustResultDeny</code> &mdash; The user explicitly denied trust to this certificate chain.</li>
+<li><code>LKKCTrustResultUnspecified</code> &mdash; The user did not specify a trust setting for this certificate chain. Proceed with the default action.</li>
+<li><code>LKKCTrustResultRecoverableTrustFailure</code> &mdash; Trust denied with these settings, but may be allowed after changing parameters. (E.g., certificate has expired or is not yet valid.)</li>
+<li><code>LKKCTrustResultFatalTrustFailure</code> &mdash; Trust denied; changing parameters won&rsquo;t help. (E.g., invalid signature.)</li>
+<li><code>LKKCTrustResultInvalid</code> &mdash; Invalid input. The trust could not be evaluated.</li>
+<li><code>LKKCTrustResultOtherError</code> &mdash; Internal error, trust could not be evaluated.</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setKeychains:" title="setKeychains:"></a>
+	<h3 class="subsubtitle method-title">setKeychains:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set the list of keychains that will be searched for intermediate certificates.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)setKeychains:(NSArray *)<em>keychains</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>keychains</em></dt>
+			<dd><p>A list of LKKCKeychain objects, or nil to search the default keychain search list.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Use nil to search the default keychain search list. (This is the default.)</p>
+
+<p>To disable keychain searches, set the search list to an empty array.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCTrust.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-21)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.4 (build 703)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>
