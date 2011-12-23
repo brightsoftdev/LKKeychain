@@ -713,7 +713,11 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
         if (cc == nil)
             return nil;
         result = [[cc encryptData:plaintext error:error] retain];
+        if (*error)
+            [*error retain];
     }
+    if (*error)
+        [*error autorelease];
     return [result autorelease];
 }
 
@@ -728,7 +732,11 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
         if (cc == nil)
             return nil;
         result = [[cc decryptData:ciphertext error:error] retain];
+        if (*error)
+            [*error retain];
     }
+    if (*error)
+        [*error autorelease];
     return [result autorelease];
 }
 
