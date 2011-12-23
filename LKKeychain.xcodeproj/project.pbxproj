@@ -95,7 +95,6 @@
 		BB23B2B21471989B00CF8EEB /* LKKCKey+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = BB23B2B01471989900CF8EEB /* LKKCKey+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BB7B6085145C7ACE00725E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A8E1453556300512B69 /* Security.framework */; };
 		BB7B61911460774000725E1C /* LKKCKeychainItem+Subclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7B618F1460773F00725E1C /* LKKCKeychainItem+Subclasses.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BB88934D148B1C1A0017E6FD /* Keychain Bugs.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */; };
 		BBCC8B781466F89200691978 /* LKKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BBCC8B771466F89200691978 /* LKKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BBD30A621453553700512B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD30A611453553700512B69 /* Cocoa.framework */; };
 		BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD30A6A1453553700512B69 /* InfoPlist.strings */; };
@@ -163,6 +162,7 @@
 		BB0D9CC514A2371100537099 /* example.com (Corrupt).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Corrupt).cer"; sourceTree = "<group>"; };
 		BB0D9CD814A2A23B00537099 /* LKKCCertificateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCCertificateTests.h; sourceTree = "<group>"; };
 		BB0D9CD914A2A23B00537099 /* LKKCCertificateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCCertificateTests.m; sourceTree = "<group>"; };
+		BB0D9CF714A2D9E000537099 /* Keychain Bugs.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keychain Bugs.markdown"; sourceTree = "<group>"; };
 		BB0E65821454635F00C7FFF7 /* LKKCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCUtil.m; sourceTree = "<group>"; };
 		BB0E65841454636900C7FFF7 /* LKKCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCUtil.h; sourceTree = "<group>"; };
 		BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCGenericPassword.h; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		BB209B461472F8E500735207 /* AESTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESTests.m; sourceTree = "<group>"; };
 		BB209B491472F8FB00735207 /* TripleDESTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripleDESTests.h; sourceTree = "<group>"; };
 		BB209B4A1472F8FB00735207 /* TripleDESTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripleDESTests.m; sourceTree = "<group>"; };
-		BB209B4D1472F92E00735207 /* LKKeychainTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; path = LKKeychainTestCase.h; sourceTree = "<group>"; };
+		BB209B4D1472F92E00735207 /* LKKeychainTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKeychainTestCase.h; sourceTree = "<group>"; };
 		BB209B4E1472F92E00735207 /* LKKeychainTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKeychainTestCase.m; sourceTree = "<group>"; };
 		BB209B501472FBAB00735207 /* RSATests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSATests.h; sourceTree = "<group>"; };
 		BB209B511472FBAB00735207 /* RSATests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSATests.m; sourceTree = "<group>"; };
@@ -197,7 +197,6 @@
 		BB889341148A854A0017E6FD /* AppledocSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppledocSettings.plist; sourceTree = "<group>"; };
 		BB889342148A9C7E0017E6FD /* index.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.markdown; sourceTree = "<group>"; };
 		BB889343148AF0F20017E6FD /* LICENSE.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.markdown; sourceTree = "<group>"; };
-		BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Keychain Bugs.rtf"; sourceTree = "<group>"; };
 		BBCC8B771466F89200691978 /* LKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKeychain.h; sourceTree = "<group>"; };
 		BBD30A5E1453553700512B69 /* LKKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LKKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD30A611453553700512B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -272,7 +271,7 @@
 				BB7B60AB145CA8CD00725E1C /* README.markdown */,
 				BB889343148AF0F20017E6FD /* LICENSE.markdown */,
 				BB7B60AD145CB39500725E1C /* Notes.rtf */,
-				BB88934C148B1C190017E6FD /* Keychain Bugs.rtf */,
+				BB0D9CF714A2D9E000537099 /* Keychain Bugs.markdown */,
 				BBD30A671453553700512B69 /* LKKeychain */,
 				BBD30A7D1453553700512B69 /* LKKeychainTests */,
 				BBD30A601453553700512B69 /* Frameworks */,
@@ -553,7 +552,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBD30A6C1453553700512B69 /* InfoPlist.strings in Resources */,
-				BB88934D148B1C1A0017E6FD /* Keychain Bugs.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
