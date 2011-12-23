@@ -163,8 +163,22 @@
  */
 - (LKKCCertificate *)certificateWithPersistentID:(NSData *)persistentID;
 
+/** Returns an array of all certificates with the given normalized subject DN.
+ @param subject The normalized subject DN in DER format, including an outer SEQUENCE tag.
+ @return An array of all certificates on this keychain with the given subject.
+ */
 - (NSArray *)certificatesWithSubject:(NSData *)subject;
+
+/** Returns and array of all certificates whose public key has the given SHA-1 digest value.
+ @param publicKeyHash The SHA-1 digest of the public key.
+ @return An array of all certificates on this keychain whose public key has the given SHA-1 digest.
+ */
 - (NSArray *)certificatesWithPublicKeyHash:(NSData *)publicKeyHash;
+
+/** Returns an array of all certificates with the given label.
+ @param label The label to match.
+ @return An array of all certificates on this keychain with the given label.
+ */
 - (NSArray *)certificatesWithLabel:(NSString *)label;
 
 /** --------------------------------------------------------------------------------
