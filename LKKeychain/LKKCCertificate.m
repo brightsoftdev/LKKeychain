@@ -99,7 +99,34 @@
             LKKCReportErrorObj((NSError *)error, NULL, @"Can't get normalized subject content");
             CFRelease(error);
         }
-        return [subject autorelease];
+        [subject autorelease];
+
+        NSUInteger length = [subject length];
+        const char *bytes = (const char *)[subject bytes];
+        if (length > 0 && bytes[0] != 0x30) {
+            // SecCertificateCopyNormalizedSubjectContent does not include the topmost SEQUENCE tag.
+            // This seems to be a bug in 10.7, since kSecAttrSubject does include it, as does
+            // SecCertificateCopyNormalizedIssuerContent.
+            // Work around this issue by gluing the tag back using duct tape.
+            if (length > 65535) {
+                // I don't feel like writing a full DER encoder.
+                LKKCReportError(errSecInternalError, NULL, @"Normalized subject DN is too long");
+                return nil;
+            }
+            size_t tagLength = (length < 128 ? 2 : 4);
+            NSMutableData *newSubject = [NSMutableData dataWithCapacity:tagLength + length];
+            if (length < 128) {
+                UInt8 b[2] = { '\x30', (UInt8)length };
+                [newSubject appendBytes:&b length:2];
+            }
+            else {
+                UInt8 b[4] = { '\x30', 2, (UInt8)(length >> 8), (UInt8)length };
+                [newSubject appendBytes:&b length:4];
+            }
+            [newSubject appendData:subject];
+            subject = newSubject;
+        }
+        return subject;
     }
     return nil;
 }

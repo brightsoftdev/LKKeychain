@@ -52,16 +52,16 @@
 /** The human-readable name of this certificate. Shows up as "Name" in Keychain Access.
  
  This property corresponds to the `kSecAttrLabel` attribute.
-*/
+ */
 @property (nonatomic, retain) NSString *label;
 
-/** The normalized subject of this certificate.
+/** The normalized subject DN of this certificate, in DER format, including the outer SEQUENCE tag.
 
  This property corresponds to the `kSecAttrSubject` attribute.
-*/
+ */
 @property (nonatomic, readonly) NSData *subject;
 
-/** The normalized issuer of this certificate.
+/** The normalized issuer DN of this certificate, in DER format, including the outer SEQUENCE tag.
  
  This property corresponds to the `kSecAttrIssuer` attribute.
  
