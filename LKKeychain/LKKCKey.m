@@ -674,31 +674,28 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
 - (size_t)blockSize
 {
     switch (self.keyType) {
-        case LKKCKeyTypeDES:
-        case LKKCKeyType3DES:
-        case LKKCKeyTypeRC2:
-        case LKKCKeyTypeCAST: // TODO: CAST is not yet supported.
-            return 8;
         case LKKCKeyTypeAES:
             return 16;
+        case LKKCKeyTypeDES:
+        case LKKCKeyType3DES:
+        case LKKCKeyTypeCAST:
+        case LKKCKeyTypeRC2:
+            return 8;
         case LKKCKeyTypeRC4:
-            // Stream cipher.
             return 1;
-        case LKKCKeyTypeRSA:
         case LKKCKeyTypeDSA:
         case LKKCKeyTypeECDSA:
-            // Asymmetric ciphers; block size is related to key size (minus padding overhead).
-            return 0; 
-        case LKKCKeyTypeUnknown:
+        case LKKCKeyTypeRSA:
         default:
-            return 0;
+            // BUG: SecKeyGetBlockSize returns the logical key size in bits, not the bock size in bytes.
+            return (SecKeyGetBlockSize(self.SecKey) + 7) / 8;
     }
 }
 
 - (NSData *)randomInitVector
 {
     size_t blockSize = self.blockSize;
-    if (blockSize < 2)
+    if (blockSize < 2 || self.keyClass != LKKCKeyClassSymmetric)
         return nil;
     char *buf[blockSize];
     arc4random_buf(&buf, blockSize);

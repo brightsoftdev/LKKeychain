@@ -211,7 +211,7 @@ typedef enum {
  @name Encryption and Decryption
  -------------------------------------------------------------------------------- */
 
-/** Return the block size for this key. */
+/** Return the block size for this key, in bytes. */
 - (UInt32)blockSize;
 
 /** Return a pseudorandom piece of data that is a suitable initialization vector for this key.
