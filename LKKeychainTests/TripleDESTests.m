@@ -25,7 +25,7 @@
         generator.applicationLabel = @"test key ID";
         generator.label = @"test key label";
         generator.tag = tag;
-        LKKCKey *key = [generator generate3DESKey];
+        LKKCKey *key = [generator generate3DESKeyWithError:&error];
         should(key != nil);
         
         should(key.keyClass == LKKCKeyClassSymmetric);
@@ -79,7 +79,7 @@
         generator.applicationLabel = @"floating key ID";
         generator.label = @"floating key label";
         generator.tag = floatingTag;
-        LKKCKey *key = [generator generate3DESKey];
+        LKKCKey *key = [generator generate3DESKeyWithError:&error];
         should(key != nil);
         
         should(key.keychain == nil);
@@ -139,7 +139,7 @@
     generator.label = @"3DES test key";
     generator.applicationLabel = @"3DES test key ID";
     generator.tag = [@"3DES test key tag" dataUsingEncoding:NSUTF8StringEncoding];
-    LKKCKey *key = [generator generate3DESKey];
+    LKKCKey *key = [generator generate3DESKeyWithError:&error];
     should(key != nil);
     
     NSData *iv = [key randomInitVector];

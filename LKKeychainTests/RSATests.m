@@ -26,7 +26,7 @@
         should(generator != nil);
         generator.label = @"test RSA key label";
         generator.tag = tag;
-        LKKCKeyPair *keypair = [generator generateRSAKeyPair];
+        LKKCKeyPair *keypair = [generator generateRSAKeyPairWithError:&error];
         should(keypair != nil);
         
         LKKCKey *publicKey = keypair.publicKey;
@@ -125,11 +125,12 @@
     
     // Try generating a floating keypair.
     @autoreleasepool {
+        NSError *error = nil;
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:nil];
         should(generator != nil);
         generator.label = @"floating RSA key label";
         generator.tag = [@"floating RSA key tag" dataUsingEncoding:NSUTF8StringEncoding];
-        LKKCKeyPair *keypair = [generator generateRSAKeyPair];
+        LKKCKeyPair *keypair = [generator generateRSAKeyPairWithError:&error];
         should(keypair == nil);
     }
 }
@@ -142,7 +143,7 @@
     generator.extractable = NO;
     generator.label = @"RSA test key";
     generator.tag = [@"RSA test key tag" dataUsingEncoding:NSUTF8StringEncoding];
-    LKKCKeyPair *keypair = [generator generateRSAKeyPair];
+    LKKCKeyPair *keypair = [generator generateRSAKeyPairWithError:&error];
     should(keypair != nil);
     
     NSString *message = @"This is some sample plaintext";

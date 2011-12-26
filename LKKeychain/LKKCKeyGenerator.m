@@ -42,9 +42,9 @@
 #import "LKKCUtil.h"
 
 @interface LKKCKeyGenerator()
-- (LKKCKeyPair *)_generateKeyPairWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize;
-- (SecKeyRef)_copyKey:(SecKeyRef)skey keyType:(LKKCKeyType)keyType keySize:(int)keySize;
-- (LKKCKey *)_generateSymmetricKeyWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize;
+- (LKKCKeyPair *)_generateKeyPairWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize error:(NSError **)error;
+- (SecKeyRef)_copyKey:(SecKeyRef)skey keyType:(LKKCKeyType)keyType keySize:(int)keySize error:(NSError **)error;
+- (LKKCKey *)_generateSymmetricKeyWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize error:(NSError **)error;
 @end
 
 @implementation LKKCKeyGenerator
@@ -82,7 +82,7 @@
     [super dealloc];
 }
 
-- (LKKCKeyPair *)_generateKeyPairWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize
+- (LKKCKeyPair *)_generateKeyPairWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize error:(NSError **)error
 {
     OSStatus status;
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -103,14 +103,14 @@
     else {
         // BUG: This doesn't work. SecKeyGeneratePair always puts the result on a keychain.
         [parameters setObject:(id)kCFBooleanFalse forKey:kSecAttrIsPermanent];
-        LKKCReportError(errSecParam, NULL, @"Can't generate a key pair without a keychain");
+        LKKCReportError(errSecParam, error, @"Can't generate a key pair without a keychain");
         return nil;
     }
     
     SecAccessRef saccess = NULL;
     status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
     if (status) {
-        LKKCReportError(status, NULL, @"Can't create initial access object for generated key");
+        LKKCReportError(status, error, @"Can't create initial access object for generated key");
         return nil;
     }
     [parameters setObject:(id)saccess forKey:kSecAttrAccess];
@@ -120,7 +120,7 @@
     SecKeyRef sprivateKey = NULL;
     status = SecKeyGeneratePair((CFDictionaryRef)parameters, &spublicKey, &sprivateKey);
     if (status) {
-        LKKCReportError(status, NULL, @"Can't generate key pair");
+        LKKCReportError(status, error, @"Can't generate key pair");
         return nil;
     }
  
@@ -134,32 +134,32 @@
     return keypair;
 }
 
-- (LKKCKeyPair *)generateRSAKeyPair
+- (LKKCKeyPair *)generateRSAKeyPairWithError:(NSError **)error
 {
     unsigned int keySize = _keySize;
     if (keySize == 0)
         keySize = 2048;
     if ((keySize % 8) != 0 || keySize < kSecRSAMin || keySize > kSecRSAMax) {
-        LKKCReportError(errSecParam, NULL, @"Invalid key size");
+        LKKCReportError(errSecParam, error, @"Invalid key size");
         return nil;
     }
     
-    return [self _generateKeyPairWithKeyType:LKKCKeyTypeRSA keySize:keySize];
+    return [self _generateKeyPairWithKeyType:LKKCKeyTypeRSA keySize:keySize error:error];
 }
 
-- (LKKCKeyPair *)generateECDSAKeyPair
+- (LKKCKeyPair *)generateECDSAKeyPairWithError:(NSError **)error
 {
     unsigned int keySize = _keySize;    
     if (keySize == 0)
         keySize = kSecp256r1;
     if (keySize != kSecp192r1 && keySize != kSecp256r1 && keySize != kSecp384r1 && keySize != kSecp521r1) {
-        LKKCReportError(errSecParam, NULL, @"Invalid key size");
+        LKKCReportError(errSecParam, error, @"Invalid key size");
         return nil;
     }
-    return [self _generateKeyPairWithKeyType:LKKCKeyTypeECDSA keySize:keySize];
+    return [self _generateKeyPairWithKeyType:LKKCKeyTypeECDSA keySize:keySize error:error];
 }
 
-- (SecKeyRef)_copyKey:(SecKeyRef)skey keyType:(LKKCKeyType)keyType keySize:(int)keySize
+- (SecKeyRef)_copyKey:(SecKeyRef)skey keyType:(LKKCKeyType)keyType keySize:(int)keySize error:(NSError **)error
 {
     SecKeyRef skeyCopy = NULL;
     @autoreleasepool {
@@ -184,7 +184,7 @@
         CFErrorRef cferror = NULL;
         skeyCopy = SecKeyCreateFromData((CFDictionaryRef)attributes, (CFDataRef)data, &cferror);
         if (skey == NULL) {
-            LKKCReportError((OSStatus)CFErrorGetCode(cferror), NULL, @"Can't create key copy");
+            LKKCReportError((OSStatus)CFErrorGetCode(cferror), error, @"Can't create key copy");
             CFRelease(cferror);
             return NULL;
         }
@@ -193,7 +193,7 @@
     return skeyCopy;
 }
 
-- (LKKCKey *)_generateSymmetricKeyWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize
+- (LKKCKey *)_generateSymmetricKeyWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize error:(NSError **)error
 {
     if (_extractable || _keychain == nil) {
         // SecKeyGenerateSymmetric can only create non-extractable keys.
@@ -212,14 +212,14 @@
         SecAccessRef saccess = NULL;
         OSStatus status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
         if (status) {
-            LKKCReportError(status, NULL, @"Can't create access object for newly generated key");
+            LKKCReportError(status, error, @"Can't create access object for newly generated key");
             return nil;
         }
         SecKeyRef skey = NULL;
         status = SecKeyGenerate(skeychain, algid, keySize, 0, keyUse, keyAttr, saccess, &skey);
         CFRelease(saccess);
         if (status) {
-            LKKCReportError(status, NULL, @"Can't generate symmetric key");
+            LKKCReportError(status, error, @"Can't generate symmetric key");
             return nil;
         }
         
@@ -227,7 +227,7 @@
             // SecItemAdd doesn't like floating keys generated by SecKeyGenerate/SecKeyGenerateSymmetric:
             // It fails with errSecInvalidKeyRef.
             // However, it gladly accepts a duplicate key created by SecKeyCreateFromData.
-            SecKeyRef skeyCopy = [self _copyKey:skey keyType:keyType keySize:keySize];
+            SecKeyRef skeyCopy = [self _copyKey:skey keyType:keyType keySize:keySize error:error];
             if (skeyCopy) {
                 CFRelease(skey);
                 skey = (SecKeyRef)CFRetain(skeyCopy);
@@ -280,7 +280,7 @@
         SecAccessRef saccess = NULL;
         OSStatus status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
         if (status) {
-            LKKCReportError(status, NULL, @"Can't create access object for newly generated key");
+            LKKCReportError(status, error, @"Can't create access object for newly generated key");
             return nil;
         }
         [parameters setObject:(id)saccess forKey:kSecAttrAccess];
@@ -298,7 +298,7 @@
             // SecItemAdd doesn't like floating keys generated by SecKeyGenerate/SecKeyGenerateSymmetric:
             // It fails with errSecInvalidKeyRef.
             // However, it gladly accepts a duplicate key created by SecKeyCreateFromData.
-            SecKeyRef skeyCopy = [self _copyKey:skey keyType:keyType keySize:keySize];
+            SecKeyRef skeyCopy = [self _copyKey:skey keyType:keyType keySize:keySize error:error];
             if (skeyCopy) {
                 CFRelease(skey);
                 skey = (SecKeyRef)CFRetain(skeyCopy);
@@ -314,7 +314,7 @@
             // rdar://10618031 SecKeyGenerateSymmetric expects string values for kSecAttrApplicationTag.
             // Work around by setting the tag in a separate step after generating the key.
             key.tag = _tag;
-            if (![key saveItemWithError:NULL]) {
+            if (![key saveItemWithError:error]) {
                 [key deleteItemWithError:NULL];
                 return nil;
             }
@@ -334,7 +334,7 @@
     }
 }
 
-- (LKKCKey *)generateAESKey
+- (LKKCKey *)generateAESKeyWithError:(NSError **)error
 {
     unsigned int keySize = _keySize;    
     if (keySize == 0)
@@ -343,10 +343,10 @@
         LKKCReportError(errSecParam, NULL, @"Invalid key size");
         return nil;
     }
-    return [self _generateSymmetricKeyWithKeyType:LKKCKeyTypeAES keySize:keySize];
+    return [self _generateSymmetricKeyWithKeyType:LKKCKeyTypeAES keySize:keySize error:error];
 }
 
-- (LKKCKey *)generate3DESKey
+- (LKKCKey *)generate3DESKeyWithError:(NSError **)error
 {
     unsigned int keySize = _keySize;    
     if (keySize == 0)
@@ -355,7 +355,7 @@
         LKKCReportError(errSecParam, NULL, @"Invalid key size");
         return nil;
     }
-    return [self _generateSymmetricKeyWithKeyType:LKKCKeyType3DES keySize:keySize];
+    return [self _generateSymmetricKeyWithKeyType:LKKCKeyType3DES keySize:keySize error:error];
 }
 
 @end
