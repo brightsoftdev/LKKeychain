@@ -82,6 +82,12 @@
 	
 	<option value="//api/name/certificates">&nbsp;&nbsp;&nbsp;&nbsp;- certificates</option>
 	
+	<option value="//api/name/certificatesWithLabel:">&nbsp;&nbsp;&nbsp;&nbsp;- certificatesWithLabel:</option>
+	
+	<option value="//api/name/certificatesWithPublicKeyHash:">&nbsp;&nbsp;&nbsp;&nbsp;- certificatesWithPublicKeyHash:</option>
+	
+	<option value="//api/name/certificatesWithSubject:">&nbsp;&nbsp;&nbsp;&nbsp;- certificatesWithSubject:</option>
+	
 	<option value="//api/name/deleteKeychainWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- deleteKeychainWithError:</option>
 	
 	<option value="//api/name/genericPasswordWithPersistentID:">&nbsp;&nbsp;&nbsp;&nbsp;- genericPasswordWithPersistentID:</option>
@@ -199,6 +205,12 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificateWithPersistentID:">certificateWithPersistentID:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificates">certificates</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificatesWithLabel:">certificatesWithLabel:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificatesWithPublicKeyHash:">certificatesWithPublicKeyHash:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/certificatesWithSubject:">certificatesWithSubject:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deleteKeychainWithError:">deleteKeychainWithError:</a></span></li>
 	
@@ -410,6 +422,27 @@
 	<span class="tooltip">
 		<code><a href="#//api/name/certificateWithPersistentID:">&ndash;&nbsp;certificateWithPersistentID:</a></code>
 		<span class="tooltip"><p>Returns the certificate with the given persistent ID.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/certificatesWithSubject:">&ndash;&nbsp;certificatesWithSubject:</a></code>
+		<span class="tooltip"><p>Returns an array of all certificates with the given normalized subject DN.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/certificatesWithPublicKeyHash:">&ndash;&nbsp;certificatesWithPublicKeyHash:</a></code>
+		<span class="tooltip"><p>Returns and array of all certificates whose public key has the given SHA-1 digest value.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/certificatesWithLabel:">&ndash;&nbsp;certificatesWithLabel:</a></code>
+		<span class="tooltip"><p>Returns an array of all certificates with the given label.</p></span>
 	</span>
 	
 	
@@ -1333,6 +1366,153 @@ When user interactions are disabled, operations that would require a prompt retu
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/certificatesWithLabel:" title="certificatesWithLabel:"></a>
+	<h3 class="subsubtitle method-title">certificatesWithLabel:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns an array of all certificates with the given label.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)certificatesWithLabel:(NSString *)<em>label</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>label</em></dt>
+			<dd><p>The label to match.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An array of all certificates on this keychain with the given label.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychain.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/certificatesWithPublicKeyHash:" title="certificatesWithPublicKeyHash:"></a>
+	<h3 class="subsubtitle method-title">certificatesWithPublicKeyHash:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns and array of all certificates whose public key has the given SHA-1 digest value.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)certificatesWithPublicKeyHash:(NSData *)<em>publicKeyHash</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>publicKeyHash</em></dt>
+			<dd><p>The SHA-1 digest of the public key.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An array of all certificates on this keychain whose public key has the given SHA-1 digest.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychain.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/certificatesWithSubject:" title="certificatesWithSubject:"></a>
+	<h3 class="subsubtitle method-title">certificatesWithSubject:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns an array of all certificates with the given normalized subject DN.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSArray *)certificatesWithSubject:(NSData *)<em>subject</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>subject</em></dt>
+			<dd><p>The normalized subject DN in DER format, including an outer SEQUENCE tag.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An array of all certificates on this keychain with the given subject.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychain.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/deleteKeychainWithError:" title="deleteKeychainWithError:"></a>
 	<h3 class="subsubtitle method-title">deleteKeychainWithError:</h3>
 	
@@ -2089,7 +2269,7 @@ and this object becomes invalidated. All subsequent operations will throw an exc
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-21)</span><br />
+						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.4 (build 703)</a>.</span></p>
 						

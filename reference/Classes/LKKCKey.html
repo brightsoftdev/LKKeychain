@@ -64,6 +64,8 @@
 	
 	<option value="//api/name/keyID">&nbsp;&nbsp;&nbsp;&nbsp;keyID</option>
 	
+	<option value="//api/name/keySize">&nbsp;&nbsp;&nbsp;&nbsp;keySize</option>
+	
 	<option value="//api/name/keyType">&nbsp;&nbsp;&nbsp;&nbsp;keyType</option>
 	
 	<option value="//api/name/permanent">&nbsp;&nbsp;&nbsp;&nbsp;permanent</option>
@@ -77,7 +79,17 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/addToKeychain:error:">&nbsp;&nbsp;&nbsp;&nbsp;- addToKeychain:error:</option>
+	
+	<option value="//api/name/blockSize">&nbsp;&nbsp;&nbsp;&nbsp;- blockSize</option>
+	
+	<option value="//api/name/decryptData:initVector:error:">&nbsp;&nbsp;&nbsp;&nbsp;- decryptData:initVector:error:</option>
+	
+	<option value="//api/name/encryptData:initVector:error:">&nbsp;&nbsp;&nbsp;&nbsp;- encryptData:initVector:error:</option>
+	
 	<option value="//api/name/keyDataWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- keyDataWithError:</option>
+	
+	<option value="//api/name/randomInitVector">&nbsp;&nbsp;&nbsp;&nbsp;- randomInitVector</option>
 	
 	<option value="//api/name/saveItemWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- saveItemWithError:</option>
 	
@@ -100,6 +112,12 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Key identifiers">Key identifiers</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Key attributes">Key attributes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Accessing The Raw Key Data">Accessing The Raw Key Data</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Low-Level Access">Low-Level Access</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Encryption and Decryption">Encryption and Decryption</a></span></li>
 	
 </ul></li>
 
@@ -133,6 +151,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyID">keyID</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keySize">keySize</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyType">keyType</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/permanent">permanent</a></span></li>
@@ -147,7 +167,17 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addToKeychain:error:">addToKeychain:error:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/blockSize">blockSize</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/decryptData:initVector:error:">decryptData:initVector:error:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/encryptData:initVector:error:">encryptData:initVector:error:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keyDataWithError:">keyDataWithError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/randomInitVector">randomInitVector</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/saveItemWithError:">saveItemWithError:</a></span></li>
 	
@@ -229,100 +259,176 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/tag">&nbsp;&nbsp;tag</a></code>
-		<span class="tooltip"><p>Application-specific tag of your choice. (kSecAttrApplicationTag)</p></span>
+		<span class="tooltip"><p>Application-specific tag of your choice. The value of this property isn&rsquo;t editable (or even shown) in Keychain Access.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/keyClass">&nbsp;&nbsp;keyClass</a></code>
-		<span class="tooltip"><p>The class of the key (public, private or symmetric). (kSecAttrKeyClass)</p></span>
+		<span class="tooltip"><p>The class of the key (public, private or symmetric).</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/keyType">&nbsp;&nbsp;keyType</a></code>
-		<span class="tooltip"><p>The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)</p></span>
+		<span class="tooltip"><p>The algorithm for which the key was generated (RSA, AES, etc).</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/permanent">&nbsp;&nbsp;permanent</a></code>
-		<span class="tooltip"><p>Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)</p></span>
+		<span class="tooltip"><p>Whether this key is stored permanently in a keychain.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canEncrypt">&nbsp;&nbsp;canEncrypt</a></code>
-		<span class="tooltip"><p>Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to encrypt data.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canDecrypt">&nbsp;&nbsp;canDecrypt</a></code>
-		<span class="tooltip"><p>Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to encrypt data.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canDerive">&nbsp;&nbsp;canDerive</a></code>
-		<span class="tooltip"><p>Whether this key can be used to derive another key. (kSecAttrCanDerive)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to derive another key.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canSign">&nbsp;&nbsp;canSign</a></code>
-		<span class="tooltip"><p>Whether this key can be used to create a digital signature. (kSecAttrCanSign)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to create a digital signature.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canVerify">&nbsp;&nbsp;canVerify</a></code>
-		<span class="tooltip"><p>Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to verify a digital signature.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canWrap">&nbsp;&nbsp;canWrap</a></code>
-		<span class="tooltip"><p>Whether this key can be used to wrap another key. (kSecAttrCanWrap)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to wrap another key.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/canUnwrap">&nbsp;&nbsp;canUnwrap</a></code>
-		<span class="tooltip"><p>Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)</p></span>
+		<span class="tooltip"><p>Whether this key can be used to unwrap another key.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/keySize">&nbsp;&nbsp;keySize</a></code>
+		<span class="tooltip"><p>The actual size of the key in the case of symmetric algorithms,
+and the modulus size of the key in the case of asymmetric algorithms.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/effectiveKeySize">&nbsp;&nbsp;effectiveKeySize</a></code>
-		<span class="tooltip"><p>Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)</p></span>
+		<span class="tooltip"><p>Number of key bits that can be used in a cryptographic operation.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
-</li><li>
+</li>
+						</ul>
+						
+						
+						<a title="Accessing The Raw Key Data" name="task_Accessing The Raw Key Data"></a>
+						<h3 class="subsubtitle task-title">Accessing The Raw Key Data</h3>
+
+						<ul class="task-list">
+							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/keyDataWithError:">&ndash;&nbsp;keyDataWithError:</a></code>
 		<span class="tooltip"><p>Returns the raw bits of the key.</p></span>
 	</span>
 	
 	
-</li><li>
+</li>
+						</ul>
+						
+						
+						<a title="Low-Level Access" name="task_Low-Level Access"></a>
+						<h3 class="subsubtitle task-title">Low-Level Access</h3>
+
+						<ul class="task-list">
+							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/SecKey">&nbsp;&nbsp;SecKey</a></code>
 		<span class="tooltip"><p>The underlying <code>SecKey</code> reference.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Encryption and Decryption" name="task_Encryption and Decryption"></a>
+						<h3 class="subsubtitle task-title">Encryption and Decryption</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/blockSize">&ndash;&nbsp;blockSize</a></code>
+		<span class="tooltip"><p>Return the block size for this key, in bytes.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/randomInitVector">&ndash;&nbsp;randomInitVector</a></code>
+		<span class="tooltip"><p>Return a pseudorandom piece of data that is a suitable initialization vector for this key.
+Returns nil for assymetric keys.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/encryptData:initVector:error:">&ndash;&nbsp;encryptData:initVector:error:</a></code>
+		<span class="tooltip"><p>Encrypt a piece of data with this key.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/decryptData:initVector:error:">&ndash;&nbsp;decryptData:initVector:error:</a></code>
+		<span class="tooltip"><p>Decrypt a piece of ciphertext with this key.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addToKeychain:error:">&ndash;&nbsp;addToKeychain:error:</a></code>
+		<span class="tooltip"><p>Add this item to a keychain. The item&rsquo;s state is refreshed to reflect the change.</p></span>
+	</span>
+	
 	
 </li>
 						</ul>
@@ -414,6 +520,8 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 <p>Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.</p>
 
 <p>With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute&rsquo;s type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).</p>
+
+<p>This property is part of the primary key for Key items.</p>
 	</div>
 	
 	
@@ -437,7 +545,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to encrypt data. (kSecAttrCanDecrypt)</p>
+		<p>Whether this key can be used to encrypt data.</p>
 	</div>		
 	
 	
@@ -449,6 +557,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanDecrypt</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -471,7 +584,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to derive another key. (kSecAttrCanDerive)</p>
+		<p>Whether this key can be used to derive another key.</p>
 	</div>		
 	
 	
@@ -483,6 +596,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanDerive</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -505,7 +623,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to encrypt data. (kSecAttrCanEncrypt)</p>
+		<p>Whether this key can be used to encrypt data.</p>
 	</div>		
 	
 	
@@ -517,6 +635,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanEncrypt</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -539,7 +662,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to create a digital signature. (kSecAttrCanSign)</p>
+		<p>Whether this key can be used to create a digital signature.</p>
 	</div>		
 	
 	
@@ -551,6 +674,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanSign</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -573,7 +701,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to unwrap another key. (kSecAttrCanUnwrap)</p>
+		<p>Whether this key can be used to unwrap another key.</p>
 	</div>		
 	
 	
@@ -585,6 +713,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanUnwrap</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -607,7 +740,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to verify a digital signature. (kSecAttrCanVerify)</p>
+		<p>Whether this key can be used to verify a digital signature.</p>
 	</div>		
 	
 	
@@ -619,6 +752,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanVerify</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -641,7 +779,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key can be used to wrap another key. (kSecAttrCanWrap)</p>
+		<p>Whether this key can be used to wrap another key.</p>
 	</div>		
 	
 	
@@ -653,6 +791,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrCanWrap</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -675,7 +818,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Number of key bits that can be used in a cryptographic operation. (kSecAttrEffectiveKeySize)</p>
+		<p>Number of key bits that can be used in a cryptographic operation.</p>
 	</div>		
 	
 	
@@ -687,6 +830,13 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrEffectiveKeySize</code> attribute.</p>
+
+<p>This property is part of the primary key for Key items.</p>
+	</div>
 	
 	
 	
@@ -709,7 +859,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The class of the key (public, private or symmetric). (kSecAttrKeyClass)</p>
+		<p>The class of the key (public, private or symmetric).</p>
 	</div>		
 	
 	
@@ -721,6 +871,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrKeyClass</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -764,6 +919,50 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 <p>Originally kSecKeyLabel was a binary attribute, and asymetric keys (especially those belonging to an identity) still rely on this: the system expects the value to be the SHA-1 hash of the public key.</p>
 
 <p>With the introduction of kSecAttrApplicationLabel, Apple decided to change the attribute&rsquo;s type to a UTF-8 string. This is fine for symmetric keys, but it makes it impossible to access or set raw data values (such as the hashes described above).</p>
+
+<p>This property is part of the primary key for Key items.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/keySize" title="keySize"></a>
+	<h3 class="subsubtitle method-title">keySize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The actual size of the key in the case of symmetric algorithms,
+and the modulus size of the key in the case of asymmetric algorithms.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) int keySize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrKeySizeInBits</code> attribute.</p>
+
+<p>This property is part of the primary key for Key items.</p>
 	</div>
 	
 	
@@ -787,7 +986,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The algorithm for which the key was generated (RSA, AES, etc). (kSecAttrKeyType)</p>
+		<p>The algorithm for which the key was generated (RSA, AES, etc).</p>
 	</div>		
 	
 	
@@ -799,6 +998,13 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrKeyType</code> attribute.</p>
+
+<p>This property is part of the primary key for Key items.</p>
+	</div>
 	
 	
 	
@@ -821,7 +1027,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Whether this key is stored permanently in a keychain. (kSecAttrIsPermanent)</p>
+		<p>Whether this key is stored permanently in a keychain.</p>
 	</div>		
 	
 	
@@ -833,6 +1039,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrIsPermanent</code> attribute.</p>
+	</div>
 	
 	
 	
@@ -855,11 +1066,11 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Application-specific tag of your choice. (kSecAttrApplicationTag)</p>
+		<p>Application-specific tag of your choice. The value of this property isn&rsquo;t editable (or even shown) in Keychain Access.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSString *tag</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSData *tag</code></div>
 	
 	
 	
@@ -867,6 +1078,20 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This property corresponds to the <code>kSecAttrApplicationTag</code> attribute.</p>
+
+<p>Note that the type of this attribute is ambiguous in the underlying framework: it previously
+had a data value, and it is still documented as such; however, most of the latest Apple APIs
+provide and expect string values instead.</p>
+
+<p>To prevent interoperation problems, new keys should be created with this property
+set to a UTF-8 string value.</p>
+
+<p>This property is part of the primary key for Key items.</p>
+	</div>
 	
 	
 	
@@ -891,6 +1116,230 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 					<div class="section section-methods">
 						<a title="Instance Methods" name="instance_methods"></a>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/addToKeychain:error:" title="addToKeychain:error:"></a>
+	<h3 class="subsubtitle method-title">addToKeychain:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Add this item to a keychain. The item&rsquo;s state is refreshed to reflect the change.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)addToKeychain:(LKKCKeychain *)<em>keychain</em> error:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>keychain</em></dt>
+			<dd><p>The keychain to which to add this item.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the item could not be added to <em>keychain</em> (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the operation succeeded, or NO if an error happened.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychainItem.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/blockSize" title="blockSize"></a>
+	<h3 class="subsubtitle method-title">blockSize</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return the block size for this key, in bytes.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (UInt32)blockSize</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/decryptData:initVector:error:" title="decryptData:initVector:error:"></a>
+	<h3 class="subsubtitle method-title">decryptData:initVector:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Decrypt a piece of ciphertext with this key.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSData *)decryptData:(NSData *)<em>ciphertext</em> initVector:(NSData *)<em>iv</em> error:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>ciphertext</em></dt>
+			<dd><p>The encrypted data.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>iv</em></dt>
+			<dd><p>The initialization vector that was used to encrypt.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occured in case the data could not be decrypted (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The decrypted data.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/encryptData:initVector:error:" title="encryptData:initVector:error:"></a>
+	<h3 class="subsubtitle method-title">encryptData:initVector:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Encrypt a piece of data with this key.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSData *)encryptData:(NSData *)<em>plaintext</em> initVector:(NSData *)<em>iv</em> error:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>plaintext</em></dt>
+			<dd><p>The data to encrypt.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>iv</em></dt>
+			<dd><p>The initialization vector to use. Required for symmetric keys.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occured in case the data could not be encrypted (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The encrypted data.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>To decrypt data encrypted by a symmetric key, you&rsquo;ll need a copy of the same key
+and the same initialization vector. You don&rsquo;t need to keep the IV private; it is usually transmitted
+in the same channel as the encrypted data (for example, by prepending the IV to the ciphertext).</p>
+
+<p>To decrypt data encrypted by an asymmetric key, you&rsquo;ll need a copy of the other key in the keypair.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/randomInitVector">&ndash; randomInitVector</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/keyDataWithError:" title="keyDataWithError:"></a>
@@ -922,6 +1371,41 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>The raw bits of the key, of nil if the key data is not extractable from the keychain.</p>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKey.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/randomInitVector" title="randomInitVector"></a>
+	<h3 class="subsubtitle method-title">randomInitVector</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return a pseudorandom piece of data that is a suitable initialization vector for this key.
+Returns nil for assymetric keys.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (NSData *)randomInitVector</code></div>
+	
+	
+	
 	
 	
 	
@@ -1003,7 +1487,7 @@ If you set one, the other is cleared. Use <a href="#//api/name/applicationLabel"
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-21)</span><br />
+						<p><span class="copyright">&copy; 2011 Károly Lőrentey. All rights reserved. (Last updated: 2011-12-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.4 (build 703)</a>.</span></p>
 						
