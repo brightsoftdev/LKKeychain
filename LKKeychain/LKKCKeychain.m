@@ -132,6 +132,33 @@ static CFMutableDictionaryRef keychains = NULL;
     return result;
 }
 
++ (BOOL)setDefaultKeychain:(LKKCKeychain *)keychain error:(NSError **)error
+{
+    OSStatus status;
+    SecKeychainRef skeychain = keychain.SecKeychain;
+    status = SecKeychainSetDefault(skeychain);
+    if (status) {
+        LKKCReportError(status, error, @"Can't set default keychain");
+        return NO;
+    }
+    return YES;
+}
+
++ (BOOL)setKeychainsOnSearchList:(NSArray *)searchList error:(NSError **)error
+{
+    OSStatus status;
+    NSMutableArray *skeychains = [NSMutableArray arrayWithCapacity:[searchList count]];
+    for (LKKCKeychain *keychain in searchList) {
+        [skeychains addObject:(id)keychain.SecKeychain];
+    }
+    status = SecKeychainSetSearchList((CFArrayRef)skeychains);
+    if (status) {
+        LKKCReportError(status, error, @"Can't set default keychain search list");
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - Lifecycle
 
 - (id)initWithSecKeychain:(SecKeychainRef)skeychain

@@ -87,6 +87,34 @@
 + (NSArray *)keychainsOnSearchList;
 
 /** --------------------------------------------------------------------------------
+ @name Modifying the Keychain Search List
+ -------------------------------------------------------------------------------- */
+
+/** Sets the default keychain. 
+ 
+ This modifies the default keychain for all processes in the current session. 
+ The default keychain is a user setting that applications should not normally change; 
+ if you do decide to change it, make sure to change it back to its original value before you exit.
+ 
+ @param keychain The keychain to set as the new default keychain.
+ @param error On output, the error that occurred in case the default keychain could not be set (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ */
++ (BOOL)setDefaultKeychain:(LKKCKeychain *)keychain error:(NSError **)error;
+
+/** Sets the default keychain search list to the supplied array.
+ 
+ This modifies the search list for all processes in the current session.
+ The default keychain search list is displayed as the keychain list in the Keychain Access utility.
+ Applications should not normally change this value.
+ 
+ @param searchList An array of LKKCKeychain objects.
+ @param error On output, the error that occurred in case the search list could not be set (optional).
+ @return YES if the operation succeeded, or NO if an error happened.
+ */
++ (BOOL)setKeychainsOnSearchList:(NSArray *)searchList error:(NSError **)error;
+
+/** --------------------------------------------------------------------------------
  @name Controlling user interaction
  -------------------------------------------------------------------------------- */
 
