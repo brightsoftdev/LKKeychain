@@ -30,6 +30,10 @@
 
 * * *
 
+* The `kSecAttrCertificateType` and `kSecAttrCertificateEncoding` certificate attributes have `CFDataRef` values instead of `CFNumberRef`. The content is a 4-byte integer value in the native byte order.
+
+* `kSecAttrCertificateType` seems to be `CSSM_CERT_X_509v1` for X.509 version 2 and version 3 certificates, even though those versions have their own enum value.
+
 * `SecKeyGenerateSymmetric` cannot be called twice in rapid succession to generate persistent keys without an application tag; it returns `errSecDuplicateItem`, even if the keys have different types and key sizes.
 
 * `SecItemAdd` can't handle `CFDataRef` values for `kSecAttrApplicationTag`.
@@ -47,7 +51,11 @@
 * `SecKeyGenerateSymmetric` creates non-extractable keys. This isn't configurable. If `SecKeyGenerateSymmetric` is used without a keychain, the resulting `SecKey` is almost useless: you can't get to its data, but you also can't add it to a keychain later. You can encrypt and decrypt data with it, but since you cannot permanently store the key anywhere, there is very little point. (The latter is because floating keys have no kSecAttrApplicationLabel.) I'd prefer if extractability would be configurable by making `kSecAttrIsExtractable` public and adding support for it in `SecKeyGenerateSymmetric`.  Alternatively, the generated key should be made extractable when it's not generated into a keychain.
 
 
-* `kSecAttrApplicationLabel`'s documentation is misleading/wrong: "Application label attribute key. The corresponding value is of type `CFStringRef` and contains a label for this item. This attribute is different from the `kSecAttrLabel` attribute, which is intended to be human-readable. This attribute is used to look up a key programmatically; in particular, for keys of class `kSecAttrKeyClassPublic` and `kSecAttrKeyClassPrivate`, the value of this attribute is the hash of the public key." Since the corresponding value's type is `CFStringRef`, it is impossible to store a hash of the public key in this attribute, or retrieve an attribute that stores a hash. We need better guidance on what to put here.  Especially since `SecPKCS12Import` refers to the same attribute as `kSecImportItemKeyID`, with a `CFDataRef` value!
+* `kSecAttrApplicationLabel`'s documentation is misleading/wrong: 
+
+    > Application label attribute key. The corresponding value is of type `CFStringRef` and contains a label for this item. This attribute is different from the `kSecAttrLabel` attribute, which is intended to be human-readable. This attribute is used to look up a key programmatically; in particular, for keys of class `kSecAttrKeyClassPublic` and `kSecAttrKeyClassPrivate`, the value of this attribute is the hash of the public key.
+
+    Since the corresponding value's type is `CFStringRef`, it is impossible to store a hash of the public key in this attribute, or retrieve an attribute that stores a hash. We need better guidance on what to put here.  Especially since `SecPKCS12Import` refers to the same attribute as `kSecImportItemKeyID`, with a `CFDataRef` value!
 
 * `SecKeyCreateFromData` should accept `kSecUseKeychain` and `kSecAttrAccess` keys and a key for specifying the format of the data.
 
