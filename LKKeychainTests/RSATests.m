@@ -15,6 +15,8 @@
 {
     BOOL result;
     
+    NSData *tag = [@"test RSA key tag" dataUsingEncoding:NSUTF8StringEncoding];
+
     // Generate a keypair into a keychain.
     NSData *publicID = nil;
     NSData *privateID = nil;
@@ -23,7 +25,7 @@
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:_keychain];
         should(generator != nil);
         generator.label = @"test RSA key label";
-        generator.tag = @"test RSA key tag";
+        generator.tag = tag;
         LKKCKeyPair *keypair = [generator generateRSAKeyPair];
         should(keypair != nil);
         
@@ -38,8 +40,8 @@
         should(privateKey.keySize == 2048);
         shouldBeEqual(publicKey.label, @"test RSA key label");
         shouldBeEqual(privateKey.label, @"test RSA key label");
-        shouldBeEqual(publicKey.tag, @"test RSA key tag");
-        shouldBeEqual(privateKey.tag, @"test RSA key tag");
+        shouldBeEqual(publicKey.tag, tag);
+        shouldBeEqual(privateKey.tag, tag);
         
         should(publicKey.keyID != nil);
         shouldBeEqual(publicKey.keyID, privateKey.keyID);
@@ -68,7 +70,7 @@
         should(key.keyType == LKKCKeyTypeRSA);
         should(key.keySize == 2048);
         shouldBeEqual(key.label, @"test RSA key label");
-        shouldBeEqual(key.tag, @"test RSA key tag");
+        shouldBeEqual(key.tag, tag);
     }
     
     // Try listing private keys.
@@ -81,7 +83,7 @@
         should(key.keyType == LKKCKeyTypeRSA);
         should(key.keySize == 2048);
         shouldBeEqual(key.label, @"test RSA key label");
-        shouldBeEqual(key.tag, @"test RSA key tag");
+        shouldBeEqual(key.tag, tag);
     }
 
     // Try retrieving the keys by persistent ID.
@@ -101,8 +103,8 @@
         should(privateKey.keySize == 2048);
         shouldBeEqual(publicKey.label, @"test RSA key label");
         shouldBeEqual(privateKey.label, @"test RSA key label");
-        shouldBeEqual(publicKey.tag, @"test RSA key tag");
-        shouldBeEqual(privateKey.tag, @"test RSA key tag");
+        shouldBeEqual(publicKey.tag, tag);
+        shouldBeEqual(privateKey.tag, tag);
         
         result = [publicKey deleteItemWithError:&error];
         should(result);
@@ -126,7 +128,7 @@
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:nil];
         should(generator != nil);
         generator.label = @"floating RSA key label";
-        generator.tag = @"floating RSA key tag";
+        generator.tag = [@"floating RSA key tag" dataUsingEncoding:NSUTF8StringEncoding];
         LKKCKeyPair *keypair = [generator generateRSAKeyPair];
         should(keypair == nil);
     }
@@ -139,7 +141,7 @@
     LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:_keychain];
     generator.extractable = NO;
     generator.label = @"RSA test key";
-    generator.tag = @"RSA test key tag";
+    generator.tag = [@"RSA test key tag" dataUsingEncoding:NSUTF8StringEncoding];
     LKKCKeyPair *keypair = [generator generateRSAKeyPair];
     should(keypair != nil);
     

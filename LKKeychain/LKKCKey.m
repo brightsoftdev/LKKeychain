@@ -327,12 +327,38 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     [_updatedAttributes removeObjectForKey:LKKCAttrKeyID];
 }
 
-- (NSString *)tag
+- (NSData *)tag
 {
+#if 0
     return [self valueForAttribute:kSecAttrApplicationTag];
+#else
+    // BUG: SecItemCopyMatching returns kSecAttrApplicationTag as a string, but it should be data.
+    // Work around this by using deprecated API.
+
+    NSData *value = [_updatedAttributes objectForKey:kSecAttrApplicationTag];
+    if (value != nil)
+        return value;
+    
+    UInt32 tags[] = { kSecKeyApplicationTag };
+    UInt32 formats[] = { CSSM_DB_ATTRIBUTE_FORMAT_BLOB };
+    SecKeychainAttributeInfo info = { .count = 1, .tag = tags, .format = formats };
+    SecKeychainAttributeList *attrList;
+    OSStatus status = SecKeychainItemCopyAttributesAndData(_sitem, &info, NULL, &attrList, NULL, NULL);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't get kSecKeyApplicationTag attribute");
+        return nil;
+    }
+
+    if (attrList->count == 1 && attrList->attr[0].tag == kSecKeyApplicationTag && attrList->attr[0].length > 0) {
+        value = [NSData dataWithBytes:attrList->attr[0].data length:attrList->attr[0].length];
+    }
+    SecKeychainItemFreeAttributesAndData(attrList, NULL);
+    
+    return value;
+#endif
 }
 
-- (void)setTag:(NSString *)tag
+- (void)setTag:(NSData *)tag
 {
     [self setAttribute:kSecAttrApplicationTag toValue:tag];
 }
@@ -609,6 +635,26 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     return saccess;
 }
 
+- (BOOL)addToKeychain:(LKKCKeychain *)keychain error:(NSError **)error
+{
+    // SecItemAdd can't handle CFDataRef values for kSecAttrApplicationTag.
+    NSData *applicationTag = [_updatedAttributes objectForKey:kSecAttrApplicationTag];
+    if (applicationTag != nil) {
+        [_updatedAttributes removeObjectForKey:kSecAttrApplicationTag];
+    }
+    
+    BOOL res = [super addToKeychain:keychain error:error];
+
+    if (applicationTag != nil) {
+        [self setAttribute:kSecAttrApplicationTag toValue:applicationTag];
+    }
+
+    if (!res)
+        return NO; 
+    
+    return [self saveItemWithError:error];
+}
+
 - (BOOL)saveItemWithError:(NSError **)error
 {
     if (_sitem == nil) {
@@ -637,12 +683,12 @@ static NSString *LKKCAttrKeyID = @"LKKCKeyID";
     }
     
     // SecItemUpdate can't modify kSecAttrApplicationTag. It modifies kSecAttrLabel instead.
-    NSString *applicationTag = [_updatedAttributes objectForKey:kSecAttrApplicationTag];
+    NSData *applicationTag = [_updatedAttributes objectForKey:kSecAttrApplicationTag];
     if (applicationTag != nil) {
-        const char *utf8String = [applicationTag UTF8String];
+        const char *bytes = [applicationTag bytes];
         oldAttrs[oldAttrCount].tag = kSecKeyApplicationTag;
-        oldAttrs[oldAttrCount].length = (UInt32)strlen(utf8String);
-        oldAttrs[oldAttrCount].data = (void *)utf8String;
+        oldAttrs[oldAttrCount].length = (UInt32)[applicationTag length];
+        oldAttrs[oldAttrCount].data = (void *)bytes;
         oldAttrCount++;
     }
     

@@ -84,6 +84,7 @@
 
 - (LKKCKeyPair *)_generateKeyPairWithKeyType:(LKKCKeyType)keyType keySize:(uint32)keySize
 {
+    OSStatus status;
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     [parameters setObject:[LKKCKey _algorithmFromLKKCKeyType:keyType] forKey:kSecAttrKeyType];
@@ -92,8 +93,7 @@
     if (_label != nil)
         [parameters setObject:_label forKey:kSecAttrLabel];
     if (_tag != nil) {
-        // BUG: kSecAttrApplicationTag is a string attribute, but SecKeyGeneratePair expects an NSData.
-        [parameters setObject:[_tag dataUsingEncoding:NSUTF8StringEncoding] forKey:kSecAttrApplicationTag];
+        [parameters setObject:_tag forKey:kSecAttrApplicationTag];
     }
     
     if (_keychain != nil) {
@@ -107,9 +107,18 @@
         return nil;
     }
     
+    SecAccessRef saccess = NULL;
+    status = SecAccessCreate((CFStringRef)_label, NULL /* current app */, &saccess);
+    if (status) {
+        LKKCReportError(status, NULL, @"Can't create initial access object for generated key");
+        return nil;
+    }
+    [parameters setObject:(id)saccess forKey:kSecAttrAccess];
+    CFRelease(saccess);
+
     SecKeyRef spublicKey = NULL;
     SecKeyRef sprivateKey = NULL;
-    OSStatus status = SecKeyGeneratePair((CFDictionaryRef)parameters, &spublicKey, &sprivateKey);
+    status = SecKeyGeneratePair((CFDictionaryRef)parameters, &spublicKey, &sprivateKey);
     if (status) {
         LKKCReportError(status, NULL, @"Can't generate key pair");
         return nil;
@@ -253,8 +262,12 @@
         
         if (_label != nil)
             [parameters setObject:_label forKey:kSecAttrLabel];
+#if 0 
+        // rdar://10618031 SecKeyGenerateSymmetric expects string values for kSecAttrApplicationTag.
+        // Work around by setting the tag in a separate step after generating the key.
         if (_tag != nil)
             [parameters setObject:_tag forKey:kSecAttrApplicationTag];
+#endif
         
         if (_keychain != nil) {
             [parameters setObject:(id)_keychain.SecKeychain forKey:kSecUseKeychain];
@@ -296,6 +309,16 @@
                                        SecKeychainItem:(SecKeychainItemRef)skey 
                                             attributes:nil];
         CFRelease(skey);
+
+        if (_tag != nil && _keychain != nil) {
+            // rdar://10618031 SecKeyGenerateSymmetric expects string values for kSecAttrApplicationTag.
+            // Work around by setting the tag in a separate step after generating the key.
+            key.tag = _tag;
+            if (![key saveItemWithError:NULL]) {
+                [key deleteItemWithError:NULL];
+                return nil;
+            }
+        }
         
         if (_keychain == nil) {
             // The label/tag attributes aren't saved to a keychain yet; store them in the 

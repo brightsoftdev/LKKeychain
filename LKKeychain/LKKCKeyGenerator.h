@@ -48,7 +48,7 @@
     NSString *_label;
     NSData *_keyID;
     NSString *_applicationLabel;
-    NSString *_tag;
+    NSData *_tag;
     BOOL _extractable;
 }
 
@@ -79,7 +79,7 @@
 @property (nonatomic, retain) NSString *label; // kSecAttrLabel
 @property (nonatomic, retain) NSData *keyID; // kSecAttrApplicationLabel
 @property (nonatomic, retain) NSString *applicationLabel; // kSecAttrApplicationLabel
-@property (nonatomic, retain) NSString *tag; // kSecAttrApplicationTag
+@property (nonatomic, retain) NSData *tag; // kSecAttrApplicationTag
 
 //@property (nonatomic, retain) LKKCAccess *access;
 @end

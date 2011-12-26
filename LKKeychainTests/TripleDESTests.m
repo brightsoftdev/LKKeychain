@@ -14,6 +14,8 @@
 {
     BOOL result;
     
+    NSData *tag = [@"test key tag" dataUsingEncoding:NSUTF8StringEncoding];
+    
     // Generate a key into a keychain.
     NSData *persistentID = nil;
     @autoreleasepool {
@@ -22,7 +24,7 @@
         should(generator != nil);
         generator.applicationLabel = @"test key ID";
         generator.label = @"test key label";
-        generator.tag = @"test key tag";
+        generator.tag = tag;
         LKKCKey *key = [generator generate3DESKey];
         should(key != nil);
         
@@ -31,7 +33,7 @@
         should(key.keySize == 192);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
         
         persistentID = [key.persistentID retain];
         should(persistentID != nil);
@@ -48,7 +50,7 @@
         should(key.keySize == 192);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
         
         [persistentID release];
         persistentID = nil;
@@ -64,17 +66,19 @@
         should(key.keySize == 192);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
     }
     
     // Generate a floating key.
+    NSData *floatingTag = [@"floating key tag" dataUsingEncoding:NSUTF8StringEncoding];
+
     @autoreleasepool {
         NSError *error = nil;
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:nil];
         should(generator != nil);
         generator.applicationLabel = @"floating key ID";
         generator.label = @"floating key label";
-        generator.tag = @"floating key tag";
+        generator.tag = floatingTag;
         LKKCKey *key = [generator generate3DESKey];
         should(key != nil);
         
@@ -84,7 +88,7 @@
         should(key.keySize == 192);
         shouldBeEqual(key.label, @"floating key label");
         shouldBeEqual(key.applicationLabel, @"floating key ID");
-        shouldBeEqual(key.tag, @"floating key tag");
+        shouldBeEqual(key.tag, floatingTag);
         
         result = [key addToKeychain:_keychain error:&error];
         should(result);
@@ -103,7 +107,7 @@
         should(key.keySize == 192);
         shouldBeEqual(key.label, @"floating key label");
         shouldBeEqual(key.applicationLabel, @"floating key ID");
-        shouldBeEqual(key.tag, @"floating key tag");
+        shouldBeEqual(key.tag, floatingTag);
         
         [persistentID release];
         persistentID = nil;
@@ -134,7 +138,7 @@
     generator.extractable = NO;
     generator.label = @"3DES test key";
     generator.applicationLabel = @"3DES test key ID";
-    generator.tag = @"3DES test key tag";
+    generator.tag = [@"3DES test key tag" dataUsingEncoding:NSUTF8StringEncoding];
     LKKCKey *key = [generator generate3DESKey];
     should(key != nil);
     

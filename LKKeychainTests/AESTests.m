@@ -16,13 +16,14 @@
     
     // Generate a key into a keychain.
     NSData *persistentID = nil;
+    NSData *tag = [@"test key tag" dataUsingEncoding:NSUTF8StringEncoding];
     @autoreleasepool {
         NSError *error = nil;
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:_keychain];
         should(generator != nil);
         generator.applicationLabel = @"test key ID";
         generator.label = @"test key label";
-        generator.tag = @"test key tag";
+        generator.tag = tag;
         LKKCKey *key = [generator generateAESKey];
         should(key != nil);
         
@@ -31,7 +32,7 @@
         should(key.keySize == 128);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
         
         persistentID = [key.persistentID retain];
         should(persistentID != nil);
@@ -48,7 +49,7 @@
         should(key.keySize == 128);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
         
         [persistentID release];
         persistentID = nil;
@@ -64,17 +65,18 @@
         should(key.keySize == 128);
         shouldBeEqual(key.label, @"test key label");
         shouldBeEqual(key.applicationLabel, @"test key ID");
-        shouldBeEqual(key.tag, @"test key tag");
+        shouldBeEqual(key.tag, tag);
     }
     
     // Generate a floating key.
+    NSData *floatingTag = [@"floating key tag" dataUsingEncoding:NSUTF8StringEncoding];
     @autoreleasepool {
         NSError *error = nil;
         LKKCKeyGenerator *generator = [LKKCKeyGenerator generatorWithKeychain:nil];
         should(generator != nil);
         generator.applicationLabel = @"floating key ID";
         generator.label = @"floating key label";
-        generator.tag = @"floating key tag";
+        generator.tag = floatingTag;
         LKKCKey *key = [generator generateAESKey];
         should(key != nil);
         
@@ -84,7 +86,7 @@
         should(key.keySize == 128);
         shouldBeEqual(key.label, @"floating key label");
         shouldBeEqual(key.applicationLabel, @"floating key ID");
-        shouldBeEqual(key.tag, @"floating key tag");
+        shouldBeEqual(key.tag, floatingTag);
         
         result = [key addToKeychain:_keychain error:&error];
         should(result);
@@ -103,7 +105,7 @@
         should(key.keySize == 128);
         shouldBeEqual(key.label, @"floating key label");
         shouldBeEqual(key.applicationLabel, @"floating key ID");
-        shouldBeEqual(key.tag, @"floating key tag");
+        shouldBeEqual(key.tag, floatingTag);
         
         [persistentID release];
         persistentID = nil;
@@ -133,7 +135,7 @@
     generator.extractable = NO;
     generator.label = @"AES test key";
     generator.applicationLabel = @"AES test key ID";
-    generator.tag = @"AES test key tag";
+    generator.tag = [@"AES test key tag" dataUsingEncoding:NSUTF8StringEncoding];
     
     LKKCKey *key = [generator generateAESKey];
     should(key != nil);

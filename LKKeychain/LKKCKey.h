@@ -102,13 +102,20 @@ typedef enum {
  @name Key attributes
  -------------------------------------------------------------------------------- */
 
-/** Application-specific tag of your choice.
+/** Application-specific tag of your choice. The value of this property isn't editable (or even shown) in Keychain Access.
  
  This property corresponds to the `kSecAttrApplicationTag` attribute.
+
+ Note that the type of this attribute is ambiguous in the underlying framework: it previously
+ had a data value, and it is still documented as such; however, most of the latest Apple APIs
+ provide and expect string values instead. 
+ 
+ To prevent interoperation problems, new keys should be created with this property 
+ set to a UTF-8 string value.
  
  This property is part of the primary key for Key items.
  */
-@property (nonatomic, retain) NSString *tag; 
+@property (nonatomic, retain) NSData *tag; 
 
 /** The class of the key (public, private or symmetric).
  
