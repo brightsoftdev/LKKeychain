@@ -235,7 +235,7 @@ typedef enum {
  To decrypt data encrypted by an asymmetric key, you'll need a copy of the other key in the keypair.
  
  @param plaintext The data to encrypt.
- @param initVector The initialization vector to use. Required for symmetric keys.
+ @param iv The initialization vector to use. Required for symmetric keys.
  @param error On output, the error that occured in case the data could not be encrypted (optional).
  @return The encrypted data.
  @see randomInitVector
@@ -245,8 +245,8 @@ typedef enum {
 /** Decrypt a piece of ciphertext with this key.
 
  @param ciphertext The encrypted data.
- @param initVector The initialization vector that was used to encrypt.
- @param error
+ @param iv The initialization vector that was used to encrypt.
+ @param error On output, the error that occured in case the data could not be decrypted (optional).
  @return The decrypted data.
  */
 - (NSData *)decryptData:(NSData *)ciphertext initVector:(NSData *)iv error:(NSError **)error;
