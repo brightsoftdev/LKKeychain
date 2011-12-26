@@ -209,10 +209,10 @@
 {
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
-        return nil;
+        return CSSM_CERT_UNKNOWN;
     id value = [self valueForAttribute:kSecAttrCertificateType];
     if (value == nil)
-        return nil;
+        return CSSM_CERT_UNKNOWN;
     if ([value isKindOfClass:[NSData class]]) {
         NSData *data = (NSData *)value;
         // BUG: The value of kSecAttrCertificateType is NSData, not NSNumber.
@@ -232,10 +232,10 @@
 {
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
-        return nil;
+        return CSSM_CERT_ENCODING_UNKNOWN;
     id value = [self valueForAttribute:kSecAttrCertificateEncoding];
     if (value == nil)
-        return nil;
+        return CSSM_CERT_ENCODING_UNKNOWN;
     if ([value isKindOfClass:[NSData class]]) {
         NSData *data = (NSData *)value;
         // BUG: The value of kSecAttrCertificateEncoding is NSData, not NSNumber.
