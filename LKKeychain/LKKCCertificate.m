@@ -33,6 +33,8 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
 
+#import <CommonCrypto/CommonDigest.h>
+
 #import "LKKCCertificate.h"
 #import "LKKCKeychainItem+Subclasses.h"
 #import "LKKCKey.h"
@@ -145,6 +147,7 @@
         if (issuer == nil) {
             LKKCReportErrorObj((NSError *)error, NULL, @"Can't get normalized issuer content");
             CFRelease(error);
+            return nil;
         }
         return [issuer autorelease];
     }
@@ -156,7 +159,20 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [self valueForAttribute:kSecAttrSerialNumber];
+    NSData *result = [self valueForAttribute:kSecAttrSerialNumber];
+    if (result)
+        return result;
+    if (SecCertificateCopySerialNumber != NULL) { // 10.7
+        CFErrorRef cferror = NULL;
+        result = (NSData *)SecCertificateCopySerialNumber(scertificate, &cferror);
+        if (result == nil) {
+            LKKCReportErrorObj((NSError *)cferror, NULL, @"Can't get serial number");
+            CFRelease(cferror);
+            return nil;
+        }
+        return [result autorelease];
+    }
+    return nil;
 }
 
 - (NSData *)subjectKeyID
@@ -172,23 +188,67 @@
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [self valueForAttribute:kSecAttrPublicKeyHash];
+    NSData *result = [self valueForAttribute:kSecAttrPublicKeyHash];
+    if (result != nil)
+        return result;
+    
+    // Calculate hash manually.
+    LKKCKey *publicKey = self.publicKey;
+    if (publicKey == nil)
+        return nil;
+    NSData *publicKeyData = [publicKey keyDataWithError:NULL];
+    if (publicKeyData == nil)
+        return nil;
+    
+    UInt8 md[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1([publicKeyData bytes], [publicKeyData length], md);
+    return [NSData dataWithBytes:md length:CC_SHA1_DIGEST_LENGTH];
 }
 
-- (id)certificateType
+- (UInt32)certificateType
 {
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [self valueForAttribute:kSecAttrCertificateType];
+    id value = [self valueForAttribute:kSecAttrCertificateType];
+    if (value == nil)
+        return nil;
+    if ([value isKindOfClass:[NSData class]]) {
+        NSData *data = (NSData *)value;
+        // BUG: The value of kSecAttrCertificateType is NSData, not NSNumber.
+        // The content is a four-byte CSSM_CERT_TYPE value in native byte order.
+        if ([data length] != sizeof(CSSM_CERT_TYPE))
+            return CSSM_CERT_UNKNOWN;
+        CSSM_CERT_TYPE type = *(CSSM_CERT_TYPE *)[data bytes];
+        return type;
+    }
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return [value unsignedIntValue];
+    }
+    return CSSM_CERT_UNKNOWN;
 }
 
-- (id)certificateEncoding
+- (UInt32)certificateEncoding
 {
     SecCertificateRef scertificate = self.SecCertificate;
     if (scertificate == NULL)
         return nil;
-    return [self valueForAttribute:kSecAttrCertificateEncoding];
+    id value = [self valueForAttribute:kSecAttrCertificateEncoding];
+    if (value == nil)
+        return nil;
+    if ([value isKindOfClass:[NSData class]]) {
+        NSData *data = (NSData *)value;
+        // BUG: The value of kSecAttrCertificateEncoding is NSData, not NSNumber.
+        // The content is a four-byte CSSM_CERT_ENCODING value in native byte order.
+        if ([data length] != sizeof(CSSM_CERT_ENCODING))
+            return CSSM_CERT_ENCODING_UNKNOWN;
+        CSSM_CERT_ENCODING encoding = *(CSSM_CERT_ENCODING *)[data bytes];
+        return encoding;
+    }
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return [value unsignedIntValue];
+    }
+    return CSSM_CERT_ENCODING_UNKNOWN;
 }
 
 - (SecCertificateRef)SecCertificate
@@ -259,6 +319,18 @@
         return nil;
     NSData *data = (NSData *)SecCertificateCopyData(scertificate);
     return [data autorelease];
+}
+
+- (NSDictionary *)contents
+{
+    CFErrorRef error = NULL;
+    NSDictionary *contents = (NSDictionary *)SecCertificateCopyValues(self.SecCertificate, NULL, &error);
+    if (contents == nil) {
+        LKKCReportErrorObj((NSError *)error, NULL, @"Can't get certificate contents");
+        CFRelease(error);
+        return nil;
+    }
+    return [contents autorelease];
 }
 
 @end
