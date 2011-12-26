@@ -41,18 +41,24 @@
     return keychain;
 }
 
-- (LKKCCertificate *)certificateFromResourceName:(NSString *)name
+- (NSData *)dataFromResource:(NSString *)resource ofType:(NSString *)extension
 {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:name ofType:@"cer"];
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:resource ofType:extension];
     should(path != nil);
     if (path == nil)
         return nil;
     
-    NSData *DERData = [NSData dataWithContentsOfFile:path];
-    should(DERData != nil);
-    if (DERData == nil)
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    should(data != nil);
+    if (data == nil)
         return nil;
     
+    return data;
+}
+
+- (LKKCCertificate *)certificateFromResourceName:(NSString *)name
+{
+    NSData *DERData = [self dataFromResource:name ofType:@"cer"];
     LKKCCertificate *certificate = [LKKCCertificate certificateWithDERData:DERData];
     return certificate;
 }
@@ -116,6 +122,20 @@
     // This is an SSL server certificate for example.com, signed by intermediateCA.
     // The certificate has expired on 2011-12-22 15:21 CET.
     return [self certificateFromResourceName:@"example.com (Expired, Intermediate CA)"];
+}
+
+- (NSArray *)allTestCertificates
+{
+    return [NSArray arrayWithObjects:
+            [self validCA],
+            [self expiredCA],
+            [self intermediateCA],
+            [self validCert],
+            [self expiredCert],
+            [self validCertWithExpiredCA],
+            [self validCertWithIntermediateCA],
+            [self expiredCertWithIntermediateCA],
+            nil];
 }
 
 - (NSDateFormatter *)dateFormatter

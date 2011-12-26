@@ -21,6 +21,7 @@
 
 - (LKKCKeychain *)createTestKeychain:(NSString *)name;
 
+- (NSData *)dataFromResource:(NSString *)resource ofType:(NSString *)extension;
 - (LKKCCertificate *)certificateFromResourceName:(NSString *)name;
 - (LKKCCertificate *)validCA;
 - (LKKCCertificate *)expiredCA;
@@ -31,6 +32,7 @@
 - (LKKCCertificate *)validCertWithExpiredCA;
 - (LKKCCertificate *)validCertWithIntermediateCA;
 - (LKKCCertificate *)expiredCertWithIntermediateCA;
+- (NSArray *)allTestCertificates;
 
 - (NSDate *)notYetValidDate;
 - (NSDate *)validDateForExpiredCerts;
