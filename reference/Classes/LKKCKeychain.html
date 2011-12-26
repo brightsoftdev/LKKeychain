@@ -67,6 +67,10 @@
 	
 	<option value="//api/name/keychainsOnSearchList">&nbsp;&nbsp;&nbsp;&nbsp;+ keychainsOnSearchList</option>
 	
+	<option value="//api/name/setDefaultKeychain:error:">&nbsp;&nbsp;&nbsp;&nbsp;+ setDefaultKeychain:error:</option>
+	
+	<option value="//api/name/setKeychainsOnSearchList:error:">&nbsp;&nbsp;&nbsp;&nbsp;+ setKeychainsOnSearchList:error:</option>
+	
 	<option value="//api/name/setUserInteractionAllowed:">&nbsp;&nbsp;&nbsp;&nbsp;+ setUserInteractionAllowed:</option>
 	
 	<option value="//api/name/userInteractionAllowed">&nbsp;&nbsp;&nbsp;&nbsp;+ userInteractionAllowed</option>
@@ -136,6 +140,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Opening keychains">Opening keychains</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Modifying the Keychain Search List">Modifying the Keychain Search List</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Controlling user interaction">Controlling user interaction</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Generic passwords">Generic passwords</a></span></li>
@@ -189,6 +195,10 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keychainWithSecKeychain:">keychainWithSecKeychain:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/keychainsOnSearchList">keychainsOnSearchList</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDefaultKeychain:error:">setDefaultKeychain:error:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setKeychainsOnSearchList:error:">setKeychainsOnSearchList:error:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setUserInteractionAllowed:">setUserInteractionAllowed:</a></span></li>
 	
@@ -327,6 +337,28 @@
 	<span class="tooltip">
 		<code><a href="#//api/name/keychainsOnSearchList">+&nbsp;keychainsOnSearchList</a></code>
 		<span class="tooltip"><p>Returns all keychains on the keychain search list.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Modifying the Keychain Search List" name="task_Modifying the Keychain Search List"></a>
+						<h3 class="subsubtitle task-title">Modifying the Keychain Search List</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setDefaultKeychain:error:">+&nbsp;setDefaultKeychain:error:</a></code>
+		<span class="tooltip"><p>Sets the default keychain.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setKeychainsOnSearchList:error:">+&nbsp;setKeychainsOnSearchList:error:</a></code>
+		<span class="tooltip"><p>Sets the default keychain search list to the supplied array.</p></span>
 	</span>
 	
 	
@@ -1107,6 +1139,128 @@ You can move a keychain by using the filesystem API to move the file that repres
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychain.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setDefaultKeychain:error:" title="setDefaultKeychain:error:"></a>
+	<h3 class="subsubtitle method-title">setDefaultKeychain:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the default keychain.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setDefaultKeychain:(LKKCKeychain *)<em>keychain</em> error:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>keychain</em></dt>
+			<dd><p>The keychain to set as the new default keychain.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the default keychain could not be set (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the operation succeeded, or NO if an error happened.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This modifies the default keychain for all processes in the current session.
+The default keychain is a user setting that applications should not normally change;
+if you do decide to change it, make sure to change it back to its original value before you exit.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LKKCKeychain.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setKeychainsOnSearchList:error:" title="setKeychainsOnSearchList:error:"></a>
+	<h3 class="subsubtitle method-title">setKeychainsOnSearchList:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the default keychain search list to the supplied array.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (BOOL)setKeychainsOnSearchList:(NSArray *)<em>searchList</em> error:(NSError **)<em>error</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>searchList</em></dt>
+			<dd><p>An array of LKKCKeychain objects.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>On output, the error that occurred in case the search list could not be set (optional).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the operation succeeded, or NO if an error happened.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This modifies the search list for all processes in the current session.
+The default keychain search list is displayed as the keychain list in the Keychain Access utility.
+Applications should not normally change this value.</p>
+	</div>
 	
 	
 	
