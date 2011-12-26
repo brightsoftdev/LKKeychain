@@ -128,6 +128,7 @@ static CFMutableDictionaryRef keychains = NULL;
         SecKeychainRef skeychain = (SecKeychainRef)CFArrayGetValueAtIndex(searchList, i);
         [result addObject:[[[LKKCKeychain alloc] initWithSecKeychain:skeychain] autorelease]];
     }
+    CFRelease(searchList);
     return result;
 }
 
