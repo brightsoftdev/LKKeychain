@@ -162,7 +162,7 @@
 		BB0D9CC514A2371100537099 /* example.com (Corrupt).cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "example.com (Corrupt).cer"; sourceTree = "<group>"; };
 		BB0D9CD814A2A23B00537099 /* LKKCCertificateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCCertificateTests.h; sourceTree = "<group>"; };
 		BB0D9CD914A2A23B00537099 /* LKKCCertificateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCCertificateTests.m; sourceTree = "<group>"; };
-		BB0D9CF714A2D9E000537099 /* Keychain Bugs.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keychain Bugs.markdown"; sourceTree = "<group>"; };
+		BB0D9CF714A2D9E000537099 /* Framework Bugs.markdown */ = {isa = PBXFileReference; path = "Framework Bugs.markdown"; sourceTree = "<group>"; };
 		BB0E65821454635F00C7FFF7 /* LKKCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKKCUtil.m; sourceTree = "<group>"; };
 		BB0E65841454636900C7FFF7 /* LKKCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCUtil.h; sourceTree = "<group>"; };
 		BB0E65861454B1BC00C7FFF7 /* LKKCGenericPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKKCGenericPassword.h; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 				BB7B60AB145CA8CD00725E1C /* README.markdown */,
 				BB889343148AF0F20017E6FD /* LICENSE.markdown */,
 				BB7B60AD145CB39500725E1C /* Notes.rtf */,
-				BB0D9CF714A2D9E000537099 /* Keychain Bugs.markdown */,
+				BB0D9CF714A2D9E000537099 /* Framework Bugs.markdown */,
 				BBD30A671453553700512B69 /* LKKeychain */,
 				BBD30A7D1453553700512B69 /* LKKeychainTests */,
 				BBD30A601453553700512B69 /* Frameworks */,
